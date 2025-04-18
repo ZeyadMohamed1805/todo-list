@@ -1,0 +1,8 @@
+@use "../shared/colors";
+
+// Shadows
+$xs: 0px 2px 4px colors.$black-color;
+$sm: 0px 4px 8px colors.$black-color;
+$md: 0px 6px 12px colors.$black-color;
+$lg: 0px 8px 16px colors.$black-color;
+$xl: 0px 12px 24px colors.$black-color;

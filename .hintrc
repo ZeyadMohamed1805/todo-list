@@ -6,6 +6,8 @@
     "typescript-config/consistent-casing": "off",
     "typescript-config/strict": "off",
     "typescript-config/is-valid": "off",
-    "meta-charset-utf-8": "off"
+    "meta-charset-utf-8": "off",
+    "detect-css-reflows/composite": "off",
+    "detect-css-reflows/paint": "off"
   }
 }
