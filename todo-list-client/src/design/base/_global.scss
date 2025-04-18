@@ -1,15 +1,15 @@
-@use "../shared/typography";
+@use '../shared/typography';
 
 html {
-    font-size: typography.$sm;
-    overflow-x: hidden;
+  font-size: typography.$sm;
+  overflow-x: hidden;
 }
 
 main {
-    width: 100%;
+  width: 100%;
 }
 
 a {
-    text-decoration: none;
-    color: inherit;
+  text-decoration: none;
+  color: inherit;
 }
