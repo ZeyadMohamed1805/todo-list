@@ -1,0 +1,23 @@
+@use "../../../design/shared/spacing";
+@use "../../../design/shared/radiuses";
+@use "../../../design/components/buttons";
+
+.loginForm {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: spacing.$sm;
+    padding-top: 0;
+    border-radius: radiuses.$md;
+    animation: fade-in 0.8s ease-in-out;
+}
+
+.formFields {
+    display: flex;
+    flex-direction: column;
+    gap: spacing.$sm;
+}
+
+.submitButton {
+    @include buttons.primary;
+}
