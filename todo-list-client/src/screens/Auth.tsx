@@ -1,9 +1,15 @@
+import Description from "../components/auth/description/Description.component";
+import Forms from "../components/auth/forms";
+import Wrapper from "../components/auth/wrapper";
+
 const Auth = () => {
     return (
-        <div>
-            <h1>Auth</h1>
-            <p>This is the Auth screen.</p>
-        </div>
+        <main>
+            <Wrapper>
+                <Description />
+                <Forms />
+            </Wrapper>
+        </main>
     );
 };
 
