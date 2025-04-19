@@ -10,7 +10,7 @@
 
 .descriptionLogo {
     max-width: 120px;
-    margin-bottom: spacing.$xl;
+    margin: spacing.$md 0;
     @include animations.bounce-in();    
 }
 
