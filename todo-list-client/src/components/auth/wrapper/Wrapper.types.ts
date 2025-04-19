@@ -1,3 +1,3 @@
 export type TWrapperProps = {
-    children: React.ReactNode;
+  children: React.ReactNode;
 };

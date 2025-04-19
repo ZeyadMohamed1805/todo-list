@@ -1,74 +1,74 @@
-@use "../../../design/shared/radiuses";
-@use "../../../design/shared/spacing";
-@use "../../../design/shared/typography";
-@use "../../../design/shared/colors";
-@use "../../../design/shared/transitions";
+@use '../../../design/shared/radiuses';
+@use '../../../design/shared/spacing';
+@use '../../../design/shared/typography';
+@use '../../../design/shared/colors';
+@use '../../../design/shared/transitions';
 
 .tabsContainer {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    max-width: 600px;
-    border-radius: radiuses.$md;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 600px;
+  border-radius: radiuses.$md;
 }
 
 .tabHeaders {
-    display: flex;
-    justify-content: space-between;
-    padding: spacing.$sm;
+  display: flex;
+  justify-content: space-between;
+  padding: spacing.$sm;
 
-    html[dir="ltr"] & {
-        &> :first-child {
-            border-radius: radiuses.$md 0 0 radiuses.$md;
-        }
-
-        &> :last-child {
-            border-radius: 0 radiuses.$md radiuses.$md 0;
-        }
+  html[dir='ltr'] & {
+    & > :first-child {
+      border-radius: radiuses.$md 0 0 radiuses.$md;
     }
 
-    // RTL
-    html[dir="rtl"] & {
-        &> :first-child {
-            border-radius: 0 radiuses.$md radiuses.$md 0;
-        }
-
-        &> :last-child {
-            border-radius: radiuses.$md 0 0 radiuses.$md;
-        }
+    & > :last-child {
+      border-radius: 0 radiuses.$md radiuses.$md 0;
     }
+  }
+
+  // RTL
+  html[dir='rtl'] & {
+    & > :first-child {
+      border-radius: 0 radiuses.$md radiuses.$md 0;
+    }
+
+    & > :last-child {
+      border-radius: radiuses.$md 0 0 radiuses.$md;
+    }
+  }
 }
 
 .tabHeaderButton {
-    flex: 1;
-    padding: spacing.$sm;
-    background: colors.$white;
-    border: solid spacing.$xxs colors.$faded-secondary;
-    font-size: typography.$sm;
-    font-weight: bold;
-    text-align: center;
-    cursor: pointer;
-    color: colors.$secondary;
-    transition:
-        color transitions.$fast transitions.$fast ease-in-out,
-        background transitions.$fast ease-in-out;
+  flex: 1;
+  padding: spacing.$sm;
+  background: colors.$white;
+  border: solid spacing.$xxs colors.$faded-secondary;
+  font-size: typography.$sm;
+  font-weight: bold;
+  text-align: center;
+  cursor: pointer;
+  color: colors.$secondary;
+  transition:
+    color transitions.$fast transitions.$fast ease-in-out,
+    background transitions.$fast ease-in-out;
 
-    &:hover {
-        background: colors.$faded-secondary;
-    }
+  &:hover {
+    background: colors.$faded-secondary;
+  }
 }
 
 .active {
-    background: colors.$secondary;
-    color: colors.$white;
+  background: colors.$secondary;
+  color: colors.$white;
 
-    &:hover {
-        background: colors.$secondary;
-    }
+  &:hover {
+    background: colors.$secondary;
+  }
 }
 
 .tabContent {
-    display: grid;
-    place-items: center;
-    border-radius: 0 0 radiuses.$md radiuses.$md;
+  display: grid;
+  place-items: center;
+  border-radius: 0 0 radiuses.$md radiuses.$md;
 }

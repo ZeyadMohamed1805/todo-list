@@ -1,9 +1,9 @@
 export enum LanguagesEnum {
-    EN = "en",
-    AR = "ar"
-};
+  EN = 'en',
+  AR = 'ar',
+}
 
 export enum DirectionsEnum {
-    LTR = "ltr",
-    RTL = "rtl"
-};
+  LTR = 'ltr',
+  RTL = 'rtl',
+}

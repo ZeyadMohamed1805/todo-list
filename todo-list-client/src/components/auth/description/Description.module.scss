@@ -1,31 +1,31 @@
-@use "../../../design/shared/spacing";
-@use "../../../design/shared/typography";
-@use "../../../design/shared/animations";
+@use '../../../design/shared/spacing';
+@use '../../../design/shared/typography';
+@use '../../../design/shared/animations';
 
 .description {
-    text-align: center;
-    opacity: 1;
-    transform: translateY(0);
+  text-align: center;
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .descriptionLogo {
-    max-width: 120px;
-    margin: spacing.$md 0;
-    @include animations.bounce-in();    
+  max-width: 120px;
+  margin: spacing.$md 0;
+  @include animations.bounce-in();
 }
 
 .descriptionTitle {
-    font-size: typography.$xl;
-    font-weight: bold;
-    line-height: spacing.$xl;
-    color: var(--neutral-two);
-    @include animations.fade-in();
+  font-size: typography.$xl;
+  font-weight: bold;
+  line-height: spacing.$xl;
+  color: var(--neutral-two);
+  @include animations.fade-in();
 }
 
 .descriptionSubtitle {
-    font-size: typography.$md;
-    color: var(--neutral-two);
-    line-height: spacing.$lg;
-    margin: spacing.$md 0;
-    @include animations.fade-in();
+  font-size: typography.$md;
+  color: var(--neutral-two);
+  line-height: spacing.$lg;
+  margin: spacing.$md 0;
+  @include animations.fade-in();
 }

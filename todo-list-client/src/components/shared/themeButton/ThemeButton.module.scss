@@ -1,17 +1,19 @@
-@use "../../../design/shared/radiuses";
-@use "../../../design/shared/spacing";
-@use "../../../design/shared/transitions";
+@use '../../../design/shared/radiuses';
+@use '../../../design/shared/spacing';
+@use '../../../design/shared/transitions';
 
 .themeButton {
-    background-color: transparent;
-    color: var(--neutral-two);
-    border: spacing.$xxs solid var(--neutral-two);
-    padding: spacing.$sm spacing.$md;
-    border-radius: radiuses.$md;
-    cursor: pointer;
-    transition: background-color transitions.$medium ease-in-out, color transitions.$medium ease-in-out;
+  background-color: transparent;
+  color: var(--neutral-two);
+  border: spacing.$xxs solid var(--neutral-two);
+  padding: spacing.$sm spacing.$md;
+  border-radius: radiuses.$md;
+  cursor: pointer;
+  transition:
+    background-color transitions.$medium ease-in-out,
+    color transitions.$medium ease-in-out;
 
-    &:hover {
-        background-color: var(--faded-neutral-two);
-    }
+  &:hover {
+    background-color: var(--faded-neutral-two);
+  }
 }

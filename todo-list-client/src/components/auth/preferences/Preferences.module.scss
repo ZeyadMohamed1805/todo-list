@@ -1,12 +1,12 @@
-@use "../../../design/shared/spacing";
+@use '../../../design/shared/spacing';
 
 .preferencesContainer {
-    width: 100%;
-    max-width: 600px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: spacing.$sm;
-    align-items: center;
-    justify-content: space-between;
-    padding: spacing.$sm;
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: spacing.$sm;
+  align-items: center;
+  justify-content: space-between;
+  padding: spacing.$sm;
 }

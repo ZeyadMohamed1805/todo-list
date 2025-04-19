@@ -1,1 +1,1 @@
-export { default } from "./LocaleButton.component";
+export { default } from './LocaleButton.component';

@@ -1,1 +1,1 @@
-export { default } from "./Wrapper.component";
+export { default } from './Wrapper.component';
