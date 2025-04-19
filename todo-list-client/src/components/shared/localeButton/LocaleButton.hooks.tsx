@@ -1,22 +1,23 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
-import { LocalesEnum } from "./LocaleButton.enums";
+import { useCallback, useEffect } from "react";
+import { LanguagesEnum, DirectionsEnum } from "./LocaleButton.enums";
+import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 
 export const useLocaleButton = () => {
-    const savedLocale = useMemo(() => localStorage.getItem("locale") as LocalesEnum | null, []);
-    const [locale, setLocale] = useState<LocalesEnum>(savedLocale || LocalesEnum.EN);
-    const localeText = useMemo(() => (locale === LocalesEnum.EN ? "🌐 العربية" : "🌐 English"), [locale]);
+    const { i18n: { language, changeLanguage } } = useTranslation();
+    const navigate = useNavigate();
 
     useEffect(() => {
-        document.documentElement.setAttribute("lang", locale);
-        localStorage.setItem("locale", locale);
-    }, [locale]);
+        const dir = language === LanguagesEnum.AR ? DirectionsEnum.RTL : DirectionsEnum.LTR;
+        document.documentElement.setAttribute("dir", dir);
+        document.documentElement.setAttribute("lang", language);
+    }, [language])
 
     const toggleLocale = useCallback(() => {
-        setLocale(previousLocale => {
-            const newLocale = previousLocale === LocalesEnum.EN ? LocalesEnum.AR : LocalesEnum.EN;
-            return newLocale;
-        });
-    }, []);
+        const newLocale = language === LanguagesEnum.AR ? LanguagesEnum.EN : LanguagesEnum.AR;
+        changeLanguage(newLocale);
+        navigate(`/${newLocale}/auth`, { replace: true });
+    }, [language, changeLanguage, navigate]);
 
-    return { localeText, toggleLocale };
+    return { toggleLocale };
 };
