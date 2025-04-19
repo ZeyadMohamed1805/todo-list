@@ -35,11 +35,9 @@ $faded-error: rgba(215, 37, 55, 0.4);
 }
 
 // Dark Mode Color Scheme
-@media (prefers-color-scheme: dark) {
-    :root {
-        --neutral-one:rgb(40, 40, 40);
-        --faded-neutral-one:rgba(40, 40, 40, 0.4);
-        --neutral-two:rgb(229, 229, 229);
-        --faded-neutral-two:rgba(229, 229, 229, 0.4);
-    }
+[data-theme="dark"] {
+    --neutral-one:rgb(40, 40, 40);
+    --faded-neutral-one:rgba(40, 40, 40, 0.4);
+    --neutral-two:rgb(229, 229, 229);
+    --faded-neutral-two:rgba(229, 229, 229, 0.4);
 }

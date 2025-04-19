@@ -1,5 +1,6 @@
 @use '../shared/typography';
 @use '../shared/colors';
+@use '../shared/transitions';
 
 * {
   margin: 0;
@@ -7,4 +8,5 @@
   box-sizing: border-box;
   scroll-behavior: smooth;
   font-family: typography.$primary;
+  transition: background-color transitions.$medium ease-in-out, background transitions.$medium ease-in-out, color transitions.$medium ease-in-out;
 }
