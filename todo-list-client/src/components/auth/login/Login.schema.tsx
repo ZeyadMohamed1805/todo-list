@@ -3,10 +3,10 @@ import * as yup from "yup";
 export const LoginSchema = yup.object({
     email: yup
         .string()
-        .email("Invalid email address")
-        .required("Email is required"),
+        .email("invalid_email")
+        .required("email_required"),
     password: yup
         .string()
-        .required("Password is required")
-        .min(8, "Password must be at least 8 characters long"),
+        .required("password_required")
+        .min(8, "password_min_length"),
 });

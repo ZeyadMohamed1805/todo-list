@@ -3,11 +3,11 @@ import Register from "../register";
 
 export const FORM_TABS = [
     {
-        title: "Login",
+        title: "login",
         TabPanel: Login,
     },
     {
-        title: "Register",
+        title: "register",
         TabPanel: Register,
     },
 ];

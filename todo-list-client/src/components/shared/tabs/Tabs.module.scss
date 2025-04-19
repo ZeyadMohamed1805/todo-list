@@ -17,12 +17,25 @@
     justify-content: space-between;
     padding: spacing.$sm;
 
-    & > :first-child {
-        border-radius: radiuses.$md 0 0 radiuses.$md;
+    html[dir="ltr"] & {
+        &> :first-child {
+            border-radius: radiuses.$md 0 0 radiuses.$md;
+        }
+
+        &> :last-child {
+            border-radius: 0 radiuses.$md radiuses.$md 0;
+        }
     }
 
-    & > :last-child {
-        border-radius: 0 radiuses.$md radiuses.$md 0;
+    // RTL
+    html[dir="rtl"] & {
+        &> :first-child {
+            border-radius: 0 radiuses.$md radiuses.$md 0;
+        }
+
+        &> :last-child {
+            border-radius: radiuses.$md 0 0 radiuses.$md;
+        }
     }
 }
 
