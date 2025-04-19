@@ -1,11 +1,5 @@
 export const FORM_INPUT_FIELDS = [
     {
-        type: "text",
-        name: "username",
-        placeholder: "Username",
-        required: true,
-    },
-    {
         type: "email",
         name: "email",
         placeholder: "Email",
