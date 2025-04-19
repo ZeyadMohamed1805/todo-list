@@ -1,0 +1,49 @@
+@use "../shared/typography";
+@use "../shared/colors";
+@use "../shared/breakpoints";
+@use "../shared/spacing";
+@use "../shared/transitions";
+@use "../shared/animations";
+@use "../shared/radiuses";
+
+@mixin primary(
+    $bg-color: colors.$primary,
+    $text-color: colors.$white,
+    $padding: spacing.$sm spacing.$md,
+    $font-size: typography.$sm
+) {
+    background: $bg-color;
+    color: $text-color;
+    border: none;
+    padding: $padding;
+    font-size: $font-size;
+    border-radius: radiuses.$md;
+    cursor: pointer;
+    @include transitions.transition(filter);
+    @include animations.fade-in-up;
+
+    &:hover {
+        filter: brightness(0.8);
+    }
+}
+
+@mixin secondary(
+    $bg-color: colors.$secondary,
+    $text-color: colors.$white,
+    $padding: spacing.$sm spacing.$md,
+    $font-size: typography.$sm
+) {
+    background: transparent;
+    border: spacing.$xxs solid $bg-color;
+    color: $text-color;
+    padding: $padding;
+    font-size: $font-size;
+    border-radius: radiuses.$md;
+    cursor: pointer;
+    @include transitions.transition(background);
+    @include animations.fade-in-up;
+
+    &:hover {
+        background: colors.$bg;
+    }
+}
