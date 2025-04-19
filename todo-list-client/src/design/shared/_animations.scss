@@ -46,17 +46,17 @@
 
 // Animation mixins
 @mixin fade-in() {
-  animation: keyframe-fade-in transitions.$transition-slow ease-in-out;
+  animation: keyframe-fade-in transitions.$slow ease-in-out;
 }
 
 @mixin fade-in-up() {
-  animation: keyframe-fade-in-up transitions.$transition-slow ease-in-out;
+  animation: keyframe-fade-in-up transitions.$slow ease-in-out;
 }
 
 @mixin slide-in() {
-  animation: keyframe-slide-in transitions.$transition-slow ease-in-out;
+  animation: keyframe-slide-in transitions.$slow ease-in-out;
 }
 
 @mixin bounce-in() {
-  animation: keyframe-bounce-in transitions.$transition-slow ease-in-out;
+  animation: keyframe-bounce-in transitions.$slow ease-in-out;
 }

@@ -1,0 +1,44 @@
+@use "../../../design/shared/spacing";
+@use "../../../design/shared/typography";
+@use "../../../design/shared/breakpoints";
+@use "../../../design/shared/colors";
+@use "../../../design/shared/radiuses";
+@use "../../../design/shared/animations";
+
+.inputGroup {
+    position: relative;
+
+    input {
+        width: 100%;
+        background: colors.$white;
+        border: spacing.$xxs solid colors.$secondary;
+        border-radius: radiuses.$sm;
+        padding: spacing.$sm spacing.$md;
+        font-size: typography.$xs;
+        color: colors.$dark-grey;
+        transition:
+            border 0.3s ease-in-out,
+            transform 0.2s ease-in-out;
+        @include animations.fade-in-up;
+        
+        &:focus {
+            border: spacing.$xxs solid colors.$secondary;
+            outline: none;
+        }
+
+        &.errorInput {
+            border-color: colors.$error;
+            outline: none;
+        }
+
+        @media (min-width: breakpoints.$md) {
+            padding: spacing.$sm spacing.$md;
+        }
+    }
+
+    .errorMessage {
+        color: colors.$error;
+        font-size: typography.$xs;
+        margin-top: spacing.$xs;
+    }
+}

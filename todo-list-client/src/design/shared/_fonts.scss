@@ -1,291 +1,73 @@
-/* Font Poppins */
+/* Font Noto Sans Arabic */
 
-// Poppins Black
+// Noto Sans Arabic Black
 @font-face {
-  font-family: 'Poppins';
-  src: url('~fonts/poppins/Poppins-Black.ttf') format('truetype');
+  font-family: "Noto Sans Arabic";
+  src: url('/fonts/NotoSansArabic-Black.ttf') format('truetype');
   font-weight: 900;
   font-style: normal;
 }
 
-// Poppins Black Italic
+// Noto Sans Arabic ExtraBold
 @font-face {
-  font-family: 'Poppins';
-  src: url('~fonts/poppins/Poppins-BlackItalic.ttf') format('truetype');
-  font-weight: 900;
-  font-style: italic;
-}
-
-// Poppins ExtraBold
-@font-face {
-  font-family: 'Poppins';
-  src: url('~fonts/poppins/Poppins-ExtraBold.ttf') format('truetype');
+  font-family: "Noto Sans Arabic";
+  src: url('/fonts/NotoSansArabic-ExtraBold.ttf') format('truetype');
   font-weight: 800;
   font-style: normal;
 }
 
-// Poppins ExtraBold Italic
+// Noto Sans Arabic Bold
 @font-face {
-  font-family: 'Poppins';
-  src: url('~fonts/poppins/Poppins-ExtraBoldItalic.ttf') format('truetype');
-  font-weight: 800;
-  font-style: italic;
-}
-
-// Poppins Bold
-@font-face {
-  font-family: 'Poppins';
-  src: url('~fonts/poppins/Poppins-Bold.ttf') format('truetype');
+  font-family: "Noto Sans Arabic";
+  src: url('/fonts/NotoSansArabic-Bold.ttf') format('truetype');
   font-weight: 700;
   font-style: normal;
 }
 
-// Poppins Bold Italic
+// Noto Sans Arabic SemiBold
 @font-face {
-  font-family: 'Poppins';
-  src: url('~fonts/poppins/Poppins-BoldItalic.ttf') format('truetype');
-  font-weight: 700;
-  font-style: italic;
-}
-
-// Poppins SemiBold
-@font-face {
-  font-family: 'Poppins';
-  src: url('~fonts/poppins/Poppins-SemiBold.ttf') format('truetype');
+  font-family: "Noto Sans Arabic";
+  src: url('/fonts/NotoSansArabic-SemiBold.ttf') format('truetype');
   font-weight: 600;
   font-style: normal;
 }
 
-// Poppins SemiBold Italic
+// Noto Sans Arabic Medium
 @font-face {
-  font-family: 'Poppins';
-  src: url('~fonts/poppins/Poppins-SemiBoldItalic.ttf') format('truetype');
-  font-weight: 600;
-  font-style: italic;
-}
-
-// Poppins Medium
-@font-face {
-  font-family: 'Poppins';
-  src: url('~fonts/poppins/Poppins-Medium.ttf') format('truetype');
+  font-family: "Noto Sans Arabic";
+  src: url('/fonts/NotoSansArabic-Medium.ttf') format('truetype');
   font-weight: 500;
   font-style: normal;
 }
 
-// Poppins Medium Italic
+// Noto Sans Arabic Regular
 @font-face {
-  font-family: 'Poppins';
-  src: url('~fonts/poppins/Poppins-MediumItalic.ttf') format('truetype');
-  font-weight: 500;
-  font-style: italic;
-}
-
-// Poppins Regular
-@font-face {
-  font-family: 'Poppins';
-  src: url('~fonts/poppins/Poppins-Regular.ttf') format('truetype');
+  font-family: "Noto Sans Arabic";
+  src: url('/fonts/NotoSansArabic-Regular.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
 }
 
-// Poppins Regular Italic
+// Noto Sans Arabic Light
 @font-face {
-  font-family: 'Poppins';
-  src: url('~fonts/poppins/Poppins-RegularItalic.ttf') format('truetype');
-  font-weight: 400;
-  font-style: italic;
-}
-
-// Poppins Light
-@font-face {
-  font-family: 'Poppins';
-  src: url('~fonts/poppins/Poppins-Light.ttf') format('truetype');
+  font-family: "Noto Sans Arabic";
+  src: url('/fonts/NotoSansArabic-Light.ttf') format('truetype');
   font-weight: 300;
   font-style: normal;
 }
 
-// Poppins Light Italic
+// Noto Sans Arabic ExtraLight
 @font-face {
-  font-family: 'Poppins';
-  src: url('~fonts/poppins/Poppins-LightItalic.ttf') format('truetype');
-  font-weight: 300;
-  font-style: italic;
-}
-
-// Poppins ExtraLight
-@font-face {
-  font-family: 'Poppins';
-  src: url('~fonts/poppins/Poppins-ExtraLight.ttf') format('truetype');
+  font-family: "Noto Sans Arabic";
+  src: url('/fonts/NotoSansArabic-ExtraLight.ttf') format('truetype');
   font-weight: 200;
   font-style: normal;
 }
 
-// Poppins ExtraLight Italic
+// Noto Sans Arabic Thin
 @font-face {
-  font-family: 'Poppins';
-  src: url('~fonts/poppins/Poppins-ExtraLightItalic.ttf') format('truetype');
-  font-weight: 200;
-  font-style: italic;
-}
-
-// Poppins Thin
-@font-face {
-  font-family: 'Poppins';
-  src: url('~fonts/poppins/Poppins-Thin.ttf') format('truetype');
+  font-family: "Noto Sans Arabic";
+  src: url('/fonts/NotoSansArabic-Thin.ttf') format('truetype');
   font-weight: 100;
   font-style: normal;
-}
-
-// Poppins Thin Italic
-@font-face {
-  font-family: 'Poppins';
-  src: url('~fonts/poppins/Poppins-ThinItalic.ttf') format('truetype');
-  font-weight: 100;
-  font-style: italic;
-}
-
-/* Font Montserrat */
-
-// Montserrat Black
-@font-face {
-  font-family: 'Montserrat';
-  src: url('~fonts/montserrat/Montserrat-Black.ttf') format('truetype');
-  font-weight: 900;
-  font-style: normal;
-}
-
-// Montserrat Black Italic
-@font-face {
-  font-family: 'Montserrat';
-  src: url('~fonts/montserrat/Montserrat-BlackItalic.ttf') format('truetype');
-  font-weight: 900;
-  font-style: italic;
-}
-
-// Montserrat ExtraBold
-@font-face {
-  font-family: 'Montserrat';
-  src: url('~fonts/montserrat/Montserrat-ExtraBold.ttf') format('truetype');
-  font-weight: 800;
-  font-style: normal;
-}
-
-// Montserrat ExtraBold Italic
-@font-face {
-  font-family: 'Montserrat';
-  src: url('~fonts/montserrat/Montserrat-ExtraBoldItalic.ttf') format('truetype');
-  font-weight: 800;
-  font-style: italic;
-}
-
-// Montserrat Bold
-@font-face {
-  font-family: 'Montserrat';
-  src: url('~fonts/montserrat/Montserrat-Bold.ttf') format('truetype');
-  font-weight: 700;
-  font-style: normal;
-}
-
-// Montserrat Bold Italic
-@font-face {
-  font-family: 'Montserrat';
-  src: url('~fonts/montserrat/Montserrat-BoldItalic.ttf') format('truetype');
-  font-weight: 700;
-  font-style: italic;
-}
-
-// Montserrat SemiBold
-@font-face {
-  font-family: 'Montserrat';
-  src: url('~fonts/montserrat/Montserrat-SemiBold.ttf') format('truetype');
-  font-weight: 600;
-  font-style: normal;
-}
-
-// Montserrat SemiBold Italic
-@font-face {
-  font-family: 'Montserrat';
-  src: url('~fonts/montserrat/Montserrat-SemiBoldItalic.ttf') format('truetype');
-  font-weight: 600;
-  font-style: italic;
-}
-
-// Montserrat Medium
-@font-face {
-  font-family: 'Montserrat';
-  src: url('~fonts/montserrat/Montserrat-Medium.ttf') format('truetype');
-  font-weight: 500;
-  font-style: normal;
-}
-
-// Montserrat Medium Italic
-@font-face {
-  font-family: 'Montserrat';
-  src: url('~fonts/montserrat/Montserrat-MediumItalic.ttf') format('truetype');
-  font-weight: 500;
-  font-style: italic;
-}
-
-// Montserrat Regular
-@font-face {
-  font-family: 'Montserrat';
-  src: url('~fonts/montserrat/Montserrat-Regular.ttf') format('truetype');
-  font-weight: 400;
-  font-style: normal;
-}
-
-// Montserrat Regular Italic
-@font-face {
-  font-family: 'Montserrat';
-  src: url('~fonts/montserrat/Montserrat-RegularItalic.ttf') format('truetype');
-  font-weight: 400;
-  font-style: italic;
-}
-
-// Montserrat Light
-@font-face {
-  font-family: 'Montserrat';
-  src: url('~fonts/montserrat/Montserrat-Light.ttf') format('truetype');
-  font-weight: 300;
-  font-style: normal;
-}
-
-// Montserrat Light Italic
-@font-face {
-  font-family: 'Montserrat';
-  src: url('~fonts/montserrat/Montserrat-LightItalic.ttf') format('truetype');
-  font-weight: 300;
-  font-style: italic;
-}
-
-// Montserrat ExtraLight
-@font-face {
-  font-family: 'Montserrat';
-  src: url('~fonts/montserrat/Montserrat-ExtraLight.ttf') format('truetype');
-  font-weight: 200;
-  font-style: normal;
-}
-
-// Montserrat ExtraLight Italic
-@font-face {
-  font-family: 'Montserrat';
-  src: url('~fonts/montserrat/Montserrat-ExtraLightItalic.ttf') format('truetype');
-  font-weight: 200;
-  font-style: italic;
-}
-
-// Montserrat Thin
-@font-face {
-  font-family: 'Montserrat';
-  src: url('~fonts/montserrat/Montserrat-Thin.ttf') format('truetype');
-  font-weight: 100;
-  font-style: normal;
-}
-
-// Montserrat Thin Italic
-@font-face {
-  font-family: 'Montserrat';
-  src: url('~fonts/montserrat/Montserrat-ThinItalic.ttf') format('truetype');
-  font-weight: 100;
-  font-style: italic;
 }
