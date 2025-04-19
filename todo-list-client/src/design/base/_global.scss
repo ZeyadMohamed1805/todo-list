@@ -1,6 +1,7 @@
 @use '../shared/typography';
 
 html {
+  color-scheme: light dark;
   font-size: typography.$sm;
   overflow-x: hidden;
 }

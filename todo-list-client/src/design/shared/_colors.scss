@@ -1,15 +1,45 @@
+@use "sass:color";
+
 // Application Colors
-$primary: rgb(222 0 115);
-$secondary: rgb(60 107 172);
-$accent-one: rgb(241 174 3);
-$accent-two: rgb(138 181 37);
+$primary: rgb(222, 0, 115);
+$faded-primary: rgba(222, 0, 115, 0.4);
+$secondary: rgb(60, 107, 172);
+$faded-secondary: rgba(60, 107, 172, 0.4);
+$accent-one: rgb(241, 174, 3);
+$faded-accent-one: rgba(241, 174, 3, 0.4);
+$accent-two: rgb(138, 181, 37);
+$faded-accent-two: rgba(138, 181, 37, 0.4);
 
 // Neutral Colors
-$white: rgb(255, 255, 255);
-$black: rgb(0, 0, 0);
-$light-grey: rgb(248, 249, 250);
-$dark-gray: rgb(52, 58, 64);
+$white: rgb(229, 229, 229);
+$faded-white: rgba(229, 229, 229, 0.4);
+$black: rgb(40, 40, 40);
+$faded-black: rgba(40, 40, 40, 0.4);
+$light-grey: rgb(204, 204, 204);
+$faded-light-grey: rgba(204, 204, 204, 0.4);
+$dark-grey: rgb(87, 87, 86);
+$faded-dark-grey: rgba(87, 87, 86, 0.4);
 
 // Validation Colors
 $success: rgb(40, 167, 69);
-$error: rgb(220, 53, 69);
+$faded-success: rgba(40, 167, 69, 0.4);
+$error: rgb(215, 37, 55);
+$faded-error: rgba(215, 37, 55, 0.4);
+
+// Light Mode Color Scheme
+:root {
+    --neutral-one:rgb(229, 229, 229);
+    --faded-neutral-one:rgba(229, 229, 229, 0.4);
+    --neutral-two:rgb(40, 40, 40);
+    --faded-neutral-two:rgba(40, 40, 40, 0.4);
+}
+
+// Dark Mode Color Scheme
+@media (prefers-color-scheme: dark) {
+    :root {
+        --neutral-one:rgb(40, 40, 40);
+        --faded-neutral-one:rgba(40, 40, 40, 0.4);
+        --neutral-two:rgb(229, 229, 229);
+        --faded-neutral-two:rgba(229, 229, 229, 0.4);
+    }
+}
