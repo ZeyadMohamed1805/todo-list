@@ -30,6 +30,28 @@
   }
 }
 
+@keyframes keyframe-fade-in-down {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes keyframe-fade-out-up {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+
 @keyframes keyframe-bounce-in {
   0% {
     transform: scale(0.8);
@@ -49,8 +71,16 @@
   animation: keyframe-fade-in transitions.$slow ease-in-out;
 }
 
+@mixin fade-out-up() {
+  animation: keyframe-fade-out-up transitions.$slow ease-in-out;
+}
+
 @mixin fade-in-up() {
   animation: keyframe-fade-in-up transitions.$slow ease-in-out;
+}
+
+@mixin fade-in-down() {
+  animation: keyframe-fade-in-down transitions.$slow ease-in-out;
 }
 
 @mixin slide-in() {
