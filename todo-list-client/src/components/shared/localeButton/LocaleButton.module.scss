@@ -9,9 +9,6 @@
   padding: spacing.$sm spacing.$md;
   border-radius: radiuses.$md;
   cursor: pointer;
-  transition:
-    background-color transitions.$medium ease-in-out,
-    color transitions.$medium ease-in-out;
 
   &:hover {
     background-color: var(--faded-neutral-two);

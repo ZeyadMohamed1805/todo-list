@@ -15,5 +15,6 @@
   "password_required": "Password is required",
   "confirm_password_required": "Confirm password is required",
   "password_mismatch": "Passwords do not match",
-  "submit": "Submit"
+  "submit": "Submit",
+  "sign_out": "🔓 Sign Out"
 }
