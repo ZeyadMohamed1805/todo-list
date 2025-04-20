@@ -1,0 +1,107 @@
+@use "../../../design/shared/shadows";
+@use "../../../design/shared/spacing";
+@use "../../../design/shared/colors";
+@use "../../../design/shared/radiuses";
+@use "../../../design/shared/typography";
+@use "../../../design/shared/transitions";
+@use "../../../design/shared/animations";
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: spacing.$sm spacing.$md;
+    background-color: var(--neutral-one);
+    box-shadow: shadows.$xs;
+
+    .logo {
+        width: 120px;
+    }
+    
+    .controls {
+        position: relative;
+
+        .badge {
+            background-color: transparent;
+            color: var(--neutral-two);
+            padding: spacing.$sm spacing.$md;
+            border: solid spacing.$xxs colors.$secondary;
+            border-radius: radiuses.$sm;
+            cursor: pointer;
+        
+            &:hover {
+                background-color: colors.$faded-secondary;
+            }
+        }
+
+        .arrowIcon {
+            display: inline-block;
+            margin-left: spacing.$xxs;
+            transition: transform transitions.$slow ease;
+        }
+
+        .rotate {
+            transform: rotateX(180deg);
+        }
+
+        .dropdown {
+            width: 100%;
+            position: absolute;
+            top: calc(100% + spacing.$md);
+            right: 0;
+            background-color: var(--neutral-one);
+            border-radius: radiuses.$sm;
+            box-shadow: shadows.$sm;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(- spacing.$md);
+            pointer-events: none;
+        
+            li {
+                color: var(--neutral-two);
+                cursor: pointer;
+                font-size: typography.$xs;
+                text-align: center;
+        
+                button {
+                    width: 100%;
+                    border: none;
+                    border-radius: 0;
+                    background-color: transparent;
+                    color: var(--neutral-two);
+                    cursor: pointer;
+                    padding: spacing.$sm spacing.$md;
+        
+                    &:hover {
+                        background-color: transparent;
+                    }
+                }
+        
+                &:hover {
+                    background-color: colors.$faded-secondary;
+                }
+        
+                &.signOut {
+                    border-top: solid colors.$faded-dark-grey spacing.$xxs;
+                    padding: spacing.$sm spacing.$md;
+                }
+            }
+        
+            &.show {
+                opacity: 1;
+                transform: translateY(0);
+                pointer-events: auto;
+                @include animations.fade-in-down;
+            }
+
+            &.hide {
+                opacity: 0;
+                transform: translateY(- spacing.$md);
+                pointer-events: none;
+                @include animations.fade-out-up;
+            }
+        }
+    }
+}
+
+
