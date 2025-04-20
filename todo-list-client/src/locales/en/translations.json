@@ -16,5 +16,7 @@
   "confirm_password_required": "Confirm password is required",
   "password_mismatch": "Passwords do not match",
   "submit": "Submit",
-  "sign_out": "🔓 Sign Out"
+  "sign_out": "🔓 Sign Out",
+  "home.title": "Todo Lists",
+  "home.add_list": "✚ New List"
 }

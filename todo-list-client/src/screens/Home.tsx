@@ -1,5 +1,11 @@
+import Title from '../components/home/title';
+
 const Home = () => {
-    return <></>;
+    return (
+        <main>
+            <Title />
+        </main>
+    );
 };
 
 export default Home;

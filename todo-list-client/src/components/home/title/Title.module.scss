@@ -1,0 +1,27 @@
+@use '../../../design/shared/colors';
+@use '../../../design/shared/spacing';
+@use '../../../design/shared/typography';
+@use '../../../design/shared/radiuses';
+@use '../../../design/shared/transitions';
+@use '../../../design/components/buttons';
+
+.wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: spacing.$md;
+    flex-wrap: wrap;
+    gap: spacing.$sm;
+}
+
+.title {
+    font-size: typography.$xl;
+    color: var(--neutral-two);
+    margin: 0;
+}
+
+.button {
+    @include buttons.primary(
+        $bg-color: colors.$success
+    );
+}

@@ -29,7 +29,7 @@
 
 @mixin secondary(
   $bg-color: colors.$secondary,
-  $text-color: colors.$white,
+  $text-color: var(--neutral-two),
   $padding: spacing.$sm spacing.$md,
   $font-size: typography.$sm
 ) {
@@ -44,6 +44,7 @@
   @include animations.fade-in-up;
 
   &:hover {
-    background: colors.$bg;
+    background: $bg-color;
+    color: colors.$white;
   }
 }
