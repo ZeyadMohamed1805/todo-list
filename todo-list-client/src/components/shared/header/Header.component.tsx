@@ -3,22 +3,22 @@ import { HeaderControls, HeaderLogo } from './Header.blocks';
 import { useLocation } from 'react-router-dom';
 
 const Header = () => {
-    const location = useLocation();
-    const isAuthPage = location.pathname.includes('auth');
+  const location = useLocation();
+  const isAuthPage = location.pathname.includes('auth');
 
-    if (isAuthPage) {
-        return null;
-    }
+  if (isAuthPage) {
+    return null;
+  }
 
-    return (
-        <header className={styles.header}>
-            <nav className={styles.navbar}>
-                <HeaderLogo />
-                
-                <HeaderControls />
-            </nav>
-        </header>
-    );
+  return (
+    <header className={styles.header}>
+      <nav className={styles.navbar}>
+        <HeaderLogo />
+
+        <HeaderControls />
+      </nav>
+    </header>
+  );
 };
 
 export default Header;

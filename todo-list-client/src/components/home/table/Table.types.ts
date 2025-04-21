@@ -1,34 +1,34 @@
-import { ETableTodosStatus } from "./Table.enums";
+import { ETableTodosStatus } from './Table.enums';
 
 export type TTodoProgressCircleProps = {
-    props: {
-        progress: number;
-    };
+  props: {
+    progress: number;
+  };
 };
 
 export type TTodoProgressContentProps = {
-    props: {
-        progress: number;
-    };
+  props: {
+    progress: number;
+  };
 };
 
 export type TTodoTitleProps = {
-    title: string;
+  title: string;
 };
 
 type TTodoList = {
-    id: string;
-    title: string;
-    status: ETableTodosStatus;
-    progress: number;
-}
+  id: string;
+  title: string;
+  status: ETableTodosStatus;
+  progress: number;
+};
 
 export type TTodoRowProps = {
-    props: TTodoList;
+  props: TTodoList;
 };
 
 export type TUseTodoProgressProps = {
-    props: {
-        progress: number;
-    }
+  props: {
+    progress: number;
+  };
 };

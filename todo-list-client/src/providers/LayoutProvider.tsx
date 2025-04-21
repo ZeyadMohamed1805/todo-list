@@ -1,13 +1,13 @@
-import Header from "../components/shared/header";
-import { TChildrenProps } from "../types/children";
+import Header from '../components/shared/header';
+import { TChildrenProps } from '../types/children';
 
 const LayoutProvider = ({ children }: TChildrenProps) => {
-    return (
-        <>
-            <Header />
-            {children}
-        </>
-    );
+  return (
+    <>
+      <Header />
+      {children}
+    </>
+  );
 };
 
 export default LayoutProvider;

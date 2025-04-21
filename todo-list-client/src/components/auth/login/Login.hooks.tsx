@@ -5,7 +5,9 @@ import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 export const useLogin = () => {
-  const { i18n: { language } } = useTranslation();
+  const {
+    i18n: { language },
+  } = useTranslation();
   const navigate = useNavigate();
   const formData = useForm({
     resolver: yupResolver(LoginSchema),
