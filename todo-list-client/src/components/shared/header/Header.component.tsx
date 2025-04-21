@@ -12,9 +12,11 @@ const Header = () => {
 
     return (
         <header className={styles.header}>
-            <HeaderLogo />
-            
-            <HeaderControls />
+            <nav className={styles.navbar}>
+                <HeaderLogo />
+                
+                <HeaderControls />
+            </nav>
         </header>
     );
 };

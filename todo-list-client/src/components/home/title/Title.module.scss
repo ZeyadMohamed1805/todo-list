@@ -1,0 +1,36 @@
+@use '../../../design/shared/colors';
+@use '../../../design/shared/spacing';
+@use '../../../design/shared/typography';
+@use '../../../design/shared/radiuses';
+@use '../../../design/shared/transitions';
+@use '../../../design/components/buttons';
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: spacing.$md;
+    gap: spacing.$xxs;
+    flex-wrap: wrap;
+    text-align: center;
+    color: var(--neutral-two);
+}
+
+.title {
+    font-size: typography.$xl;
+    line-height: spacing.$xxl;
+    margin: 0;
+}
+
+.description {
+    font-size: typography.$sm;
+    line-height: spacing.$lg;
+    max-width: 600px;
+    margin-bottom: spacing.$sm;
+}
+
+.button {
+    @include buttons.primary(
+        $bg-color: colors.$success
+    );
+}

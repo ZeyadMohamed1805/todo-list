@@ -16,5 +16,18 @@
   "confirm_password_required": "Confirm password is required",
   "password_mismatch": "Passwords do not match",
   "submit": "Submit",
-  "sign_out": "🔓 Sign Out"
+  "sign_out": "🔓 Sign Out",
+  "home.title": "Todo Lists",
+  "home.description": "Browse your tasks, add new ones, and manage your list with ease. You can also edit or delete tasks as needed.",
+  "home.add_list": "✚ New List",
+  "todo.todo": "Todo",
+  "todo.in_progress": "In Progress",
+  "todo.done": "Done", 
+  "todo.blocked": "Blocked",
+  "todo.delete": "🗑️ Delete",
+  "todo.edit": "✏️ Edit",
+  "todo.view": "👁️ View",
+  "todo.status": "Status",
+  "todo.title": "Title",
+  "todo.progress": "Progress"
 }

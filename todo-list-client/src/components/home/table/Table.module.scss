@@ -1,0 +1,244 @@
+@use '../../../design/shared/colors';
+@use '../../../design/shared/spacing';
+@use '../../../design/shared/transitions';
+@use '../../../design/shared/animations';
+@use '../../../design/shared/typography';
+@use '../../../design/shared/shadows';
+@use '../../../design/shared/radiuses';
+@use '../../../design/components/buttons';
+
+.wrapper {
+    width: 1000px;
+    max-width: calc(100% - spacing.$md * 2);
+    border-radius: radiuses.$sm;
+    border: solid spacing.$xxs colors.$dark-grey;
+    overflow-x: auto;
+    overflow-y: hidden;
+    @include animations.fade-in;
+
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+        table-layout: auto;
+
+        th,
+        td {
+            padding: spacing.$sm spacing.$md;
+            text-align: left;
+            position: relative;
+            font-size: typography.$xs;
+            color: var(--neutral-two);
+
+            [dir='rtl'] & {
+                text-align: right;
+            }
+        }
+
+        th {
+            font-weight: bold;
+        }
+
+        thead {
+            border-bottom: solid spacing.$xxs colors.$dark-grey;
+            background: colors.$primary;
+            overflow-x: hidden;
+
+            th {
+                color: colors.$white;
+            }
+        }
+
+        tr {
+            &:not(:last-child) {
+                border-bottom: solid spacing.$xxs colors.$dark-grey;
+            }
+        }
+
+        tbody {
+            .progressCircle {
+                width: 52px;
+                height: 52px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                position: relative;
+
+                svg {
+                    width: 100%;
+                    height: 100%;
+                    transform: rotate(-90deg);
+                }
+
+                .background {
+                    fill: none;
+                    stroke: transparent;
+                    stroke-width: 8;
+                    cx: 50;
+                    cy: 50;
+                    r: 45;
+                }
+
+                .progress {
+                    fill: none;
+                    stroke: colors.$success;
+                    stroke-width: 8;
+                    cx: 50;
+                    cy: 50;
+                    r: 45;
+                    stroke-dasharray: 283;
+                    stroke-dashoffset: 283;
+                    transition: stroke transitions.$slow ease-in-out;
+
+                    &[data-progress='100'] {
+                        stroke: colors.$accent-one;
+                    }
+                }
+
+                .progressCircleContent {
+                    position: absolute;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                }
+
+                .progressCirclePercentage {
+                    font-size: typography.$xs;
+                }
+
+                .title {
+                    max-width: 250px;
+                    display: inline-block;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+            }
+
+            .actionsWrapper {
+                position: relative;
+                display: flex;
+                justify-content: flex-end;
+
+                .actionsTrigger {
+                    color: var(--neutral-two);
+                    padding: spacing.$sm;
+                    background: none;
+                    border: none;
+                    cursor: pointer;
+                    font-size: 20px;
+                    padding: 4px;
+                }
+
+                .dropdown {
+                    position: absolute;
+                    top: 0;
+                    background: var(--neutral-one);
+                    box-shadow: shadows.$sm;
+                    border-radius: radiuses.$sm;
+                    margin-top: spacing.$sm;
+                    display: flex;
+                    flex-direction: column;
+                    min-width: 120px;
+                    overflow: hidden;
+                    opacity: 0;
+                    pointer-events: none;
+                    z-index: 2;
+
+                    [dir='ltr'] & {
+                        left: auto;
+                        right: spacing.$lg;
+                    }
+
+                    [dir='rtl'] & {
+                        left: spacing.$lg;
+                        right: auto;
+                    }
+
+                    &.show {
+                        opacity: 1;
+                        transform: translateY(0);
+                        pointer-events: auto;
+                        @include animations.fade-in-down;
+                    }
+        
+                    &.hide {
+                        opacity: 0;
+                        transform: translateY(- spacing.$md);
+                        pointer-events: none;
+                        @include animations.fade-out-up;
+                    }
+                }
+
+                .dropdownItem {
+                    color: var(--neutral-two);
+                    padding: spacing.$sm spacing.$md;
+                    font-size: typography.$xs;
+                    background: none;
+                    border: none;
+                    cursor: pointer;
+                    text-align: left;
+
+                    [dir='rtl'] & {
+                        text-align: right;
+                    }
+
+                    &:hover {
+                        background-color: colors.$faded-secondary;
+                    }
+                }
+            }
+
+            tr:last-child,
+            tr:nth-last-child(2) {
+                .actionsWrapper .dropdown {
+                    top: auto;
+                    bottom: 0;
+                }
+            }
+
+            
+            tr:hover {
+                &:not(:has(.empty)) {
+                    background: var(--faded-neutral-two);
+                }
+            }
+        }
+    }
+
+    .empty {
+        width: 100%;
+        color: #aaa;
+        text-align: center;
+
+        [dir='rtl'] & {
+            text-align: right;
+        }
+
+        .emptyContent {
+            min-height: 240px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: spacing.$sm;
+        }
+
+        &:hover {
+            background: transparent !important;
+        }
+
+        p {
+            font-size: typography.$md;
+            line-height: spacing.$lg;
+            text-align: center;
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    td:has(.status),
+    th.headerStatus {
+        display: none;
+    }
+}

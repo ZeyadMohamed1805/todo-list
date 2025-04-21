@@ -30,14 +30,14 @@ $faded-error: rgba(215, 37, 55, 0.4);
 :root {
   --neutral-one: rgb(229, 229, 229);
   --faded-neutral-one: rgba(229, 229, 229, 0.4);
-  --neutral-two: rgb(40, 40, 40);
-  --faded-neutral-two: rgba(40, 40, 40, 0.4);
+  --neutral-two: rgb(11, 1, 29);
+  --faded-neutral-two: rgba(11, 1, 29, 0.4);
 }
 
 // Dark Mode Color Scheme
 [data-theme='dark'] {
-  --neutral-one: rgb(40, 40, 40);
-  --faded-neutral-one: rgba(40, 40, 40, 0.4);
+  --neutral-one: rgb(11, 1, 29);
+  --faded-neutral-one: rgba(11, 1, 29, 0.4);
   --neutral-two: rgb(229, 229, 229);
   --faded-neutral-two: rgba(229, 229, 229, 0.4);
 }
