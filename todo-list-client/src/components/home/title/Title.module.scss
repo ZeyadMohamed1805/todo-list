@@ -7,17 +7,26 @@
 
 .wrapper {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     align-items: center;
     padding: spacing.$md;
+    gap: spacing.$xxs;
     flex-wrap: wrap;
-    gap: spacing.$sm;
+    text-align: center;
+    color: var(--neutral-two);
 }
 
 .title {
     font-size: typography.$xl;
-    color: var(--neutral-two);
+    line-height: spacing.$xxl;
     margin: 0;
+}
+
+.description {
+    font-size: typography.$sm;
+    line-height: spacing.$lg;
+    max-width: 600px;
+    margin-bottom: spacing.$sm;
 }
 
 .button {

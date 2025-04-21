@@ -7,6 +7,9 @@ const Title = () => {
     return (
         <div className={styles.wrapper}>
             <h1 className={styles.title}>{t("home.title")}</h1>
+            <p className={styles.description}>
+                {t("home.description")}
+            </p>
             <button type="button" className={styles.button}>
                 {t("home.add_list")}
             </button>
