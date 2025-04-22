@@ -29,5 +29,6 @@
   "todo.view": "👁️ عرض",
   "todo.status": "الحالة",
   "todo.title": "العنوان",
-  "todo.progress": "التقدم"
+  "todo.progress": "التقدم",
+  "todo.title_required": "العنوان مطلوب"
 }

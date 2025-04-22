@@ -29,5 +29,6 @@
   "todo.view": "👁️ View",
   "todo.status": "Status",
   "todo.title": "Title",
-  "todo.progress": "Progress"
+  "todo.progress": "Progress",
+  "todo.title_required": "Title is required"
 }
