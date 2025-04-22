@@ -40,5 +40,10 @@
     color: colors.$error;
     font-size: typography.$xs;
     margin-top: spacing.$xs;
+    text-align: left;
+
+    [dir="rtl"] & {
+      text-align: right;
+    }
   }
 }
