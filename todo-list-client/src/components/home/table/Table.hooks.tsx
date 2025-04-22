@@ -28,7 +28,7 @@ export const useTodoProgress = ({ props }: TUseTodoProgressProps) => {
 };
 
 export const useToggleDropdown = () => {
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>();
   const dropdownClassName = `${styles.dropdown} ${isDropdownOpen ? styles.show : isDropdownOpen === false ? styles.hide : ''}`;
 
   const toggleDropdown = useCallback(() => {
