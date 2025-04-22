@@ -1,3 +1,4 @@
+import { VariantsEnum } from '../../../enums/variants';
 import SubmitButton from '../../shared/submitButton';
 import { NewListFormInputFields } from './NewListForm.blocks';
 import { useCreateNewList } from './NewListForm.hooks';
@@ -12,7 +13,7 @@ const NewListForm = () => {
             <form className={styles.newListForm}>
                 <div className={styles.formFields}>
                     <NewListFormInputFields />
-                    <SubmitButton />
+                    <SubmitButton props={{ variant: VariantsEnum.SECONDARY }} />
                 </div>
             </form>
         </FormProvider>

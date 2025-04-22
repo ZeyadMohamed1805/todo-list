@@ -1,6 +1,19 @@
 @use "../../../design/components/buttons";
+@use "../../../design/shared/colors";
 
 .submitButton {
     width: 100%;
     @include buttons.primary;
+
+    &[data-variant="primary"] {
+        background-color: colors.$primary;
+    }
+
+    &[data-variant="secondary"] {
+        background-color: colors.$secondary;
+    }
+
+    &[data-variant="success"] {
+        background-color: colors.$success;
+    }
 }
