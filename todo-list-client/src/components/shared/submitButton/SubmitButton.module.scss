@@ -1,0 +1,6 @@
+@use "../../../design/components/buttons";
+
+.submitButton {
+    width: 100%;
+    @include buttons.primary;
+}
