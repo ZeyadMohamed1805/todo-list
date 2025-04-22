@@ -10,7 +10,7 @@ const NewListForm = () => {
 
     return (
         <FormProvider {...createNewListData.formData}>
-            <form className={styles.newListForm}>
+            <form className={styles.newListForm} onSubmit={createNewListData.onSubmit}>
                 <div className={styles.formFields}>
                     <NewListFormInputFields />
                     <SubmitButton props={{ variant: VariantsEnum.SECONDARY }} />
