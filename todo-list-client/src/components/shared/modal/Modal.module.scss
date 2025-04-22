@@ -28,6 +28,7 @@
 
 .modal {
     border-radius: radiuses.$sm;
+    background-color: var(--neutral-one);
     width: 80%;
     max-width: 600px;
     position: relative;
@@ -50,7 +51,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: solid spacing.$xxs var(--neutral-two);
     padding: spacing.$sm spacing.$md;
 
     &[data-variant="primary"] {
