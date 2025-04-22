@@ -1,7 +1,8 @@
 import styles from './Login.module.scss';
-import { FormFields } from './Login.blocks';
+import { FormInputFields } from './Login.blocks';
 import { useLogin } from './Login.hooks';
 import { FormProvider } from 'react-hook-form';
+import SubmitButton from '../../shared/submitButton';
 
 const Login = () => {
   const loginData = useLogin();
@@ -9,7 +10,10 @@ const Login = () => {
   return (
     <FormProvider {...loginData.formData}>
       <form className={styles.loginForm} onSubmit={loginData.onSubmit}>
-        <FormFields />
+        <div className={styles.formFields}>
+          <FormInputFields />
+          <SubmitButton />
+        </div>
       </form>
     </FormProvider>
   );

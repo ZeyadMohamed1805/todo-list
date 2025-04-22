@@ -19,6 +19,15 @@
   }
 }
 
+@keyframes keyframe-fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
 @keyframes keyframe-fade-in-up {
   from {
     opacity: 0;
@@ -66,9 +75,28 @@
   }
 }
 
+@keyframes keyframe-bounce-out {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  60% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+}
+
 // Animation mixins
 @mixin fade-in() {
   animation: keyframe-fade-in transitions.$slow ease-in-out;
+}
+
+@mixin fade-out() {
+  animation: keyframe-fade-out transitions.$slow ease-in-out forwards;
 }
 
 @mixin fade-out-up() {
@@ -89,4 +117,8 @@
 
 @mixin bounce-in() {
   animation: keyframe-bounce-in transitions.$slow ease-in-out;
+}
+
+@mixin bounce-out() {
+  animation: keyframe-bounce-out transitions.$slow ease-in-out forwards;
 }
