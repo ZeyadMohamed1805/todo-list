@@ -1,1 +1,3 @@
-export const PERCENTAGE = 67;
+export const TODO_PROGRESS_PERCENTAGE = {
+    percentage: 67
+};
