@@ -1,6 +1,5 @@
 @use '../../../design/shared/spacing';
 @use '../../../design/shared/radiuses';
-@use '../../../design/components/buttons';
 
 .loginForm {
   width: 100%;
@@ -16,8 +15,4 @@
   display: flex;
   flex-direction: column;
   gap: spacing.$sm;
-}
-
-.submitButton {
-  @include buttons.primary;
 }
