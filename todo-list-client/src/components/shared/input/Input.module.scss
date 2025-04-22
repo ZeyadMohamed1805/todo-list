@@ -4,26 +4,32 @@
 @use '../../../design/shared/colors';
 @use '../../../design/shared/radiuses';
 @use '../../../design/shared/animations';
+@use '../../../design/shared/transitions';
 
 .inputGroup {
   position: relative;
 
   input {
     width: 100%;
-    background: colors.$white;
+    background: var(--neutral-one);
     border: spacing.$xxs solid colors.$secondary;
     border-radius: radiuses.$sm;
     padding: spacing.$sm spacing.$md;
     font-size: typography.$xs;
-    color: colors.$dark-grey;
+    color: var(--neutral-two);
     transition:
-      border 0.3s ease-in-out,
-      transform 0.2s ease-in-out;
+      background transitions.$slow ease-in-out,
+      border transitions.$slow ease-in-out,
+      transform transitions.$fast ease-in-out;
     @include animations.fade-in-up;
 
     &:focus {
       border: spacing.$xxs solid colors.$secondary;
       outline: none;
+    }
+
+    &::placeholder {
+      color: var(--faded-neutral-two);
     }
 
     &.errorInput {
