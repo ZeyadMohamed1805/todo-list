@@ -3,6 +3,7 @@ import styles from './Title.module.scss';
 import { useState } from 'react';
 import Modal from '../../shared/modal';
 import { VariantsEnum } from '../../../enums/variants';
+import NewListForm from '../newListForm';
 
 const Title = () => {
   const { t } = useTranslation();
@@ -23,7 +24,7 @@ const Title = () => {
           variant: VariantsEnum.SUCCESS,
         }}
       >
-        <></>
+        <NewListForm />
       </Modal>
     </div>
   );
