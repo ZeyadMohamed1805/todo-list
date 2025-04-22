@@ -1,0 +1,88 @@
+@use "../../../design/shared/animations";
+@use "../../../design/shared/colors";
+@use "../../../design/shared/spacing";
+@use "../../../design/shared/radiuses";
+@use "../../../design/shared/shadows";
+@use "../../../design/shared/typography";
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: colors.$faded-black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+
+    &.show {
+        @include animations.fade-in;
+    }
+    
+    &.hide {
+        @include animations.fade-out;
+    }
+}
+
+.modal {
+    border-radius: radiuses.$sm;
+    width: 80%;
+    max-width: 600px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: shadows.$sm;
+
+    &.show {
+        @include animations.bounce-in;
+    }
+
+    &.hide {
+        @include animations.bounce-out;
+    }
+}
+
+.modalHeader {
+    background-color: colors.$secondary;
+    color: colors.$white;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: solid spacing.$xxs var(--neutral-two);
+    padding: spacing.$sm spacing.$md;
+
+    &[data-variant="primary"] {
+        background-color: colors.$primary;
+    }
+
+    &[data-variant="secondary"] {
+        background-color: colors.$secondary;
+    }
+
+    &[data-variant="success"] {
+        background-color: colors.$success;
+    }
+
+    &[data-variant="error"] {
+        background-color: colors.$error;
+    }
+}
+
+.title {
+    font-size: typography.$md;
+    font-weight: bold;
+}
+
+.closeBtn {
+    font-size: typography.$md;
+    color: colors.$white;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.content {
+    padding: spacing.$sm spacing.$md;
+}
