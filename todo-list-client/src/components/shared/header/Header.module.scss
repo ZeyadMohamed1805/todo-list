@@ -65,7 +65,7 @@
         box-shadow: shadows.$sm;
         overflow: hidden;
         opacity: 0;
-        transform: translateY(-spacing.$md);
+        transform: translateY(spacing.$md-);
         pointer-events: none;
         z-index: 2;
 
@@ -108,7 +108,7 @@
 
         &.hide {
           opacity: 0;
-          transform: translateY(-spacing.$md);
+          transform: translateY(spacing.$md-);
           pointer-events: none;
           @include animations.fade-out-up;
         }
