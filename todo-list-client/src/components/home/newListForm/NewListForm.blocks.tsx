@@ -3,9 +3,9 @@ import Input from '../../shared/input';
 import { NEW_LIST_FORM_INPUT_FIELDS } from './NewListForm.constants';
 
 export const NewListFormInputFields = () => {
-    const { t } = useTranslation();
+  const { t } = useTranslation();
 
-    return NEW_LIST_FORM_INPUT_FIELDS.map((field, index) => (
-        <Input key={index} props={{ ...field, placeholder: t(field.placeholder) }} />
-    ));
+  return NEW_LIST_FORM_INPUT_FIELDS.map((field, index) => (
+    <Input key={index} props={{ ...field, placeholder: t(field.placeholder) }} />
+  ));
 };
