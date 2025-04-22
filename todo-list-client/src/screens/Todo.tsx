@@ -1,7 +1,10 @@
+import Progress from "../components/todo/progress";
+import { PERCENTAGE } from "../components/todo/progress/Progress.constants";
+
 const Todo = () => {
   return (
     <main>
-        <>Todo</>
+      <Progress props={{ percentage: PERCENTAGE }} />
     </main>
   );
 };
