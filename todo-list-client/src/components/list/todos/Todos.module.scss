@@ -1,0 +1,88 @@
+@use "../../../design/shared/spacing";
+@use "../../../design/shared/colors";
+@use "../../../design/shared/radiuses";
+@use "../../../design/shared/typography";
+@use "../../../design/shared/transitions";
+@use "../../../design/components/buttons";
+
+.row {
+    width: 80%;
+    max-width: 1000px;
+    display: grid;
+    grid-template-columns: 24px repeat(2, 1fr) 20px;
+    align-items: center;
+    gap: spacing.$sm;
+    padding: spacing.$sm spacing.$md;
+    border-radius: radiuses.$sm;
+
+    &:hover {
+        background: colors.$faded-light-grey;
+    }
+}
+
+.titleWrapper {
+    display: inline-block;
+    overflow: hidden;
+}
+
+.title {
+    flex: 1;
+    color: var(--neutral-two);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: spacing.$xxs spacing.$sm;
+
+    &.completed {
+        text-decoration: line-through;
+        color: var(--faded-neutral-two);
+    }
+}
+
+.delete {
+    background: transparent;
+    border: none;
+    color: colors.$error;
+    font-size: typography.$md;
+    cursor: pointer;
+    @include transitions.transition(transform);
+
+    &:hover {
+        transform: scale(1.2);
+    }
+}
+
+.deleteModalContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: spacing.$sm;
+    width: 100%;
+    color: var(--neutral-two);
+    font-weight: bold;
+}
+
+.deleteMessage {
+    line-height: spacing.$lg;
+}
+
+.deleteModalActions {
+    display: flex;
+    gap: spacing.$sm;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+
+    button {
+        padding: spacing.$xs spacing.$md;
+        font-size: typography.$xs;
+    }
+}
+
+.confirm {
+    @include buttons.primary(colors.$dark-grey);
+}
+
+.cancel {
+    @include buttons.primary(colors.$faded-dark-grey);
+}

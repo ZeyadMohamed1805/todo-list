@@ -1,88 +1,88 @@
-@use "../../../design/shared/animations";
-@use "../../../design/shared/colors";
-@use "../../../design/shared/spacing";
-@use "../../../design/shared/radiuses";
-@use "../../../design/shared/shadows";
-@use "../../../design/shared/typography";
+@use '../../../design/shared/animations';
+@use '../../../design/shared/colors';
+@use '../../../design/shared/spacing';
+@use '../../../design/shared/radiuses';
+@use '../../../design/shared/shadows';
+@use '../../../design/shared/typography';
 
 .overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: colors.$faded-black;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 999;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: colors.$faded-black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
 
-    &.show {
-        @include animations.fade-in;
-    }
-    
-    &.hide {
-        @include animations.fade-out;
-    }
+  &.show {
+    @include animations.fade-in;
+  }
+
+  &.hide {
+    @include animations.fade-out;
+  }
 }
 
 .modal {
-    border-radius: radiuses.$sm;
-    background-color: var(--neutral-one);
-    width: 80%;
-    max-width: 600px;
-    position: relative;
-    overflow: hidden;
-    box-shadow: shadows.$sm;
+  border-radius: radiuses.$sm;
+  background-color: var(--neutral-one);
+  width: 80%;
+  max-width: 600px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: shadows.$sm;
 
-    &.show {
-        @include animations.bounce-in;
-    }
+  &.show {
+    @include animations.bounce-in;
+  }
 
-    &.hide {
-        @include animations.bounce-out;
-    }
+  &.hide {
+    @include animations.bounce-out;
+  }
 }
 
 .modalHeader {
+  background-color: colors.$secondary;
+  color: colors.$white;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: spacing.$sm spacing.$md;
+
+  &[data-variant='primary'] {
+    background-color: colors.$primary;
+  }
+
+  &[data-variant='secondary'] {
     background-color: colors.$secondary;
-    color: colors.$white;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: spacing.$sm spacing.$md;
+  }
 
-    &[data-variant="primary"] {
-        background-color: colors.$primary;
-    }
+  &[data-variant='success'] {
+    background-color: colors.$success;
+  }
 
-    &[data-variant="secondary"] {
-        background-color: colors.$secondary;
-    }
-
-    &[data-variant="success"] {
-        background-color: colors.$success;
-    }
-
-    &[data-variant="error"] {
-        background-color: colors.$error;
-    }
+  &[data-variant='error'] {
+    background-color: colors.$error;
+  }
 }
 
 .title {
-    font-size: typography.$md;
-    font-weight: bold;
+  font-size: typography.$md;
+  font-weight: bold;
 }
 
 .closeBtn {
-    font-size: typography.$md;
-    color: colors.$white;
-    background: none;
-    border: none;
-    cursor: pointer;
+  font-size: typography.$md;
+  color: colors.$white;
+  background: none;
+  border: none;
+  cursor: pointer;
 }
 
 .content {
-    padding: spacing.$sm spacing.$md;
+  padding: spacing.$sm spacing.$md;
 }

@@ -1,1 +1,1 @@
-export { default } from "./Modal.component";
+export { default } from './Modal.component';

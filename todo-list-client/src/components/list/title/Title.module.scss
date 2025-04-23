@@ -1,0 +1,23 @@
+@use '../../../design/shared/animations';
+@use '../../../design/shared/spacing';
+@use '../../../design/shared/colors';
+@use '../../../design/shared/typography';
+
+.wrapper {
+  width: 80%;
+  max-width: 1000px;
+  margin-top: spacing.$lg;
+  @include animations.fade-in;
+
+  .title {
+    font-size: typography.$lg;
+    color: var(--neutral-two);
+    font-weight: bold;
+    line-height: spacing.$xl; 
+  }
+
+  .date {
+    font-size: typography.$sm;
+    color: colors.$dark-grey;
+  }
+}

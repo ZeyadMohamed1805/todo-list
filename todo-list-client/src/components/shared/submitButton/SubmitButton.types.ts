@@ -1,7 +1,7 @@
-import { VariantsEnum } from "../../../enums/variants"
+import { VariantsEnum } from '../../../enums/variants';
 
 export type TSubmitButtonProps = {
-    props?: {
-        variant?: VariantsEnum;
-    }
-}
+  props?: {
+    variant?: VariantsEnum;
+  };
+};

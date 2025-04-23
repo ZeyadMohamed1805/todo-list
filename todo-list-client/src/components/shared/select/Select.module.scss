@@ -1,0 +1,14 @@
+@use "../../../design/shared/spacing";
+@use "../../../design/shared/colors";
+@use "../../../design/shared/radiuses";
+@use "../../../design/shared/typography";
+
+.select {
+    max-width: 120px;
+    padding: spacing.$xxs spacing.$xs;
+    border: spacing.$xs solid colors.$black;
+    border-radius: radiuses.$md;
+    font-size: typography.$xxs;
+    background-color: colors.$black;
+    cursor: pointer;
+}
