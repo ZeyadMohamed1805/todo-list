@@ -1,7 +1,7 @@
 import bcrypt from "bcryptjs";
 import prisma from "../../prisma";
 import { UserAlreadyExistsError } from "./auth.errors";
-import { RegisterSchema } from "./auth.types";
+import { LoginSchema, RegisterSchema } from "./auth.types";
 
 export const registerUser = async (data: RegisterSchema) => {
     const { username, email, password } = data;
@@ -32,4 +32,20 @@ export const registerUser = async (data: RegisterSchema) => {
         email: registeredUser.email,
         createdAt: registeredUser.createdAt,
     };
+};
+
+export const loginUser = async ({ email, password }: LoginSchema) => {
+    const user = await prisma.user.findUnique({ where: { email } });
+
+    if (!user) {
+        throw new Error("auth.invalid_credentials");
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+    
+    if (!isMatch) {
+        throw new Error("auth.invalid_credentials");
+    }
+
+    return user;
 };

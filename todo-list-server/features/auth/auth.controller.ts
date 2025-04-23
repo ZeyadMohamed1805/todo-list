@@ -1,11 +1,46 @@
 import { Request, Response, NextFunction } from "express";
-import { registerUser } from "./auth.service";
+import { loginUser, registerUser } from "./auth.service";
 import { StatusCodesEnum } from "../../enums/statusCodes.enum";
+import { loginSchema } from "./auth.schema";
+import { signToken } from "./auth.utils";
+import { ONE_HOUR, SEVEN_DAYS } from "./auth.constants";
+import { JWT_EXPIRES_IN } from "./auth.config";
 
 export const register = async (request: Request, response: Response, next: NextFunction) => {
     try {
         await registerUser(request.body);
         response.status(StatusCodesEnum.NO_CONTENT).json({ success: true });
+    } catch (error) {
+        next(error);
+    }
+};
+
+export const login = async (request: Request, response: Response, next: NextFunction) => {
+    try {
+        const { email, password, rememberMe } = await loginSchema.validate(request.body, {
+            abortEarly: false,
+            stripUnknown: true,
+        });
+
+        const user = await loginUser({ email, password, rememberMe });
+
+        const expiresIn = rememberMe ? JWT_EXPIRES_IN.rememberMe : JWT_EXPIRES_IN.standard;
+        const token = signToken({ userId: user.id }, expiresIn);
+
+        response.cookie("token", token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            maxAge: expiresIn
+        });
+
+        response.status(200).json({
+            success: true,
+            user: {
+                id: user.id,
+                username: user.username,
+                email: user.email
+            }
+        });
     } catch (error) {
         next(error);
     }
