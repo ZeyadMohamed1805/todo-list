@@ -1,11 +1,11 @@
-import { ETableTodosStatus } from './Table.enums';
+import { TodosStatusEnum } from '../../../enums';
 import styles from './Table.module.scss';
 
 export const TODO_LISTS = [
-  { id: '1', title: 'Work', status: ETableTodosStatus.IN_PROGRESS, progress: 60 },
-  { id: '2', title: 'Groceries', status: ETableTodosStatus.BLOCKED, progress: 20 },
-  { id: '3', title: 'Hobbies', status: ETableTodosStatus.DONE, progress: 100 },
-  { id: '4', title: 'Responsibilities', status: ETableTodosStatus.TODO, progress: 0 },
+  { id: '1', title: 'Work', status: TodosStatusEnum.IN_PROGRESS, progress: 60 },
+  { id: '2', title: 'Groceries', status: TodosStatusEnum.BLOCKED, progress: 20 },
+  { id: '3', title: 'Hobbies', status: TodosStatusEnum.DONE, progress: 100 },
+  { id: '4', title: 'Responsibilities', status: TodosStatusEnum.TODO, progress: 0 },
 ];
 
 export const TODO_LISTS_HEADERS = [

@@ -7,8 +7,8 @@ import {
 import styles from './Table.module.scss';
 import { TODO_LISTS, TODO_LISTS_HEADERS } from './Table.constants';
 import { useTodoProgress, useToggleDropdown } from './Table.hooks';
-import { ETableTodosStatus } from './Table.enums';
 import { useTranslation } from 'react-i18next';
+import { TodosStatusEnum } from '../../../enums';
 
 export const TableEmpty = () => {
   return (
@@ -54,7 +54,7 @@ const TodoTitle = ({ title }: TTodoTitleProps) => {
   return <span className={styles.title}>{title}</span>;
 };
 
-const TodoStatus = ({ status }: { status: ETableTodosStatus }) => {
+const TodoStatus = ({ status }: { status: TodosStatusEnum }) => {
   const { t } = useTranslation();
 
   return <div className={styles.status}>{t(status)}</div>;
