@@ -30,5 +30,11 @@
   "todo.status": "الحالة",
   "todo.title": "العنوان",
   "todo.progress": "التقدم",
-  "todo.title_required": "العنوان مطلوب"
+  "todo.title_required": "العنوان مطلوب",
+  "todo.delete_todo": "حذف المهمة",
+  "todo.delete_confirmation": "هل أنت متأكد أنك تريد حذف هذه المهمة؟",
+  "no_thanks": "لا، شكرًا",
+  "confirm": "تأكيد",
+  "todo.new_todo": "مهمة جديدة",
+  "add": "إضافة"
 }

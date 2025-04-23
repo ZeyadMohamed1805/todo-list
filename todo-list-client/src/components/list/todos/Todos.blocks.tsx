@@ -33,18 +33,18 @@ const DeleteTodo = ({ props }: TDeleteTodoProps) => {
                 props={{
                     isOpen: props.isDeleteTodoModalOpen,
                     onClose: () => props.setIsDeleteTodoModalOpen(false),
-                    title: "Delete Todo",
+                    title: t("todo.delete_todo"),
                     variant: VariantsEnum.ERROR
                 }}
             >
                 <div className={styles.deleteModalContent}>
-                    <p className={styles.deleteMessage}>Are you sure you want to delete this Todo?</p>
+                    <p className={styles.deleteMessage}>{t("todo.delete_confirmation")}</p>
                     <div className={styles.deleteModalActions}>
                         <button type="button" className={styles.confirm} onClick={() => props.setIsDeleteTodoModalOpen(false)}>
-                            Confirm
+                            {t("confirm")}
                         </button>
                         <button type="button" className={styles.cancel} onClick={() => props.setIsDeleteTodoModalOpen(false)}>
-                            No, Thanks!
+                            {t("no_thanks")}
                         </button>
                     </div>
                 </div>
