@@ -1,11 +1,16 @@
 import LayoutProvider from './LayoutProvider';
 import { TChildrenProps } from '../types/children';
 import RouterProvider from './RouterProvider';
+import QueryProvider from './QueryProvider';
 
 const Providers = ({ children }: TChildrenProps) => {
   return (
     <RouterProvider>
-      <LayoutProvider>{children}</LayoutProvider>
+      <QueryProvider>
+        <LayoutProvider>
+          {children}
+        </LayoutProvider>
+      </QueryProvider>
     </RouterProvider>
   );
 };
