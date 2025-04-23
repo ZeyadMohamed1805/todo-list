@@ -2,20 +2,26 @@
   "name": "todo-list-server",
   "version": "1.0.0",
   "description": "A server application for todo lists management",
-  "main": "server.ts",
+  "main": "app/index.ts",
   "scripts": {
-    "dev": "ts-node src/app",
+    "dev": "nodemon app",
     "build": "tsc",
     "start": "node dist/app"
   },
   "author": "Zeyad Mohamed",
   "license": "ISC",
   "dependencies": {
-    "express": "^5.1.0"
+    "@prisma/client": "^6.6.0",
+    "bcrypt": "^5.1.1",
+    "bcryptjs": "^3.0.2",
+    "express": "^5.1.0",
+    "prisma": "^6.6.0",
+    "yup": "^1.6.1"
   },
   "devDependencies": {
     "@types/express": "^5.0.1",
     "@types/node": "^22.14.1",
+    "nodemon": "^3.1.10",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3"
   }
