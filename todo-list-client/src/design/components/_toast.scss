@@ -1,0 +1,37 @@
+@use "../shared/colors";
+@use "../shared/spacing";
+@use "../shared/typography";
+@use "../shared/shadows";
+@use "../shared/animations";
+@use "../shared/radiuses";
+@use "../shared/transitions";
+@use "sass:color";
+
+@mixin toast-variant($background: colors.$error, $color: colors.$white) {
+    position: fixed;
+    top: spacing.$lg;
+    right: spacing.$lg;
+    z-index: 1000;
+    min-width: 280px;
+    max-width: 400px;
+    padding: spacing.$sm spacing.$md;
+    border-radius: spacing.$xs;
+    background-color: $background;
+    border-left: radiuses.$md solid $color;
+    color: $color;
+    box-shadow: shadows.$md;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: bold;
+    opacity: 0;
+    animation: toast-slide-in transitions.$medium ease-in-out forwards;
+}
+
+@mixin toast-success {
+    @include toast-variant(colors.$success, colors.$white);
+}
+
+@mixin toast-error {
+    @include toast-variant(colors.$error, colors.$white);
+}
