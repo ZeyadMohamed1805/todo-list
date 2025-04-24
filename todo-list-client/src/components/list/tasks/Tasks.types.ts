@@ -43,6 +43,11 @@ export type TDeleteTaskProps = {
     };
 };
 
+export type TPatchTaskData = {
+    taskId: string; 
+    data: Partial<TTask>;
+}
+
 export type TUseInitializeTaskTitleInnerText = {
     props: {
         titleRef: RefObject<HTMLDivElement | null>;
@@ -59,6 +64,7 @@ export type TUseHandleTaskTitleBlur = {
 
 export type TUseHandleTaskTitleKeyDown = {
     props: {
+        taskId: string;
         taskTitle: string;
     }
 }

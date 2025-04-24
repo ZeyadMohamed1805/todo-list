@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { TTaskRowProps, TUseHandleTaskTitleBlur, TUseHandleTaskTitleKeyDown, TUseInitializeTaskTitleInnerText } from "./Tasks.types";
+import { TPatchTaskData, TTaskRowProps, TUseHandleTaskTitleBlur, TUseHandleTaskTitleKeyDown, TUseInitializeTaskTitleInnerText } from "./Tasks.types";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import api from "../../../services/Api.service";
 import { useParams } from "react-router-dom";
@@ -33,6 +33,31 @@ export const useDeleteTaskMutation = () => {
 
             showToast({
                 message: "task_deleted",
+                variant: VariantsEnum.SUCCESS
+            });
+        },
+        onError: (error) => {
+            const toastData = getToastDataFromError(error);
+            showToast(toastData);
+        }
+    });
+}
+
+export const usePatchTaskMutation = () => {
+    const queryClient = useQueryClient();
+
+    return useMutation({
+        mutationKey: ['patchTask'],
+        mutationFn: async ({ taskId, data }: TPatchTaskData) => {
+            const response = await api.patch(`/tasks/${taskId}`, data);
+            return response.data.data;
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['tasks'] });
+            queryClient.invalidateQueries({ queryKey: ['todoListById'] });
+
+            showToast({
+                message: "task_updated",
                 variant: VariantsEnum.SUCCESS
             });
         },
@@ -90,6 +115,8 @@ export const useInitializeTaskTitleInnerText = ({ props }: TUseInitializeTaskTit
 }
 
 export const useHandleTaskRowKeyDown = ({ props }: TTaskRowProps) => {
+    const patchTaskMutation = usePatchTaskMutation();
+
     const handleKeyDown = useCallback((event: React.KeyboardEvent<HTMLDivElement>) => {
         if (event.target === event.currentTarget) {
             switch (event.key) {
@@ -101,7 +128,16 @@ export const useHandleTaskRowKeyDown = ({ props }: TTaskRowProps) => {
                 case ' ':
                 case 'Spacebar':
                     event.preventDefault();
-                    props.setIsChecked((prev) => !prev);
+                    props.setIsChecked((previousIsCheckedValue) => {
+                        const newIsCheckedValue = !previousIsCheckedValue;
+
+                        patchTaskMutation.mutate({
+                            taskId: props.task.id,
+                            data: { isCompleted: newIsCheckedValue }
+                        });
+
+                        return newIsCheckedValue;
+                    });
                     break;
                 case 'Delete':
                     event.preventDefault();
@@ -110,30 +146,42 @@ export const useHandleTaskRowKeyDown = ({ props }: TTaskRowProps) => {
                     break;
             }
         }
-    }, [props]);
+    }, [props, patchTaskMutation]);
 
     return handleKeyDown;
 }
 
 export const useHandleTaskTitleBlur = ({ props }: TUseHandleTaskTitleBlur) => {
+    const patchTaskMutation = usePatchTaskMutation();
+
     const handleBlur = useCallback((event: React.FocusEvent<HTMLSpanElement>) => {
         const newTitle = event.currentTarget.innerText.trim();
         if (newTitle && newTitle !== props.task.title) {
             event.currentTarget.innerText = newTitle;
+            patchTaskMutation.mutate({
+                taskId: props.task.id,
+                data: { title: newTitle }
+            });
             props.setTaskTitle(newTitle);
         }
-    }, [props]);
+    }, [props, patchTaskMutation]);
 
     return handleBlur;
 }
 
 export const useHandleTaskTitleKeyDown = ({ props }: TUseHandleTaskTitleKeyDown) => {
+    const patchTaskMutation = usePatchTaskMutation();
+
     const handleKeyDown = useCallback((event: React.KeyboardEvent<HTMLSpanElement>) => {
         if (event.target === event.currentTarget) {
             switch (event.key) {
                 case 'Enter':
                     event.preventDefault();
                     event.currentTarget.blur();
+                    patchTaskMutation.mutate({
+                        taskId: props.taskId,
+                        data: { title: event.currentTarget.innerText.trim() }
+                    });
                     break;
                 case 'Escape':
                     event.preventDefault();
@@ -142,7 +190,7 @@ export const useHandleTaskTitleKeyDown = ({ props }: TUseHandleTaskTitleKeyDown)
                     break;
             }
         }
-    }, [props.taskTitle]);
+    }, [props.taskTitle, props.taskId, patchTaskMutation]);
 
     return handleKeyDown;
 }

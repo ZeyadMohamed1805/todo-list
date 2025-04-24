@@ -57,7 +57,7 @@ const DeleteTask = ({ props }: TDeleteTaskProps) => {
 const TaskTitle = ({ props }: TTaskTitleProps) => {
     const taskTitleData = useInitializeTaskTitleInnerText({ props });
     const handleTodoTitleBlur = useHandleTaskTitleBlur({ props: { ...props, setTaskTitle: taskTitleData.setTaskTitle } });
-    const handleTodoTitleKeyDown = useHandleTaskTitleKeyDown({ props: { taskTitle: taskTitleData.taskTitle } });
+    const handleTodoTitleKeyDown = useHandleTaskTitleKeyDown({ props: { taskId: props.task.id, taskTitle: taskTitleData.taskTitle } });
 
     return (
         <div className={styles.titleWrapper}>
