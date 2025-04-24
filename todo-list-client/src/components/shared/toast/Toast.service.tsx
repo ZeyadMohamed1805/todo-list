@@ -26,12 +26,11 @@ export const hideToast = () => {
     }
 };
 
-export const getToastDataFromError = (error: Error) => {
+export const getToastDataFromError = (error: Error | unknown) => {
     const errorMessage = (error as AxiosError<TError>).response?.data?.message || 'something_went_wrong';
-    const errorVariant = (error as AxiosError<TError>).response?.data?.success ? VariantsEnum.SUCCESS : VariantsEnum.ERROR;
 
     return {
         message: errorMessage,
-        variant: errorVariant
+        variant: VariantsEnum.ERROR
     };
 }
