@@ -9,8 +9,9 @@
   display: flex;
   flex-direction: column;
   gap: spacing.$sm;
-  width: 80%;
+  width: 100%;
   max-width: 1000px;
+  padding: spacing.$sm spacing.$md;
 }
 
 .label {
@@ -25,6 +26,7 @@
   border-radius: radiuses.$md;
   overflow: hidden;
   box-shadow: shadows.$xs;
+  z-index: -1;
 
   .progress {
     width: 100%;

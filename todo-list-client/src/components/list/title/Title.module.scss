@@ -4,9 +4,10 @@
 @use '../../../design/shared/typography';
 
 .wrapper {
-  width: 80%;
+  width: 100%;
   max-width: 1000px;
   margin-top: spacing.$lg;
+  padding: spacing.$sm spacing.$md;
   @include animations.fade-in;
 
   .title {
