@@ -5,9 +5,9 @@ export class UserAlreadyExistsError extends Error {
     }
 }
 
-export class UserRegistrationFailed extends Error {
+export class UserInvalidCredentialsError extends Error {
     constructor() {
-        super("user_registration_failed");
-        this.name = "UserRegistrationFailed";
+        super("invalid_credentials");
+        this.name = "UserInvalidCredentials";
     }
 }

@@ -1,0 +1,59 @@
+@use "../../../design/shared/spacing";
+@use "../../../design/shared/transitions";
+@use "../../../design/components/toast";
+
+.toast {
+    &[data-variant="success"] {
+        @include toast.toast-success;
+    }
+
+    &[data-variant="error"] {
+        @include toast.toast-error;
+    }
+
+    .message {
+        flex: 1;
+        margin-right: spacing.$md;
+    }
+
+    &.exit {
+        animation: toast-slide-out transitions.$medium ease-out forwards;
+    }
+
+    .close {
+        background: transparent;
+        border: none;
+        color: inherit;
+        cursor: pointer;
+        padding: spacing.$xxs;
+        @include transitions.transition;
+
+        &:hover {
+            transform: scale(1.2);
+        }
+    }
+}
+
+@keyframes toast-slide-in {
+    0% {
+        transform: translateY(-20px) scale(0.95);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes toast-slide-out {
+    0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(-10px) scale(0.95);
+        opacity: 0;
+    }
+}
