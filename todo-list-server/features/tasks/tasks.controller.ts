@@ -32,7 +32,11 @@ export const getTasksByTodoListId = async (request: Request, response: Response)
 };
 
 export const createTodoListTask = async (request: Request, response: Response) => {
-    const { userId, body: { title }, params: { todoListId } } = request as AuthorizedRequest;
+    const {
+        userId,
+        body: { title },
+        params: { todoListId },
+    } = request as AuthorizedRequest;
 
     if (!title || title.trim() === "") {
         throw new TaskTitleIsRequiredError();
@@ -56,23 +60,22 @@ export const createTodoListTask = async (request: Request, response: Response) =
         },
     });
 
-    const [totalTasksCount, completedTasksCount] = await Promise.all([
-        prisma.task.count({ where: { todoListId } }),
-        prisma.task.count({ where: { todoListId, isCompleted: true } }),
-    ]);
-
-    const progress = totalTasksCount === 0 ? 0 : Math.round((completedTasksCount / totalTasksCount) * 100);
+    const updatedTotal = todoList.totalTasksCount + 1;
+    const progress = updatedTotal === 0
+        ? 0
+        : Math.round((todoList.completedTasksCount / updatedTotal) * 100);
 
     await prisma.todoList.update({
         where: { id: todoListId },
         data: {
-            totalTasksCount,
+            totalTasksCount: updatedTotal,
             progress,
         },
     });
 
     response.status(StatusCodesEnum.CREATED).json(newTask);
 };
+
 
 export const patchTodoListTask = async (request: Request, response: Response) => {
     try {
@@ -91,23 +94,26 @@ export const patchTodoListTask = async (request: Request, response: Response) =>
             throw new UnAuthorizedError();
         }
 
+        const wasCompleted = task.isCompleted;
+        const willBeCompleted = body.isCompleted;
+
         const updatedTask = await prisma.task.update({
             where: { id: taskId },
             data: body,
         });
 
-        if (typeof body.isCompleted === 'boolean') {
-            const [totalTasksCount, completedTasksCount] = await Promise.all([
-                prisma.task.count({ where: { todoListId: task.todoListId } }),
-                prisma.task.count({ where: { todoListId: task.todoListId, isCompleted: true } }),
-            ]);
+        if (typeof willBeCompleted === 'boolean' && wasCompleted !== willBeCompleted) {
+            const adjustment = willBeCompleted ? 1 : -1;
+            const newCompletedCount = task.todoList.completedTasksCount + adjustment;
 
-            const progress = totalTasksCount === 0 ? 0 : Math.round((completedTasksCount / totalTasksCount) * 100);
+            const progress = task.todoList.totalTasksCount === 0
+                ? 0
+                : Math.round((newCompletedCount / task.todoList.totalTasksCount) * 100);
 
             await prisma.todoList.update({
                 where: { id: task.todoListId },
                 data: {
-                    completedTasksCount,
+                    completedTasksCount: newCompletedCount,
                     progress,
                 },
             });
@@ -115,6 +121,7 @@ export const patchTodoListTask = async (request: Request, response: Response) =>
 
         response.status(StatusCodesEnum.OK).json({ success: true, data: updatedTask });
     } catch (error) {
+        console.error(error);
         throw new InvalidTaskDataError();
     }
 };
@@ -135,7 +142,23 @@ export const deleteTodoListTask = async (request: Request, response: Response) =
         throw new UnAuthorizedError();
     }
 
+    const todoList = task.todoList;
+    const wasCompleted = task.isCompleted;
+
     await prisma.task.delete({ where: { id: taskId } });
+
+    const newTotal = todoList.totalTasksCount - 1;
+    const newCompleted = wasCompleted ? todoList.completedTasksCount - 1 : todoList.completedTasksCount;
+    const progress = newTotal === 0 ? 0 : Math.round((newCompleted / newTotal) * 100);
+
+    await prisma.todoList.update({
+        where: { id: todoList.id },
+        data: {
+            totalTasksCount: newTotal,
+            completedTasksCount: newCompleted,
+            progress,
+        },
+    });
 
     response.status(StatusCodesEnum.OK).json({ success: true });
 };
