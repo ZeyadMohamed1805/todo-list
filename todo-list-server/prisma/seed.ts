@@ -44,10 +44,10 @@ async function main() {
                             tasks: {
                                 create: [
                                     { title: 'Finish report', status: 'PENDING' },
-                                    { title: 'Call client', status: 'COMPLETED' },
+                                    { title: 'Call client', status: 'COMPLETED', isCompleted: true },
                                     { title: 'Review documents', status: 'IN_PROGRESS' },
                                     { title: 'Email updates to manager', status: 'PENDING' },
-                                    { title: 'Prepare presentation', status: 'COMPLETED' },
+                                    { title: 'Prepare presentation', status: 'COMPLETED', isCompleted: true },
                                 ],
                             },
                         },
@@ -59,10 +59,10 @@ async function main() {
                             progress: 100,
                             tasks: {
                                 create: [
-                                    { title: 'Buy groceries', status: 'COMPLETED' },
-                                    { title: 'Exercise', status: 'COMPLETED' },
-                                    { title: 'Read a book', status: 'COMPLETED' },
-                                    { title: 'Clean the house', status: 'COMPLETED' },
+                                    { title: 'Buy groceries', status: 'COMPLETED', isCompleted: true },
+                                    { title: 'Exercise', status: 'COMPLETED', isCompleted: true },
+                                    { title: 'Read a book', status: 'COMPLETED', isCompleted: true },
+                                    { title: 'Clean the house', status: 'COMPLETED', isCompleted: true },
                                 ],
                             },
                         },
@@ -75,11 +75,11 @@ async function main() {
                             tasks: {
                                 create: [
                                     { title: 'Design logo', status: 'PENDING' },
-                                    { title: 'Write blog post', status: 'COMPLETED' },
+                                    { title: 'Write blog post', status: 'COMPLETED', isCompleted: true },
                                     { title: 'Create landing page', status: 'IN_PROGRESS' },
-                                    { title: 'Refactor codebase', status: 'PENDING' },
-                                    { title: 'Fix bugs', status: 'COMPLETED' },
-                                    { title: 'Test new features', status: 'IN_PROGRESS' },
+                                    { title: 'Refactor codebase', status: 'COMPLETED', isCompleted: true },
+                                    { title: 'Fix bugs', status: 'COMPLETED', isCompleted: true },
+                                    { title: 'Test new features', status: 'BLOCKED' },
                                 ],
                             },
                         },
