@@ -1,5 +1,6 @@
 generator client {
   provider = "prisma-client-js"
+  output   = "../node_modules/.prisma/client"
 }
 
 datasource db {
@@ -8,9 +9,43 @@ datasource db {
 }
 
 model User {
-  id       Int    @id @default(autoincrement())
-  username String @unique
-  email    String @unique
-  password String
+  id        Int     @id @default(autoincrement())
+  username  String  @unique
+  email     String  @unique
+  password  String
   createdAt DateTime @default(now())
+
+  todoLists TodoList[]
+}
+
+enum TaskStatus {
+  PENDING
+  IN_PROGRESS
+  BLOCKED
+  COMPLETED
+}
+
+model TodoList {
+  id                  String   @id @default(cuid())
+  title               String
+  imagePath           String?
+  totalTasksCount     Int      @default(0)
+  completedTasksCount Int      @default(0)
+  progress            Float    @default(0)
+  createdAt           DateTime @default(now())
+
+  userId              Int
+  user                User      @relation(fields: [userId], references: [id])
+  tasks               Task[]
+}
+
+model Task {
+  id         String     @id @default(cuid())
+  title      String
+  isCompleted Boolean    @default(false)
+  status     TaskStatus @default(PENDING)
+  createdAt  DateTime   @default(now())
+
+  todoListId String
+  todoList   TodoList  @relation(fields: [todoListId], references: [id])
 }
