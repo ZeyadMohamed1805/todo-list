@@ -11,3 +11,10 @@ export class TaskTitleIsRequiredError extends Error {
         this.name = "TaskTitleIsRequiredError";
     }
 }
+
+export class TaskNotFoundError extends Error {
+    constructor() {
+        super("task_not_found");
+        this.name = "TaskNotFoundError";
+    }
+}

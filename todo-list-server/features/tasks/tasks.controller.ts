@@ -1,10 +1,11 @@
 import { Request, Response } from "express";
 import { AuthorizedRequest } from "../../types/requests.types";
 import prisma from "../../prisma";
-import { TaskTitleIsRequiredError, TodoListNotFoundError } from "./tasks.errors";
+import { TaskNotFoundError, TaskTitleIsRequiredError, TodoListNotFoundError } from "./tasks.errors";
 import { StatusCodesEnum } from "../../enums/statusCodes.enum";
+import { UnAuthorizedError } from "../../errors/unAuthorized";
 
-export const getTasksByTodoListId = async (request: Request, response: Response): Promise<void> => {
+export const getTasksByTodoListId = async (request: Request, response: Response) => {
     const { userId, params: { todoListId } } = (request as AuthorizedRequest);
 
     const todoList = await prisma.todoList.findFirst({
@@ -30,7 +31,7 @@ export const getTasksByTodoListId = async (request: Request, response: Response)
     response.status(StatusCodesEnum.OK).json({ success: true, data: tasks });
 };
 
-export const createTodoListTask = async (request: Request, response: Response): Promise<void> => {
+export const createTodoListTask = async (request: Request, response: Response) => {
     const { userId, body: { title }, params: { todoListId } } = (request as AuthorizedRequest);
 
     if (!title || title.trim() === "") {
@@ -56,4 +57,25 @@ export const createTodoListTask = async (request: Request, response: Response): 
     });
 
     response.status(StatusCodesEnum.CREATED).json(newTask);
+};
+
+export const deleteTodoListTask = async (request: Request, response: Response) => {
+    const { userId, params: { taskId } } = request as AuthorizedRequest;
+
+    const task = await prisma.task.findUnique({
+        where: { id: taskId },
+        include: { todoList: true },
+    });
+
+    if (!task) {
+        throw new TaskNotFoundError();
+    }
+
+    if (task.todoList.userId !== userId) {
+        throw new UnAuthorizedError();
+    }
+
+    await prisma.task.delete({ where: { id: taskId } });
+
+    response.status(StatusCodesEnum.OK).json({ success: true });
 };

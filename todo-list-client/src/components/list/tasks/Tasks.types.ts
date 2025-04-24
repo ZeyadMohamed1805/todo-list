@@ -37,6 +37,7 @@ export type TTaskTitleProps = {
 
 export type TDeleteTaskProps = {
     props: {
+        taskId: string;
         isDeleteTaskModalOpen: boolean | undefined;
         setIsDeleteTaskModalOpen: Dispatch<SetStateAction<boolean | undefined>>;
     };

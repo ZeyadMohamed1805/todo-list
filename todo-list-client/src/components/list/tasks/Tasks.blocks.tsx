@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import Modal from "../../shared/modal";
 import Checkbox from "../../shared/checkbox";
 import { TDeleteTaskProps, TTaskProps, TTaskRowProps, TTaskTitleProps } from "./Tasks.types";
-import { useHandleTaskRowKeyDown, useHandleTaskTitleBlur, useHandleTaskTitleKeyDown, useInitializeTaskTitleInnerText } from "./Tasks.hooks";
+import { useDeleteTaskMutation, useHandleTaskRowKeyDown, useHandleTaskTitleBlur, useHandleTaskTitleKeyDown, useInitializeTaskTitleInnerText } from "./Tasks.hooks";
 import Select from "../../shared/select";
 
 const TaskStatus = ({ props }: TTaskProps) => {
@@ -22,6 +22,7 @@ const TaskStatus = ({ props }: TTaskProps) => {
 
 const DeleteTask = ({ props }: TDeleteTaskProps) => {
     const { t } = useTranslation();
+    const deleteTaskMutation = useDeleteTaskMutation();
 
     return (
         <>
@@ -40,7 +41,7 @@ const DeleteTask = ({ props }: TDeleteTaskProps) => {
                 <div className={styles.deleteModalContent}>
                     <p className={styles.deleteMessage}>{t("todo.delete_confirmation")}</p>
                     <div className={styles.deleteModalActions}>
-                        <button type="button" className={styles.confirm} onClick={() => props.setIsDeleteTaskModalOpen(false)}>
+                        <button type="button" className={styles.confirm} onClick={() => deleteTaskMutation.mutate(props.taskId)}>
                             {t("confirm")}
                         </button>
                         <button type="button" className={styles.cancel} onClick={() => props.setIsDeleteTaskModalOpen(false)}>
@@ -96,7 +97,7 @@ export const Todo = ({ props }: TTaskProps) => {
             <Checkbox props={{ isChecked, setIsChecked, title: "isCompleted" }} />
             <TaskTitle props={{ ...props, titleRef, isChecked }} />
             <TaskStatus props={props} />
-            <DeleteTask props={{ isDeleteTaskModalOpen, setIsDeleteTaskModalOpen }} />
+            <DeleteTask props={{ taskId: props.task.id, isDeleteTaskModalOpen, setIsDeleteTaskModalOpen }} />
         </TodoRow>
     );
 };
