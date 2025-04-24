@@ -14,7 +14,7 @@ async function main() {
             password: 'passBlueBus',
         },
         {
-            name: 'Caronlina Adams',
+            name: 'Carolina Adams',
             email: 'carolina.adams@example.com',
             password: 'passGreenBus',
         },
@@ -27,7 +27,6 @@ async function main() {
 
     for (const user of users) {
         const hashedPassword = await bcrypt.hash(user.password, 10);
-        const firstName = user.name.split(' ')[0];
 
         const createdUser = await prisma.user.create({
             data: {
@@ -37,29 +36,50 @@ async function main() {
                 todoLists: {
                     create: [
                         {
-                            title: `${firstName}'s Work`,
+                            title: `${user.name.split(' ')[0]}'s Work`,
                             imagePath: null,
-                            totalTasksCount: 3,
-                            completedTasksCount: 1,
-                            progress: 33,
+                            totalTasksCount: 5,
+                            completedTasksCount: 2,
+                            progress: 40,
                             tasks: {
                                 create: [
                                     { title: 'Finish report', status: 'PENDING' },
                                     { title: 'Call client', status: 'COMPLETED' },
-                                    { title: 'Review documents', status: 'PENDING' },
+                                    { title: 'Review documents', status: 'IN_PROGRESS' },
+                                    { title: 'Email updates to manager', status: 'PENDING' },
+                                    { title: 'Prepare presentation', status: 'COMPLETED' },
                                 ],
                             },
                         },
                         {
-                            title: `${firstName}'s Personal`,
+                            title: `${user.name.split(' ')[0]}'s Personal`,
                             imagePath: null,
-                            totalTasksCount: 2,
-                            completedTasksCount: 2,
+                            totalTasksCount: 4,
+                            completedTasksCount: 4,
                             progress: 100,
                             tasks: {
                                 create: [
                                     { title: 'Buy groceries', status: 'COMPLETED' },
                                     { title: 'Exercise', status: 'COMPLETED' },
+                                    { title: 'Read a book', status: 'COMPLETED' },
+                                    { title: 'Clean the house', status: 'COMPLETED' },
+                                ],
+                            },
+                        },
+                        {
+                            title: `${user.name.split(' ')[0]}'s Projects`,
+                            imagePath: null,
+                            totalTasksCount: 6,
+                            completedTasksCount: 3,
+                            progress: 50,
+                            tasks: {
+                                create: [
+                                    { title: 'Design logo', status: 'PENDING' },
+                                    { title: 'Write blog post', status: 'COMPLETED' },
+                                    { title: 'Create landing page', status: 'IN_PROGRESS' },
+                                    { title: 'Refactor codebase', status: 'PENDING' },
+                                    { title: 'Fix bugs', status: 'COMPLETED' },
+                                    { title: 'Test new features', status: 'IN_PROGRESS' },
                                 ],
                             },
                         },
@@ -68,7 +88,7 @@ async function main() {
             },
         });
 
-        console.log(`Created user ${createdUser.username}`);
+        console.log(`Created user: ${createdUser.username}`);
     }
 }
 

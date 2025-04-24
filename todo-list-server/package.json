@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "nodemon app",
     "build": "tsc",
-    "start": "node dist/app"
+    "start": "node dist/app",
+    "db:seed": "ts-node prisma/seed.ts"
   },
   "author": "Zeyad Mohamed",
   "license": "ISC",
