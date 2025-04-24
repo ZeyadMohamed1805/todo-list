@@ -7,6 +7,8 @@ export const getLocalStorageItem = (key: string) => {
     return item ? JSON.parse(item) : null;
 }
 
-export const removeLocalStorageItems = (key: string) => {
-    localStorage.removeItem(key);
+export const removeLocalStorageItems = (keys: string[]) => {
+    keys.forEach(key => {
+        localStorage.removeItem(key);
+    });
 }

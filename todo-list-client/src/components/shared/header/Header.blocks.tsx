@@ -3,15 +3,18 @@ import { HEADER_DROPDOWN_BUTTONS } from './Header.constants';
 import { useSignout, useToggleDropdown } from './Header.hooks';
 import styles from './Header.module.scss';
 import { THeaderBadgeProps } from './Header.types';
+import { getLocalStorageItem } from '../../../services/LocalStorage.service';
 
 export const HeaderLogo = () => {
   return <img src="/images/nagwa-logo-light.svg" alt="Logo" className={styles.logo} />;
 };
 
 const HeaderBadge = ({ props }: THeaderBadgeProps) => {
+  const username = getLocalStorageItem('username');
+
   return (
     <div className={styles.badge} onClick={props.toggleDropdown}>
-      Zeyad Mohamed <span className={props.arrowClassName}>▾</span>
+      {username} <span className={props.arrowClassName}>▾</span>
     </div>
   );
 };
