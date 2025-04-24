@@ -7,6 +7,7 @@
   "login": "Login",
   "register": "Register",
   "email": "Email",
+  "remember_me": "Remember me",
   "invalid_email": "Invalid email address",
   "invalid_credentials": "Invalid email or password",
   "password": "Password",

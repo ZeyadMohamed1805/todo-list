@@ -1,5 +1,6 @@
 @use '../../../design/shared/spacing';
 @use '../../../design/shared/radiuses';
+@use '../../../design/shared/typography';
 
 .loginForm {
   width: 100%;
@@ -15,4 +16,12 @@
   display: flex;
   flex-direction: column;
   gap: spacing.$sm;
+}
+
+.rememberMeCheckbox {
+  color: var(--neutral-two);
+  display: flex;
+  align-items: center;
+  gap: spacing.$sm;
+  font-size: typography.$xs;
 }

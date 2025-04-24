@@ -1,5 +1,5 @@
 import styles from './Login.module.scss';
-import { FormInputFields } from './Login.blocks';
+import { FormInputFields, FormRememberMeCheckbox } from './Login.blocks';
 import { useLogin } from './Login.hooks';
 import { FormProvider } from 'react-hook-form';
 import SubmitButton from '../../shared/submitButton';
@@ -12,6 +12,7 @@ const Login = () => {
       <form className={styles.loginForm} onSubmit={loginData.onSubmit}>
         <div className={styles.formFields}>
           <FormInputFields />
+          <FormRememberMeCheckbox />
           <SubmitButton />
         </div>
       </form>
