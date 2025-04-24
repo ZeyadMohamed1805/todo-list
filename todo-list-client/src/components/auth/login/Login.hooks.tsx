@@ -13,20 +13,28 @@ import { AxiosResponse } from 'axios';
 import { VariantsEnum } from '../../../enums';
 
 export const useLogin = () => {
-  const { i18n: { language } } = useTranslation();
   const loginMutation = useLoginMutation();
-  const navigate = useNavigate();
   const formData = useForm({
     resolver: yupResolver(LoginSchema),
     mode: 'all',
   });
 
   const onSubmit = formData.handleSubmit((data) => {
-    loginMutation.mutate(
-      data,
-      {
-        onSuccess: (response) => {
-          const username = (response as AxiosResponse<TLoginResponse>).data?.user?.username;
+    loginMutation.mutate(data);
+  });
+
+  return { formData, onSubmit };
+};
+
+const useLoginMutation = () => {
+  const navigate = useNavigate();
+  const { i18n: { language } } = useTranslation();
+
+  return useMutation({
+    mutationKey: ['login'],
+    mutationFn: (data: TLoginData) => api.post('/auth/login', data),
+    onSuccess: (response) => {
+      const username = (response as AxiosResponse<TLoginResponse>).data?.user?.username;
           
           if (username) {
             setLocalStorageItem('username', username);
@@ -38,21 +46,11 @@ export const useLogin = () => {
               variant: VariantsEnum.ERROR,
             });
           }
-        },
-        onError: (error) => {
-          const toastData = getToastDataFromError(error);
-          
-          showToast(toastData);
-        },
-      }
-    );
-  });
-
-  return { formData, onSubmit };
-};
-
-const useLoginMutation = () => {
-  return useMutation({
-    mutationFn: (data: TLoginData) => api.post('/auth/login', data),
+    },
+    onError: (error) => {
+      const toastData = getToastDataFromError(error);
+      
+      showToast(toastData);
+    },
   });
 };

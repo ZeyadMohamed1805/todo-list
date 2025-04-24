@@ -9,6 +9,7 @@ export const FORM_INPUT_FIELDS = [
     type: 'password',
     name: 'password',
     placeholder: 'password',
+    minLength: 8,
     required: true,
   },
 ];
