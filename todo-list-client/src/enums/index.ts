@@ -1,2 +1,2 @@
-export * from "./todoStatus";
+export * from "./status";
 export * from "./variants";

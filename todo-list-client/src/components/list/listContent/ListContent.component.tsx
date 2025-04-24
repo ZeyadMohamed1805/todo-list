@@ -1,6 +1,6 @@
 import Progress from "../progress";
 import Title from "../title";
-import Todos from "../todos";
+import Tasks from "../tasks";
 import { useGetTodoList } from "./ListContent.hooks";
 
 const ListContent = () => {
@@ -14,7 +14,7 @@ const ListContent = () => {
         <>
             <Progress props={{ progress: todoList.data.progress }} />
             <Title props={{ title: todoList.data.title }} />
-            <Todos props={{ todos: todoList.data.tasks }} />
+            <Tasks />
         </>
     );
 };

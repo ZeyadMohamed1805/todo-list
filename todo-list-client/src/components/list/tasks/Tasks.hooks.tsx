@@ -1,15 +1,30 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { TTodoRowProps, TUseHandleTodoTitleBlur, TUseHandleTodoTitleKeyDown, TUseInitializeTodoTitleInnerText } from "./Todos.types";
+import { TTaskRowProps, TUseHandleTaskTitleBlur, TUseHandleTaskTitleKeyDown, TUseInitializeTaskTitleInnerText } from "./Tasks.types";
+import { useQuery } from "@tanstack/react-query";
+import api from "../../../services/Api.service";
+import { useParams } from "react-router-dom";
+
+export const useGetTasksByTodoListId = () => {
+    const params = useParams();
+
+    return useQuery({
+        queryKey: ['tasks', params.listId],
+        queryFn: async () => {
+            const response = await api(`/tasks/todo-list/${params.listId}`);
+            return response.data.data;
+        }
+    });
+}
 
 export const useKeyBindTodoList = () => {
-    const [focusedTodoIndex, setFocusedTodoIndex] = useState(-1);
-    const todoRefs = useRef<(HTMLDivElement | null)[]>([]);
+    const [focusedTaskIndex, setFocusedTaskIndex] = useState(-1);
+    const taskRefs = useRef<(HTMLDivElement | null)[]>([]);
 
-    const focusOnTodo = useCallback((index: number) => {
-        const todoElement = todoRefs.current[index];
-        if (todoElement) {
-            todoElement.focus();
-            setFocusedTodoIndex(index);
+    const focusOnTask = useCallback((index: number) => {
+        const taskElement = taskRefs.current[index];
+        if (taskElement) {
+            taskElement.focus();
+            setFocusedTaskIndex(index);
         }
     }, []);
 
@@ -17,37 +32,37 @@ export const useKeyBindTodoList = () => {
         const handleKeyDown = (e: KeyboardEvent) => {
             if (e.key === 'ArrowDown') {
                 e.preventDefault();
-                const nextIndex = Math.min(focusedTodoIndex + 1, todoRefs.current.length - 1);
-                focusOnTodo(nextIndex);
+                const nextIndex = Math.min(focusedTaskIndex + 1, taskRefs.current.length - 1);
+                focusOnTask(nextIndex);
             }
 
             if (e.key === 'ArrowUp') {
                 e.preventDefault();
-                const prevIndex = Math.max(focusedTodoIndex - 1, 0);
-                focusOnTodo(prevIndex);
+                const prevIndex = Math.max(focusedTaskIndex - 1, 0);
+                focusOnTask(prevIndex);
             }
         };
 
         window.addEventListener('keydown', handleKeyDown);
         return () => window.removeEventListener('keydown', handleKeyDown);
-    }, [focusedTodoIndex, focusOnTodo]);
+    }, [focusedTaskIndex, focusOnTask]);
 
-    return { todoRefs };
+    return { taskRefs };
 };
 
-export const useInitializeTodoTitleInnerText = ({ props }: TUseInitializeTodoTitleInnerText) => {
-    const [todoTitle, setTodoTitle] = useState(props.todo.title);
+export const useInitializeTaskTitleInnerText = ({ props }: TUseInitializeTaskTitleInnerText) => {
+    const [taskTitle, setTaskTitle] = useState(props.task.title);
 
     useEffect(() => {
         if (props.titleRef.current) {
-            props.titleRef.current.innerText = props.todo.title;
+            props.titleRef.current.innerText = props.task.title;
         }
-    }, [props.todo.title, props.titleRef]);
+    }, [props.task.title, props.titleRef]);
 
-    return { todoTitle, setTodoTitle };
+    return { taskTitle, setTaskTitle };
 }
 
-export const useHandleTodoRowKeyDown = ({ props }: TTodoRowProps) => {
+export const useHandleTaskRowKeyDown = ({ props }: TTaskRowProps) => {
     const handleKeyDown = useCallback((event: React.KeyboardEvent<HTMLDivElement>) => {
         if (event.target === event.currentTarget) {
             switch (event.key) {
@@ -63,7 +78,7 @@ export const useHandleTodoRowKeyDown = ({ props }: TTodoRowProps) => {
                     break;
                 case 'Delete':
                     event.preventDefault();
-                    props.setIsDeleteTodoModalOpen(true);
+                    props.setIsDeleteTaskModalOpen(true);
                     event.currentTarget.blur();
                     break;
             }
@@ -73,19 +88,19 @@ export const useHandleTodoRowKeyDown = ({ props }: TTodoRowProps) => {
     return handleKeyDown;
 }
 
-export const useHandleTodoTitleBlur = ({ props }: TUseHandleTodoTitleBlur) => {
+export const useHandleTaskTitleBlur = ({ props }: TUseHandleTaskTitleBlur) => {
     const handleBlur = useCallback((event: React.FocusEvent<HTMLSpanElement>) => {
         const newTitle = event.currentTarget.innerText.trim();
-        if (newTitle && newTitle !== props.todo.title) {
+        if (newTitle && newTitle !== props.task.title) {
             event.currentTarget.innerText = newTitle;
-            props.setTodoTitle(newTitle);
+            props.setTaskTitle(newTitle);
         }
     }, [props]);
 
     return handleBlur;
 }
 
-export const useHandleTodoTitleKeyDown = ({ props }: TUseHandleTodoTitleKeyDown) => {
+export const useHandleTaskTitleKeyDown = ({ props }: TUseHandleTaskTitleKeyDown) => {
     const handleKeyDown = useCallback((event: React.KeyboardEvent<HTMLSpanElement>) => {
         if (event.target === event.currentTarget) {
             switch (event.key) {
@@ -95,12 +110,12 @@ export const useHandleTodoTitleKeyDown = ({ props }: TUseHandleTodoTitleKeyDown)
                     break;
                 case 'Escape':
                     event.preventDefault();
-                    event.currentTarget.innerText = props.todoTitle;
+                    event.currentTarget.innerText = props.taskTitle;
                     event.currentTarget.blur();
                     break;
             }
         }
-    }, [props.todoTitle]);
+    }, [props.taskTitle]);
 
     return handleKeyDown;
 }
