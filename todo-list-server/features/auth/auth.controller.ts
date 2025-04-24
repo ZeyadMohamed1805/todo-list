@@ -3,7 +3,6 @@ import { loginUser, registerUser } from "./auth.service";
 import { StatusCodesEnum } from "../../enums/statusCodes.enum";
 import { loginSchema } from "./auth.schema";
 import { signToken } from "./auth.utils";
-import { ONE_HOUR, SEVEN_DAYS } from "./auth.constants";
 import { JWT_EXPIRES_IN } from "./auth.config";
 
 export const register = async (request: Request, response: Response, next: NextFunction) => {
@@ -30,6 +29,7 @@ export const login = async (request: Request, response: Response, next: NextFunc
         response.cookie("token", token, {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
+            sameSite: "none",
             maxAge: expiresIn
         });
 
