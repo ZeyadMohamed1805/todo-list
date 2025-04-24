@@ -26,7 +26,7 @@ export const login = async (request: Request, response: Response, next: NextFunc
         const expiresIn = rememberMe ? JWT_EXPIRES_IN.rememberMe : JWT_EXPIRES_IN.standard;
         const token = signToken({ userId: user.id }, expiresIn);
 
-        response.status(200).json({
+        response.status(StatusCodesEnum.OK).json({
             success: true,
             user: {
                 id: user.id,

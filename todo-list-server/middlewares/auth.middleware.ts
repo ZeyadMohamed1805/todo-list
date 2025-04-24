@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
+import { UnAuthorizedError } from '../errors/unAuthorized';
 import { AuthorizedRequest } from '../types/requests.types';
 import { StatusCodesEnum } from '../enums/statusCodes.enum';
 import { JWT_SECRET } from '../features/auth/auth.config';
@@ -8,7 +9,7 @@ export const authenticateUser = async (request: Request, response: Response, nex
     const token = request.header('Authorization')?.replace('Bearer ', '');
 
     if (!token) {
-        return response.status(StatusCodesEnum.UNAUTHORIZED).json({ error: token });
+        throw new UnAuthorizedError();
     }
 
     try {
@@ -17,6 +18,6 @@ export const authenticateUser = async (request: Request, response: Response, nex
         (request as AuthorizedRequest).userId = decoded.userId;
         next();
     } catch (error) {
-        return response.status(StatusCodesEnum.UNAUTHORIZED).json({ error: 'Invalid or expired token' });
+        throw new UnAuthorizedError();
     }
 };

@@ -43,5 +43,16 @@
   "no_thanks": "No, thanks",
   "confirm": "Confirm",
   "todo.new_todo": "New Todo",
-  "add": "Add"
+  "add": "Add",
+  "register_success": "Account created successfully!",
+  "todo_list_created": "Todo list created successfully!",
+  "todo_list_deleted": "Todo list deleted successfully!",
+  "task_created": "Task created successfully!",
+  "task_deleted": "Task deleted successfully!",
+  "task_updated": "Task updated successfully!",
+  "unauthorized": "Unauthorized",
+  "todo_list_not_found": "Todo list not found",
+  "task_not_found": "Task not found",
+  "invalid_task_data": "Invalid task data",
+  "user_already_exists": "User already exists"
 }

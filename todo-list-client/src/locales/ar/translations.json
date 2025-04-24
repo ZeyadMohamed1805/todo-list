@@ -43,5 +43,16 @@
   "no_thanks": "لا، شكرًا",
   "confirm": "تأكيد",
   "todo.new_todo": "مهمة جديدة",
-  "add": "إضافة"
+  "add": "إضافة",
+  "register_success": "تم إنشاء الحساب بنجاح!",
+  "todo_list_created": "تم إنشاء قائمة المهام بنجاح!",
+  "todo_list_deleted": "تم حذف قائمة المهام بنجاح!",
+  "task_created": "تم إنشاء المهمة بنجاح!",
+  "task_deleted": "تم حذف المهمة بنجاح!",
+  "task_updated": "تم تحديث المهمة بنجاح!",
+  "unauthorized": "غير مصرح",
+  "todo_list_not_found": "قائمة المهام غير موجودة",
+  "task_not_found": "المهمة غير موجودة",
+  "invalid_task_data": "بيانات المهمة غير صالحة",
+  "user_already_exists": "المستخدم موجود بالفعل"
 }
