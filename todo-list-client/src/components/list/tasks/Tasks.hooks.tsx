@@ -1,8 +1,10 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { TTaskRowProps, TUseHandleTaskTitleBlur, TUseHandleTaskTitleKeyDown, TUseInitializeTaskTitleInnerText } from "./Tasks.types";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import api from "../../../services/Api.service";
 import { useParams } from "react-router-dom";
+import { getToastDataFromError, showToast } from "../../shared/toast/Toast.service";
+import { VariantsEnum } from "../../../enums";
 
 export const useGetTasksByTodoListId = () => {
     const params = useParams();
@@ -12,6 +14,29 @@ export const useGetTasksByTodoListId = () => {
         queryFn: async () => {
             const response = await api(`/tasks/todo-list/${params.listId}`);
             return response.data.data;
+        }
+    });
+}
+
+export const useDeleteTaskMutation = () => {
+    const queryClient = useQueryClient();
+
+    return useMutation({
+        mutationKey: ['deleteTask'],
+        mutationFn: async (taskId: string) => {
+            const response = await api.delete(`/tasks/${taskId}`);
+            return response.data.data;
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['tasks'] });
+            showToast({
+                message: "task_deleted",
+                variant: VariantsEnum.SUCCESS
+            });
+        },
+        onError: (error) => {
+            const toastData = getToastDataFromError(error);
+            showToast(toastData);
         }
     });
 }
