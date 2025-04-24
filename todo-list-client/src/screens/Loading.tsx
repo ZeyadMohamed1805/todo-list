@@ -7,7 +7,7 @@ const Loading = () => {
 
     return (
         <main>
-            <img src="/gifs/nagwa-loader-logo-unscreen.gif" alt={t("loading")} />
+            <img src="/gifs/nagwa-loader-logo.gif" alt={t("loading")} />
         </main>
     );
 };
