@@ -1,16 +1,16 @@
 import { useEffect, useState } from 'react';
-import { TUseTodoListPercentageCompletedProps } from './Progress.types';
+import { TUseTodoListProgressCompletedProps } from './Progress.types';
 
-export const useTodoListPercentageCompleted = ({ props }: TUseTodoListPercentageCompletedProps) => {
-  const [percentage, setPercentage] = useState(0);
+export const useTodoListProgressCompleted = ({ props }: TUseTodoListProgressCompletedProps) => {
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
-      setPercentage(props.percentage);
+      setProgress(props.progress);
     }, 250);
 
     return () => clearTimeout(timeout);
-  }, [props.percentage]);
+  }, [props.progress]);
 
-  return { percentage };
+  return { progress };
 };

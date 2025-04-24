@@ -1,8 +1,9 @@
 import { Todo } from './Todos.blocks';
 import { TODOS } from './Todos.constants';
 import { useKeyBindTodoList } from './Todos.hooks';
+import { TTodosProps } from './Todos.types';
 
-const Todos = () => {
+const Todos = ({ props }: TTodosProps) => {
     const keyBindTodoListData = useKeyBindTodoList();
 
     return TODOS.map((todo, index) => (

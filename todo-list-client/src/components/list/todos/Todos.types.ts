@@ -15,6 +15,12 @@ export type TTodoProps = {
     }
 };
 
+export type TTodosProps = {
+    props: {
+        todos: Array<TTodo>;
+    }
+}
+
 export type TTodoRowProps = {
     props: {
         todo: TTodo;

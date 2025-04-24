@@ -1,6 +1,6 @@
 export enum TodosStatusEnum {
-    PENDING = 'todo.pending',
-    IN_PROGRESS = 'todo.in_progress',
-    COMPLETED = 'todo.completed',
-    BLOCKED = 'todo.blocked',
+    PENDING = 'PENDING',
+    IN_PROGRESS = 'IN_PROGRESS',
+    COMPLETED = 'COMPLETED',
+    BLOCKED = 'BLOCKED',
 }

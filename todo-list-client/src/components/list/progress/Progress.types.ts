@@ -1,7 +1,7 @@
 export type TProgressProps = {
   props: {
-    percentage: number;
+    progress: number;
   };
 };
 
-export type TUseTodoListPercentageCompletedProps = TProgressProps;
+export type TUseTodoListProgressCompletedProps = TProgressProps;

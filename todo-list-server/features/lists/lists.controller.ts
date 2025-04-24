@@ -20,6 +20,24 @@ export const getTodoLists = async (request: Request, response: Response): Promis
     response.status(StatusCodesEnum.OK).json({ success: true, data: todoLists });
 };
 
+export const getTodoListById = async (request: Request, response: Response): Promise<void> => {
+    const { userId, params: { todoListId } } = (request as AuthorizedRequest);
+
+    const todoList = await prisma.todoList.findFirst({
+        where: {
+            id: todoListId,
+            userId,
+        },
+    });
+
+    if (!todoList) {
+        throw new TodoListNotFoundError();
+    }
+
+    response.status(StatusCodesEnum.OK).json({ success: true, data: todoList });
+};
+
+
 export const createTodoList = async (request: Request, response: Response): Promise<void> => {
     const { userId, body: { title } } = request as AuthorizedRequest;
 
