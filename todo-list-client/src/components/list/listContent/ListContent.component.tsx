@@ -13,7 +13,7 @@ const ListContent = () => {
     return (
         <>
             <Progress props={{ progress: todoList.data.progress }} />
-            <Title props={{ title: todoList.data.title }} />
+            <Title props={{ title: todoList.data.title, createdAt: todoList.data.createdAt }} />
             <Tasks />
         </>
     );

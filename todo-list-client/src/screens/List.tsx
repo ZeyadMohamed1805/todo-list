@@ -1,4 +1,4 @@
-import Create from '../components/list/create';
+import Create from '../components/list/createTask';
 import ListContent from '../components/list/listContent';
 
 const List = () => {
