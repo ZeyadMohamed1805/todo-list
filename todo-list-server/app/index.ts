@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import authRoutes from '../features/auth/auth.routes';
 import todoListRoutes from '../features/lists/lists.routes';
+import taskRoutes from '../features/tasks/tasks.routes';
 import errorHandler from '../middlewares/errorHandler.middleware';
 
 dotenv.config();
@@ -22,6 +23,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/auth", authRoutes);
 app.use("/api/todo-lists", todoListRoutes);
+app.use("/api/tasks", taskRoutes);
 
 app.use(errorHandler);
 
