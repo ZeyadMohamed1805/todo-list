@@ -1,12 +1,12 @@
+import { useTheme } from '../../../hooks';
 import styles from './ThemeButton.module.scss';
-import { useThemeButton } from './ThemeButton.hooks';
 
 const ThemeButton = () => {
-  const themeButtonData = useThemeButton();
+  const themeData = useTheme();
 
   return (
-    <button type="button" onClick={themeButtonData.toggleTheme} className={styles.themeButton}>
-      {themeButtonData.themeText}
+    <button type="button" onClick={themeData.toggleTheme} className={styles.themeButton}>
+      {themeData.themeText}
     </button>
   );
 };
