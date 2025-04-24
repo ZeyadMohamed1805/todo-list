@@ -37,9 +37,10 @@ export const useCreateTaskMutation = () => {
         mutationKey: ['todoLists'],
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['tasks'] });
+            queryClient.invalidateQueries({ queryKey: ['todoListById'] });
 
             showToast({
-                message: "Task created successfully",
+                message: "task_created",
                 variant: VariantsEnum.SUCCESS,
             });
         },

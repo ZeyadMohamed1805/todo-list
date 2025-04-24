@@ -29,6 +29,8 @@ export const useDeleteTaskMutation = () => {
         },
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['tasks'] });
+            queryClient.invalidateQueries({ queryKey: ['todoListById'] });
+
             showToast({
                 message: "task_deleted",
                 variant: VariantsEnum.SUCCESS
