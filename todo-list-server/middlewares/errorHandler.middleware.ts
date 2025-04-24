@@ -7,7 +7,7 @@ const errorHandler = (error: Error, request: Request, response: Response, next: 
     
     response.status(statusCode).json({
         success: false,
-        message: error.message || "something_went_wrong",
+        message: "something_went_wrong",
     });
 };
 

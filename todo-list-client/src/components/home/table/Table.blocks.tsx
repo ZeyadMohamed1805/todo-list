@@ -10,8 +10,8 @@ import styles from './Table.module.scss';
 import { TODO_LISTS_HEADERS } from './Table.constants';
 import { useDeleteTodoListMutation, useRequestTodoLists, useTodoListProgress, useToggleDropdown } from './Table.hooks';
 import { useTranslation } from 'react-i18next';
-import { TodosStatusEnum } from '../../../enums';
 import { useNavigate } from 'react-router-dom';
+import { StatusEnum } from '../../../enums';
 
 export const TableEmpty = () => {
   const { t } = useTranslation();
@@ -20,7 +20,7 @@ export const TableEmpty = () => {
     <tr>
       <td className={styles.empty} colSpan={4}>
         <div className={styles.emptyContent}>
-          <p>{t("todo.empty_list")}</p>
+          <p>{t("home.empty_list")}</p>
         </div>
       </td>
     </tr>
@@ -59,7 +59,7 @@ const TodoListTitle = ({ title }: TTodoTitleProps) => {
   return <span className={styles.title}>{title}</span>;
 };
 
-const TodoListStatus = ({ status }: { status: TodosStatusEnum }) => {
+const TodoListStatus = ({ status }: { status: StatusEnum }) => {
   const { t } = useTranslation();
 
   return <div className={styles.status}>{t(status)}</div>;
