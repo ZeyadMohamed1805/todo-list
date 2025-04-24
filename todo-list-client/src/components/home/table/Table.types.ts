@@ -16,6 +16,10 @@ export type TTodoTitleProps = {
   title: string;
 };
 
+export type TTodoActionsProps = {
+  id: string;
+};
+
 type TTodoList = {
   id: string;
   title: string;

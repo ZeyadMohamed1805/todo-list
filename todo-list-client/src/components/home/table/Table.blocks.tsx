@@ -1,5 +1,6 @@
 import {
   TTableListProps,
+  TTodoActionsProps,
   TTodoProgressCircleProps,
   TTodoProgressContentProps,
   TTodoRowProps,
@@ -7,9 +8,10 @@ import {
 } from './Table.types';
 import styles from './Table.module.scss';
 import { TODO_LISTS_HEADERS } from './Table.constants';
-import { useRequestTodoLists, useTodoListProgress, useToggleDropdown } from './Table.hooks';
+import { useDeleteTodoListMutation, useRequestTodoLists, useTodoListProgress, useToggleDropdown } from './Table.hooks';
 import { useTranslation } from 'react-i18next';
 import { TodosStatusEnum } from '../../../enums';
+import { useNavigate } from 'react-router-dom';
 
 export const TableEmpty = () => {
   const { t } = useTranslation();
@@ -63,9 +65,11 @@ const TodoListStatus = ({ status }: { status: TodosStatusEnum }) => {
   return <div className={styles.status}>{t(status)}</div>;
 };
 
-const TodoListActions = () => {
-  const { t } = useTranslation();
+const TodoListActions = ({ id }: TTodoActionsProps) => {
+  const { t, i18n: { language } } = useTranslation();
   const toggleDropdownData = useToggleDropdown();
+  const deleteTodoListMutation = useDeleteTodoListMutation();
+  const navigate = useNavigate();
 
   return (
     <div className={styles.actionsWrapper}>
@@ -78,13 +82,10 @@ const TodoListActions = () => {
       </button>
 
       <div className={toggleDropdownData.dropdownClassName}>
-        <button type="button" className={styles.dropdownItem}>
+        <button type="button" onClick={() => navigate(`/${language}/lists/${id}`)} className={styles.dropdownItem}>
           {t('todo.view')}
         </button>
-        <button type="button" className={styles.dropdownItem}>
-          {t('todo.edit')}
-        </button>
-        <button type="button" className={styles.dropdownItem}>
+        <button type="button" onClick={() => deleteTodoListMutation.mutate(id)} className={styles.dropdownItem}>
           {t('todo.delete')}
         </button>
       </div>
@@ -110,7 +111,7 @@ const TodoListRow = ({ props }: TTodoRowProps) => {
         <TodoListStatus status={props.status} />
       </td>
       <td>
-        <TodoListActions />
+        <TodoListActions id={props.id} />
       </td>
     </tr>
   );
