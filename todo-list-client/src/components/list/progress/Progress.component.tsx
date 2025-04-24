@@ -1,18 +1,20 @@
 import styles from './Progress.module.scss';
 import { TProgressProps } from './Progress.types';
-import { useTodoListPercentageCompleted } from './Progress.hooks';
+import { useTodoListProgressCompleted } from './Progress.hooks';
 
 const Progress = ({ props }: TProgressProps) => {
-  const todoListPercentageProgressData = useTodoListPercentageCompleted({ props });
+  const todoListProgressProgressData = useTodoListProgressCompleted({ props });
+  console.log(props.progress);
+  
 
   return (
     <div className={styles.container}>
       <div className={styles.bar}>
         <div
           className={styles.fill}
-          style={{ width: `${todoListPercentageProgressData.percentage}%` }}
+          style={{ width: `${todoListProgressProgressData.progress}%` }}
         />
-        <span className={styles.percentage}>{props.percentage.toFixed(0)}%</span>
+        <span className={styles.progress}>{props.progress.toFixed(0)}%</span>
       </div>
     </div>
   );

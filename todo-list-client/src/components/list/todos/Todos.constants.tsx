@@ -11,12 +11,12 @@ export const TODOS = [
         id: '2',
         title: 'Grocery shopping',
         completed: false,
-        status: TodosStatusEnum.TODO,
+        status: TodosStatusEnum.PENDING,
     },
     {
         id: '3',
         title: 'Read a book',
         completed: true,
-        status: TodosStatusEnum.DONE,
+        status: TodosStatusEnum.COMPLETED,
     },
 ]
