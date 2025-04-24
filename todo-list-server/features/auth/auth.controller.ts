@@ -26,20 +26,14 @@ export const login = async (request: Request, response: Response, next: NextFunc
         const expiresIn = rememberMe ? JWT_EXPIRES_IN.rememberMe : JWT_EXPIRES_IN.standard;
         const token = signToken({ userId: user.id }, expiresIn);
 
-        response.cookie("token", token, {
-            httpOnly: true,
-            secure: process.env.NODE_ENV === "production",
-            sameSite: "none",
-            maxAge: expiresIn
-        });
-
         response.status(200).json({
             success: true,
             user: {
                 id: user.id,
                 username: user.username,
                 email: user.email
-            }
+            },
+            token,
         });
     } catch (error) {
         next(error);
