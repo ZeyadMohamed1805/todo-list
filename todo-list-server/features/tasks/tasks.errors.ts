@@ -18,3 +18,10 @@ export class TaskNotFoundError extends Error {
         this.name = "TaskNotFoundError";
     }
 }
+
+export class InvalidTaskDataError extends Error {
+    constructor() {
+        super("invalid_task_data");
+        this.name = "InvalidTaskDataError";
+    }
+}
