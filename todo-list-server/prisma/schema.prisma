@@ -18,7 +18,7 @@ model User {
   todoLists TodoList[]
 }
 
-enum TaskStatus {
+enum Status {
   PENDING
   IN_PROGRESS
   BLOCKED
@@ -31,21 +31,22 @@ model TodoList {
   imagePath           String?
   totalTasksCount     Int      @default(0)
   completedTasksCount Int      @default(0)
+  status              Status   @default(PENDING)
   progress            Float    @default(0)
   createdAt           DateTime @default(now())
 
   userId              Int
-  user                User      @relation(fields: [userId], references: [id])
+  user                User     @relation(fields: [userId], references: [id])
   tasks               Task[]
 }
 
 model Task {
-  id         String     @id @default(cuid())
-  title      String
+  id          String     @id @default(cuid())
+  title       String
   isCompleted Boolean    @default(false)
-  status     TaskStatus @default(PENDING)
-  createdAt  DateTime   @default(now())
+  status      Status     @default(PENDING)
+  createdAt   DateTime   @default(now())
 
-  todoListId String
-  todoList   TodoList  @relation(fields: [todoListId], references: [id])
+  todoListId  String
+  todoList    TodoList   @relation(fields: [todoListId], references: [id])
 }
