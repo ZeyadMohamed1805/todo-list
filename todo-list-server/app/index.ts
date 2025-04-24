@@ -2,6 +2,7 @@ import express from 'express';
 import dotenv from "dotenv";
 import cors from "cors";
 import authRoutes from '../features/auth/auth.routes';
+import errorHandler from '../middlewares/errorHandler.middleware';
 
 dotenv.config();
 
@@ -19,6 +20,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/auth", authRoutes);
+
+app.use(errorHandler);
 
 app.listen(port, () => {
   console.log(`Application is running on http://localhost:${port}`);
