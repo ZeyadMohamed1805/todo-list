@@ -14,7 +14,7 @@
   padding: spacing.$sm spacing.$md;
   background-color: var(--neutral-one);
   box-shadow: shadows.$xs;
-  position: fixed;
+  position: sticky;
   top: 0;
 
   .logo {
