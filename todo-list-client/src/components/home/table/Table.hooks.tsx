@@ -3,6 +3,7 @@ import { TUseTodoProgressProps } from './Table.types';
 import styles from './Table.module.scss';
 import { useQuery } from '@tanstack/react-query';
 import api from '../../../services/Api.service';
+import { getToastDataFromError, showToast } from '../../shared/toast/Toast.service';
 
 export const useTodoListProgress = ({ props }: TUseTodoProgressProps) => {
   const [progress, setProgress] = useState(0);
@@ -44,13 +45,15 @@ export const useRequestTodoLists = () => {
   return useQuery({
     queryKey: ['todoLists'],
     queryFn: async () => {
-      const response = await api.get('/todo-lists');
+      try {
+        const response = await api.get('/todo-lists');
 
-      if (!response.data) {
-        throw new Error('Network response was not ok');
+        return response.data.data;
+      } catch (error) {
+        const toastData = getToastDataFromError(error);
+
+        showToast(toastData);
       }
-
-      return response.data;
     }
   });
 }

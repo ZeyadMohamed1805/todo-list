@@ -1,4 +1,5 @@
 @use '../shared/typography';
+@use '../shared/spacing';
 
 html {
   color-scheme: light dark;
@@ -14,6 +15,7 @@ main {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: spacing.$lg;
 }
 
 a {

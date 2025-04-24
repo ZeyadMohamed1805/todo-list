@@ -2,23 +2,37 @@ import { Request, Response } from "express";
 import { AuthorizedRequest } from "../../types/requests.types";
 import prisma from "../../prisma";
 import { StatusCodesEnum } from "../../enums/statusCodes.enum";
+import { TodoListTitleIsRequiredError } from "./lists.errors";
 
-export const getTodoLists = async (request: Request, response: Response): Promise<any> => {
-    try {
-        const userId = (request as AuthorizedRequest).userId;
-        
-        const todoLists = await prisma.todoList.findMany({
-            where: { userId },
-            select: {
-                id: true,
-                title: true,
-                progress: true,
-                status: true
-            },
-        });
+export const getTodoLists = async (request: Request, response: Response): Promise<void> => {
+    const userId = (request as AuthorizedRequest).userId;
 
-        response.json(todoLists);
-    } catch (error) {
-        response.status(StatusCodesEnum.INTERNAL_SERVER_ERROR).json({ error: 'something_went_wrong' });
+    const todoLists = await prisma.todoList.findMany({
+        where: { userId },
+        select: {
+            id: true,
+            title: true,
+            progress: true,
+            status: true
+        },
+    });
+
+    response.status(StatusCodesEnum.OK).json({ success: true, data: todoLists });
+};
+
+export const createTodoList = async (request: Request, response: Response): Promise<void> => {
+    const { userId, body: { title } } = request as AuthorizedRequest;
+
+    if (!title) {
+        throw new TodoListTitleIsRequiredError();
     }
+
+    const newTodoList = await prisma.todoList.create({
+        data: {
+            title,
+            userId,
+        },
+    });
+
+    response.status(StatusCodesEnum.CREATED).json({ status: true, data: newTodoList});
 };
