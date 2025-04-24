@@ -4,7 +4,7 @@ import { LoginSchema } from './Login.schema';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useMutation } from '@tanstack/react-query';
-import axios from '../../../services/Axios.service';
+import api from '../../../services/Api.service';
 import { TLoginData, TLoginResponse } from './Login.types';
 import { showToast } from '../../shared/toast/Toast.service';
 import { getToastDataFromError } from '../../shared/toast/Toast.service';
@@ -30,6 +30,7 @@ export const useLogin = () => {
           
           if (username) {
             setLocalStorageItem('username', username);
+            setLocalStorageItem('token', response.data.token);
             navigate(`/${language}/home`);
           } else {
             showToast({
@@ -52,6 +53,6 @@ export const useLogin = () => {
 
 const useLoginMutation = () => {
   return useMutation({
-    mutationFn: (data: TLoginData) => axios.post('/auth/login', data),
+    mutationFn: (data: TLoginData) => api.post('/auth/login', data),
   });
 };

@@ -1,4 +1,4 @@
-import { ETableTodosStatus } from './Table.enums';
+import { TodosStatusEnum } from '../../../enums';
 
 export type TTodoProgressCircleProps = {
   props: {
@@ -19,7 +19,7 @@ export type TTodoTitleProps = {
 type TTodoList = {
   id: string;
   title: string;
-  status: ETableTodosStatus;
+  status: TodosStatusEnum;
   progress: number;
 };
 
@@ -31,4 +31,10 @@ export type TUseTodoProgressProps = {
   props: {
     progress: number;
   };
+};
+
+export type TTableListProps = {
+  props: {
+    todoLists: TTodoList[];
+  }
 };

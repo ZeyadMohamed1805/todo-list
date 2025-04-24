@@ -1,8 +1,10 @@
 import { useCallback, useEffect, useState } from 'react';
 import { TUseTodoProgressProps } from './Table.types';
 import styles from './Table.module.scss';
+import { useQuery } from '@tanstack/react-query';
+import api from '../../../services/Api.service';
 
-export const useTodoProgress = ({ props }: TUseTodoProgressProps) => {
+export const useTodoListProgress = ({ props }: TUseTodoProgressProps) => {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
@@ -37,3 +39,18 @@ export const useToggleDropdown = () => {
 
   return { dropdownClassName, toggleDropdown };
 };
+
+export const useRequestTodoLists = () => {
+  return useQuery({
+    queryKey: ['todoLists'],
+    queryFn: async () => {
+      const response = await api.get('/todo-lists');
+
+      if (!response.data) {
+        throw new Error('Network response was not ok');
+      }
+
+      return response.data;
+    }
+  });
+}

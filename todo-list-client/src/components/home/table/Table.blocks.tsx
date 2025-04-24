@@ -1,28 +1,31 @@
 import {
+  TTableListProps,
   TTodoProgressCircleProps,
   TTodoProgressContentProps,
   TTodoRowProps,
   TTodoTitleProps,
 } from './Table.types';
 import styles from './Table.module.scss';
-import { TODO_LISTS, TODO_LISTS_HEADERS } from './Table.constants';
-import { useTodoProgress, useToggleDropdown } from './Table.hooks';
+import { TODO_LISTS_HEADERS } from './Table.constants';
+import { useRequestTodoLists, useTodoListProgress, useToggleDropdown } from './Table.hooks';
 import { useTranslation } from 'react-i18next';
 import { TodosStatusEnum } from '../../../enums';
 
 export const TableEmpty = () => {
+  const { t } = useTranslation();
+
   return (
     <tr>
       <td className={styles.empty} colSpan={4}>
         <div className={styles.emptyContent}>
-          <p>No todo lists yet. Let's create one!</p>
+          <p>{t("todo.empty_list")}</p>
         </div>
       </td>
     </tr>
   );
 };
 
-const TodoProgressCircle = ({ props }: TTodoProgressCircleProps) => {
+const TodoListProgressCircle = ({ props }: TTodoProgressCircleProps) => {
   const radius = 45;
   const circumference = 2 * Math.PI * radius;
   const dashOffset = circumference - (props.progress / 100) * circumference;
@@ -42,7 +45,7 @@ const TodoProgressCircle = ({ props }: TTodoProgressCircleProps) => {
   );
 };
 
-const TodoProgressContent = ({ props }: TTodoProgressContentProps) => {
+const TodoListProgressContent = ({ props }: TTodoProgressContentProps) => {
   return (
     <div className={styles.progressCircleContent}>
       <span className={styles.progressCirclePercentage}>{props.progress}%</span>
@@ -50,17 +53,17 @@ const TodoProgressContent = ({ props }: TTodoProgressContentProps) => {
   );
 };
 
-const TodoTitle = ({ title }: TTodoTitleProps) => {
+const TodoListTitle = ({ title }: TTodoTitleProps) => {
   return <span className={styles.title}>{title}</span>;
 };
 
-const TodoStatus = ({ status }: { status: TodosStatusEnum }) => {
+const TodoListStatus = ({ status }: { status: TodosStatusEnum }) => {
   const { t } = useTranslation();
 
   return <div className={styles.status}>{t(status)}</div>;
 };
 
-const TodoActions = () => {
+const TodoListActions = () => {
   const { t } = useTranslation();
   const toggleDropdownData = useToggleDropdown();
 
@@ -89,25 +92,25 @@ const TodoActions = () => {
   );
 };
 
-const TodoRow = ({ props }: TTodoRowProps) => {
-  const todoRowData = useTodoProgress({ props });
+const TodoListRow = ({ props }: TTodoRowProps) => {
+  const todoListRowData = useTodoListProgress({ props });
 
   return (
     <tr key={props.id}>
       <td>
         <div className={styles.progressCircle}>
-          <TodoProgressCircle props={{ progress: todoRowData.progress }} />
-          <TodoProgressContent props={{ progress: todoRowData.progress }} />
+          <TodoListProgressCircle props={{ progress: todoListRowData.progress }} />
+          <TodoListProgressContent props={{ progress: todoListRowData.progress }} />
         </div>
       </td>
       <td>
-        <TodoTitle title={props.title} />
+        <TodoListTitle title={props.title} />
       </td>
       <td>
-        <TodoStatus status={props.status} />
+        <TodoListStatus status={props.status} />
       </td>
       <td>
-        <TodoActions />
+        <TodoListActions />
       </td>
     </tr>
   );
@@ -123,14 +126,20 @@ export const TableHeaders = () => {
   ));
 };
 
-const TableLists = () => {
-  return TODO_LISTS.map((todo) => <TodoRow key={todo.id} props={todo} />);
+const TableLists = ({ props }: TTableListProps) => {
+  return props.todoLists.map((todoList) => <TodoListRow key={todoList.id} props={todoList} />);
 };
 
 export const TableContent = () => {
-  if (!TODO_LISTS.length) {
+  const todoListsRequest = useRequestTodoLists();
+
+  if (todoListsRequest.isLoading) {
+    return <tr><td>Loading...</td></tr>
+  }
+
+  if (!todoListsRequest.data.length) {
     return <TableEmpty />;
   }
 
-  return <TableLists />;
+  return <TableLists props={{ todoLists:todoListsRequest.data }} />;
 };
