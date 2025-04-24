@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { AuthorizedRequest } from "../../types/requests.types";
 import prisma from "../../prisma";
-import { TaskNotFoundError, TaskTitleIsRequiredError, TodoListNotFoundError } from "./tasks.errors";
+import { InvalidTaskDataError, TaskNotFoundError, TaskTitleIsRequiredError, TodoListNotFoundError } from "./tasks.errors";
 import { StatusCodesEnum } from "../../enums/statusCodes.enum";
 import { UnAuthorizedError } from "../../errors/unAuthorized";
 
@@ -57,6 +57,35 @@ export const createTodoListTask = async (request: Request, response: Response) =
     });
 
     response.status(StatusCodesEnum.CREATED).json(newTask);
+};
+
+export const patchTodoListTask = async (request: Request, response: Response) => {
+    try {
+        const { userId, params: { taskId }, body } = request as AuthorizedRequest;
+    
+        const task = await prisma.task.findUnique({
+            where: { id: taskId },
+            include: { todoList: true },
+        });
+    
+        if (!task) {
+            throw new TaskNotFoundError();
+        }
+    
+        if (task.todoList.userId !== userId) {
+            throw new UnAuthorizedError();
+        }
+    
+        const updatedTask = await prisma.task.update({
+            where: { id: taskId },
+            data: body,
+        });
+
+        response.status(StatusCodesEnum.OK).json({ success: true, data: updatedTask });
+    } catch (error) {
+        throw new InvalidTaskDataError();
+    }
+
 };
 
 export const deleteTodoListTask = async (request: Request, response: Response) => {
