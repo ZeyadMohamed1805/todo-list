@@ -7,3 +7,6 @@ export const TOAST_INITIAL_STATE: TToastState = {
     isHiding: false,
     variant: VariantsEnum.ERROR,
 };
+
+export const TOAST_ANIMATION_TIMEOUT = 500;
+export const TOAST_HIDE_TIMEOUT = 5000;
