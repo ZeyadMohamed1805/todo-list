@@ -13,7 +13,7 @@ export const FORM_INPUT_FIELDS = [
   },
   {
     type: 'password',
-    name: 'password_confirmation',
+    name: 'passwordConfirmation',
     placeholder: 'confirm_password',
     required: true,
   },
