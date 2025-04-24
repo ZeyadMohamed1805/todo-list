@@ -4,3 +4,10 @@ export class TodoListTitleIsRequiredError extends Error {
         this.name = "TodoListTitleIsRequiredError";
     }
 }
+
+export class TodoListNotFoundError extends Error {
+    constructor() {
+        super("todo_list_not_found");
+        this.name = "TodoListNotFoundError";
+    }
+}

@@ -1,9 +1,10 @@
 import { useCallback, useEffect, useState } from 'react';
 import { TUseTodoProgressProps } from './Table.types';
 import styles from './Table.module.scss';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import api from '../../../services/Api.service';
 import { getToastDataFromError, showToast } from '../../shared/toast/Toast.service';
+import { VariantsEnum } from '../../../enums';
 
 export const useTodoListProgress = ({ props }: TUseTodoProgressProps) => {
   const [progress, setProgress] = useState(0);
@@ -54,6 +55,25 @@ export const useRequestTodoLists = () => {
 
         showToast(toastData);
       }
+    }
+  });
+}
+
+export const useDeleteTodoListMutation = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (todoListId: string) => api.delete(`/todo-lists/${todoListId}`),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['todoLists'] });
+      showToast({
+        message: 'todo_list_deleted',
+        variant: VariantsEnum.SUCCESS
+      });
+    },
+    onError: (error) => {
+      const toastData = getToastDataFromError(error);
+      showToast(toastData);
     }
   });
 }
