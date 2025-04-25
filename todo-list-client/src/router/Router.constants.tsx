@@ -8,7 +8,6 @@ import NotFound from '../screens/NotFound';
 
 export const PROTECTED_ROUTES: Array<RouteProps> = [
   ...Object.values(LanguagesEnum).map((lang) => [
-    { path: `/${lang}/auth`, element: <Auth /> },
     { path: `/${lang}/home`, element: <Home /> },
     { path: `/${lang}/lists/:listId`, element: <List /> },
   ]).flat(),
@@ -17,4 +16,10 @@ export const PROTECTED_ROUTES: Array<RouteProps> = [
 export const UNPROTECTED_ROUTES: Array<RouteProps> = [
   { path: '/', element: <Navigate to={`/${i18n.language}/auth`} replace /> },
   { path: `*`, element: <NotFound /> }
+];
+
+export const AUTHORIZED_ROUTES: Array<RouteProps> = [
+  ...Object.values(LanguagesEnum).map((lang) => [
+    { path: `/${lang}/auth`, element: <Auth /> },
+  ]).flat(),
 ];
