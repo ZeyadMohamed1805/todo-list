@@ -234,10 +234,3 @@
     }
   }
 }
-
-@media (max-width: 768px) {
-  td:has(.status),
-  th.headerStatus {
-    display: none;
-  }
-}

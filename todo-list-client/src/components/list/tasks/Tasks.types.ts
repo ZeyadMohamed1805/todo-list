@@ -1,12 +1,10 @@
 import { Dispatch, ReactNode, RefObject, SetStateAction } from "react";
-import { StatusEnum } from "../../../enums";
 
 export type TTask = {
     id: string;
     title: string;
     isCompleted: boolean;
     createdAt: string;
-    status: StatusEnum;
 };
 
 export type TTaskProps = {

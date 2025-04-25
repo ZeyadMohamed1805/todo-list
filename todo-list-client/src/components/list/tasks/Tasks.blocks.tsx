@@ -1,24 +1,11 @@
 import { useRef, useState } from "react";
-import { StatusEnum, VariantsEnum } from "../../../enums";
+import { VariantsEnum } from "../../../enums";
 import styles from "./Tasks.module.scss";
 import { useTranslation } from "react-i18next";
 import Modal from "../../shared/modal";
 import Checkbox from "../../shared/checkbox";
 import { TDeleteTaskProps, TTaskCheckboxProps, TTaskProps, TTaskRowProps, TTaskTitleProps } from "./Tasks.types";
 import { useDeleteTaskMutation, useHandleTaskRowKeyDown, useHandleTaskTitleBlur, useHandleTaskTitleKeyDown, useInitializeTaskTitleInnerText, usePatchTaskMutation } from "./Tasks.hooks";
-import Select from "../../shared/select";
-
-const TaskStatus = ({ props }: TTaskProps) => {
-    const { t } = useTranslation();
-    const [taskStatus, setTaskStatus] = useState(props.task.status);
-    
-    return <Select props={{ 
-        title: "status",
-        options: Object.values(StatusEnum).map((status) => ({ value: status, label: t(status) })),
-        selectedOption: taskStatus,
-        setSelectedOption: (status) => setTaskStatus(status as StatusEnum)
-    }} />
-}
 
 const DeleteTask = ({ props }: TDeleteTaskProps) => {
     const { t } = useTranslation();
@@ -116,7 +103,6 @@ export const Task = ({ props }: TTaskProps) => {
         <TaskRow props={{ ...props, setIsChecked, titleRef, setIsDeleteTaskModalOpen }}>
             <TaskCheckbox props={{ ...props, isChecked, setIsChecked }} />
             <TaskTitle props={{ ...props, titleRef, isChecked }} />
-            <TaskStatus props={props} />
             <DeleteTask props={{ taskId: props.task.id, isDeleteTaskModalOpen, setIsDeleteTaskModalOpen }} />
         </TaskRow>
     );

@@ -11,7 +11,6 @@ import { TODO_LISTS_HEADERS } from './Table.constants';
 import { useDeleteTodoListMutation, useRequestTodoLists, useTodoListProgress, useToggleDropdown } from './Table.hooks';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { StatusEnum } from '../../../enums';
 import { useRef } from 'react';
 
 export const TableEmpty = () => {
@@ -65,12 +64,6 @@ const TodoListTitle = ({ title }: TTodoTitleProps) => {
   return <span className={styles.title}>{title}</span>;
 };
 
-const TodoListStatus = ({ status }: { status: StatusEnum }) => {
-  const { t } = useTranslation();
-
-  return <div className={styles.status}>{t(status)}</div>;
-};
-
 const TodoListActions = ({ id }: TTodoActionsProps) => {
   const { t, i18n: { language } } = useTranslation();
   const toggleDropdownData = useToggleDropdown();
@@ -112,9 +105,6 @@ const TodoListRow = ({ props }: TTodoRowProps) => {
       </td>
       <td>
         <TodoListTitle title={props.title} />
-      </td>
-      <td>
-        <TodoListStatus status={props.status} />
       </td>
       <td>
         <TodoListActions id={props.id} />

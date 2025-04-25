@@ -5,7 +5,7 @@ import {TSelectProps } from './Select.types';
 const Select = ({ props }: TSelectProps) => {
     return (
         <select
-            title="status"
+            title={props.title}
             value={props.selectedOption}
             onChange={(event) => props.setSelectedOption(event.target.value)}
             className={styles.select}

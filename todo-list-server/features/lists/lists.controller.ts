@@ -12,8 +12,7 @@ export const getTodoLists = async (request: Request, response: Response): Promis
         select: {
             id: true,
             title: true,
-            progress: true,
-            status: true
+            progress: true
         },
     });
 
@@ -52,7 +51,7 @@ export const createTodoList = async (request: Request, response: Response): Prom
         },
     });
 
-    response.status(StatusCodesEnum.CREATED).json({ status: true, data: newTodoList });
+    response.status(StatusCodesEnum.CREATED).json({ success: true, data: newTodoList });
 };
 
 export const deleteTodoList = async (request: Request, response: Response): Promise<void> => {
