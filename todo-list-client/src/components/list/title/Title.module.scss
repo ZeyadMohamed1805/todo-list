@@ -30,6 +30,11 @@
     display: block;
   }
 
+  .defaultIcon {
+    font-size: typography.$xl;
+    line-height: spacing.$xxl;
+  }
+
   .title {
     width: 100%;
     display: inline-block;
