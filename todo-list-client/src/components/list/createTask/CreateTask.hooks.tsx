@@ -6,6 +6,7 @@ import { getToastDataFromError, showToast } from "../../shared/toast/Toast.servi
 import { VariantsEnum } from "../../../enums";
 import { useForm } from "react-hook-form";
 import { useEffect } from "react";
+import { hideLoading, showLoading } from "../../shared/loading/Loading.service";
 
 export const useCreateTaskFormData = () => {
     const formData = useForm<TCreateTaskData>({ mode: 'all' });
@@ -15,6 +16,8 @@ export const useCreateTaskFormData = () => {
     const onSubmit = formData.handleSubmit((data) => {
         if (!data.title) return;
 
+        showLoading();
+        
         createTaskMutation.mutate(
             data,
             {
@@ -48,6 +51,9 @@ export const useCreateTaskMutation = () => {
             const toastData = getToastDataFromError(error);
             showToast(toastData);
         },
+        onSettled: () => {
+            hideLoading();
+        },
     });
 }
 
@@ -63,5 +69,5 @@ export const useKeyBindCreateTaskInput = ({ props }: TUseKeyBindCreateTaskInputP
 
         window.addEventListener('keydown', handleKeyDown);
         return () => window.removeEventListener('keydown', handleKeyDown);
-    }, []);
+    }, [props]);
 }

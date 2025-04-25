@@ -5,6 +5,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import api from '../../../services/Api.service';
 import { getToastDataFromError, showToast } from '../../shared/toast/Toast.service';
 import { VariantsEnum } from '../../../enums';
+import { hideLoading, showLoading } from '../../shared/loading/Loading.service';
 
 export const useTodoListProgress = ({ props }: TUseTodoProgressProps) => {
   const [progress, setProgress] = useState(0);
@@ -53,6 +54,7 @@ export const useRequestTodoLists = () => {
     queryKey: ['todoLists'],
     queryFn: async () => {
       try {
+        showLoading();
         const response = await api.get('/todo-lists');
 
         return response.data.data;
@@ -60,6 +62,8 @@ export const useRequestTodoLists = () => {
         const toastData = getToastDataFromError(error);
 
         showToast(toastData);
+      } finally {
+        hideLoading();
       }
     }
   });
@@ -81,6 +85,9 @@ export const useDeleteTodoListMutation = ({ props }: TUseDeleteTodoListMutation)
     onError: (error) => {
       const toastData = getToastDataFromError(error);
       showToast(toastData);
+    },
+    onSettled: () => {
+      hideLoading();
     }
   });
 }

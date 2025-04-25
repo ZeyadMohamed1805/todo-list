@@ -6,6 +6,7 @@ import { TCreateTodoListData } from './NewListForm.types';
 import api from '../../../services/Api.service';
 import { getToastDataFromError, showToast } from '../../shared/toast/Toast.service';
 import { VariantsEnum } from '../../../enums';
+import { hideLoading, showLoading } from '../../shared/loading/Loading.service';
 
 export const useCreateNewList = () => {
   const createTodoListMutation = useCreateTodoListMutation();
@@ -15,21 +16,13 @@ export const useCreateNewList = () => {
   });
 
   const onSubmit = formData.handleSubmit((data) => {
+    showLoading();
     createTodoListMutation.mutate(
       data,
       {
         onSuccess: () => {
           formData.reset();
-
-          showToast({
-            message: 'todo_list_created',
-            variant: VariantsEnum.SUCCESS,
-          });
-        },
-        onError: (error) => {
-          const toastData = getToastDataFromError(error);
-          showToast(toastData);
-        },
+        }
       }
     );
   });
@@ -45,6 +38,18 @@ const useCreateTodoListMutation = () => {
     mutationKey: ['todoLists'],
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['todoLists'] });
+
+      showToast({
+        message: 'todo_list_created',
+        variant: VariantsEnum.SUCCESS,
+      });
+    },
+    onError: (error) => {
+      const toastData = getToastDataFromError(error);
+      showToast(toastData);
+    },
+    onSettled: () => {
+      hideLoading();
     },
   });
 };

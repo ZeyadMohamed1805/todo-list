@@ -16,6 +16,7 @@ import { useNavigate } from 'react-router-dom';
 import { useRef, useState } from 'react';
 import DeleteModal from '../../shared/deleteModal';
 import { useClickOutside } from '../../../hooks/useClickOutside';
+import { showLoading } from '../../shared/loading/Loading.service';
 
 export const EmptyTable = ({ props }: TEmptyTableProps) => {
   const { t } = useTranslation();
@@ -122,7 +123,10 @@ const TodoListActions = ({ id }: TTodoActionsProps) => {
           isDeleteModalOpen,
           setIsDeleteModalOpen,
           onClose: () => setIsDeleteModalOpen(false),
-          onConfirm: () => deleteTodoListMutation.mutate(id),
+          onConfirm: () => {
+            showLoading();
+            deleteTodoListMutation.mutate(id)
+          },
         }}
       />
     </div>

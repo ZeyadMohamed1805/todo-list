@@ -6,6 +6,7 @@ import { useMutation } from '@tanstack/react-query';
 import api from '../../../services/Api.service';
 import { VariantsEnum } from '../../../enums';
 import { TRegisterData } from './Register.types';
+import { hideLoading, showLoading } from '../../shared/loading/Loading.service';
 
 export const useRegister = () => {
   const registerMutation = useRegisterMutation();
@@ -15,6 +16,7 @@ export const useRegister = () => {
   });
 
   const onSubmit = formData.handleSubmit((data) => {
+    showLoading();
     registerMutation.mutate(
       data,
       {
@@ -42,6 +44,9 @@ const useRegisterMutation = () => {
       const toastData = getToastDataFromError(error);
 
       showToast(toastData);
+    },
+    onSettled: () => {
+      hideLoading();
     },
   })
 }

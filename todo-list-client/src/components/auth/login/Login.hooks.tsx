@@ -11,6 +11,7 @@ import { getToastDataFromError } from '../../shared/toast/Toast.service';
 import { setLocalStorageItem } from '../../../services/LocalStorage.service';
 import { AxiosResponse } from 'axios';
 import { VariantsEnum } from '../../../enums';
+import { hideLoading, showLoading } from '../../shared/loading/Loading.service';
 
 export const useLogin = () => {
   const loginMutation = useLoginMutation();
@@ -23,6 +24,7 @@ export const useLogin = () => {
   });
 
   const onSubmit = formData.handleSubmit((data) => {
+    showLoading();
     loginMutation.mutate(data);
   });
 
@@ -54,6 +56,9 @@ const useLoginMutation = () => {
       const toastData = getToastDataFromError(error);
       
       showToast(toastData);
+    },
+    onSettled: () => {
+      hideLoading();
     },
   });
 };
