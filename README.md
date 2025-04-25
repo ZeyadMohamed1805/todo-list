@@ -60,6 +60,8 @@ JWT_TOKEN_EXPIRATION=3600
 JWT_REMEMBER_ME_EXPIRATION=604800
 ```
 
+You can generate a new JWT_SECRET here: https://jwtsecret.com/generate
+
 #### 🌐 Frontend `.env` Example
 
 ```
