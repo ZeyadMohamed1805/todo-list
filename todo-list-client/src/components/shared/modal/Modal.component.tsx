@@ -1,9 +1,10 @@
 import styles from './Modal.module.scss';
 import { TModalProps } from './Modal.types';
-import { useToggleModal } from './Modal.hooks';
+import { useKeyBindModal, useToggleModal } from './Modal.hooks';
 
 const Modal = ({ props, children }: TModalProps) => {
   const toggleModalData = useToggleModal({ props });
+  useKeyBindModal({ props });
 
   if (!toggleModalData.shouldModalRender) {
     return null;

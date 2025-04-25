@@ -1,14 +1,17 @@
 import { useTranslation } from "react-i18next";
-import { useTheme } from "../hooks";
+import { useLoading } from "./Loading.hooks";
+import styles from "./Loading.module.scss";
 
 const Loading = () => {
     const { t } = useTranslation();
-    useTheme();
+    const { isVisible } = useLoading();
+
+    if (!isVisible) return null;
 
     return (
-        <main>
+        <div className={styles.loadingOverlay}>
             <img src="/gifs/nagwa-loader-logo.gif" alt={t("loading")} />
-        </main>
+        </div>
     );
 };
 

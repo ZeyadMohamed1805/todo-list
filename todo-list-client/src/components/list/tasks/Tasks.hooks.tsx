@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import { getToastDataFromError, showToast } from "../../shared/toast/Toast.service";
 import { VariantsEnum } from "../../../enums";
 import _ from "lodash";
+import { hideLoading, showLoading } from "../../shared/loading/Loading.service";
 
 export const useGetTasksByTodoListId = () => {
     const params = useParams();
@@ -13,8 +14,15 @@ export const useGetTasksByTodoListId = () => {
     return useQuery({
         queryKey: ['tasks', params.listId],
         queryFn: async () => {
-            const response = await api(`/tasks/todo-list/${params.listId}`);
-            return response.data.data;
+            try {
+                const response = await api(`/tasks/todo-list/${params.listId}`);
+                return response.data.data;
+            } catch (error) {
+                const toastData = getToastDataFromError(error);
+                showToast(toastData);
+            } finally {
+                hideLoading();
+            }
         }
     });
 }
@@ -42,6 +50,9 @@ export const useDeleteTaskMutation = ({ props }: TUseDeleteTaskMutation) => {
         onError: (error) => {
             const toastData = getToastDataFromError(error);
             showToast(toastData);
+        },
+        onSettled: () => {
+            hideLoading();
         }
     });
 }
@@ -67,6 +78,9 @@ export const usePatchTaskMutation = () => {
         onError: (error) => {
             const toastData = getToastDataFromError(error);
             showToast(toastData);
+        },
+        onSettled: () => {
+            hideLoading();
         }
     });
 }
@@ -134,6 +148,8 @@ export const useHandleTaskRowKeyDown = ({ props }: TTaskRowProps) => {
                     props.setIsChecked((previousIsCheckedValue) => {
                         const newIsCheckedValue = !previousIsCheckedValue;
 
+                        showLoading();
+                        
                         patchTaskMutation.mutate({
                             taskId: props.task.id,
                             data: { isCompleted: newIsCheckedValue }
@@ -161,10 +177,14 @@ export const useHandleTaskTitleBlur = ({ props }: TUseHandleTaskTitleBlur) => {
         const newTitle = event.currentTarget.innerText.trim();
         if (newTitle && newTitle !== props.task.title) {
             event.currentTarget.innerText = newTitle;
+
+            showLoading();
+
             patchTaskMutation.mutate({
                 taskId: props.task.id,
                 data: { title: newTitle }
             });
+
             props.setTaskTitle(newTitle);
         }
     }, [props, patchTaskMutation]);
@@ -181,6 +201,9 @@ export const useHandleTaskTitleKeyDown = ({ props }: TUseHandleTaskTitleKeyDown)
                 case 'Enter':
                     event.preventDefault();
                     event.currentTarget.blur();
+
+                    showLoading();
+
                     patchTaskMutation.mutate({
                         taskId: props.taskId,
                         data: { title: event.currentTarget.innerText.trim() }
@@ -252,6 +275,8 @@ export const useDragAndDropTaskRows = ({ props }: TUseDragAndDropTaskRowsProps) 
 
     const handleDrop = useCallback(() => {
         if (draggingId) {
+            showLoading();
+
             patchTaskMutation.mutate({
                 taskId: draggingId,
                 data: { order: tasks.findIndex((task) => task.id === draggingId) }

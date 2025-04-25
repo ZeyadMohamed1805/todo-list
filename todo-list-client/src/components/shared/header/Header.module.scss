@@ -17,6 +17,7 @@
   box-shadow: shadows.$xs;
   position: sticky;
   top: 0;
+  z-index: 999;
 
   .logo {
     width: 120px;
@@ -116,5 +117,12 @@
         }
       }
     }
+  }
+}
+
+[dir='rtl'] {
+  .dropdown {
+    right: auto !important;
+    left: 0 !important;
   }
 }

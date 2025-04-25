@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { getToastDataFromError, showToast } from "../../shared/toast/Toast.service";
 import { VariantsEnum } from "../../../enums";
 import api from "../../../services/Api.service";
+import { showLoading } from "../../shared/loading/Loading.service";
 
 export const useUploadIcon = () => {
     const uploadIconMutation = useUploadIconMutation();
@@ -12,6 +13,7 @@ export const useUploadIcon = () => {
         onDrop: (acceptedFiles) => {
             const file = acceptedFiles[0];
             if (file) {
+                showLoading();
                 uploadIconMutation.mutate(file);
             }
         },

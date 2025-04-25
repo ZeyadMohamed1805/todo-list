@@ -4,9 +4,10 @@ import { NewListFormInputFields } from './NewListForm.blocks';
 import { useCreateNewList } from './NewListForm.hooks';
 import styles from './NewListForm.module.scss';
 import { FormProvider } from 'react-hook-form';
+import { TNewListFormProps } from './NewListForm.types';
 
-const NewListForm = () => {
-  const createNewListData = useCreateNewList();
+const NewListForm = ({ props }: TNewListFormProps) => {
+  const createNewListData = useCreateNewList({ props });
 
   return (
     <FormProvider {...createNewListData.formData}>

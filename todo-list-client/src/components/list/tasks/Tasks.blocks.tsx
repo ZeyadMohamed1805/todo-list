@@ -5,6 +5,7 @@ import Checkbox from "../../shared/checkbox";
 import { TDeleteTaskProps, TTaskCheckboxProps, TTaskProps, TTaskRowProps, TTaskTitleProps } from "./Tasks.types";
 import { useDeleteTaskMutation, useHandleTaskRowKeyDown, useHandleTaskTitleBlur, useHandleTaskTitleKeyDown, useInitializeTaskTitleInnerText, usePatchTaskMutation } from "./Tasks.hooks";
 import DeleteModal from "../../shared/deleteModal";
+import { showLoading } from "../../shared/loading/Loading.service";
 
 const DeleteTask = ({ props }: TDeleteTaskProps) => {
     const { t } = useTranslation();
@@ -21,7 +22,10 @@ const DeleteTask = ({ props }: TDeleteTaskProps) => {
                     isDeleteModalOpen: props.isDeleteModalOpen,
                     setIsDeleteModalOpen: props.setIsDeleteModalOpen,
                     onClose: () => props.setIsDeleteModalOpen(false),
-                    onConfirm: () => deleteTaskMutation.mutate(props.taskId)
+                    onConfirm: () => {
+                        showLoading();
+                        deleteTaskMutation.mutate(props.taskId)
+                    }
                 }} 
             />
         </>
@@ -55,6 +59,9 @@ const TaskCheckbox = ({ props }: TTaskCheckboxProps) => {
                 isChecked: props.isChecked,
                 setIsChecked: (isChecked) => {
                     props.setIsChecked(isChecked);
+
+                    showLoading();
+
                     patchTaskMutation.mutate({
                         taskId: props.task.id,
                         data: { isCompleted: !props.isChecked }
