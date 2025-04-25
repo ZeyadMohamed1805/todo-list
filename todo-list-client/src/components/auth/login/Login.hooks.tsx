@@ -17,6 +17,9 @@ export const useLogin = () => {
   const formData = useForm({
     resolver: yupResolver(LoginSchema),
     mode: 'all',
+    defaultValues: {
+      rememberMe: false,
+    }
   });
 
   const onSubmit = formData.handleSubmit((data) => {
