@@ -1,0 +1,19 @@
+@use "../../../design/shared/colors";
+@use "../../../design/shared/shadows";
+
+.illustration {
+    background: colors.$white;
+    clip-path: circle(50%);
+    box-shadow: shadows.$xl;
+    width: 100%;
+    max-width: 320px;
+}
+
+.illustration img {
+    width: 100%;
+    display: block;
+    margin: 0 auto;
+    mix-blend-mode: multiply;
+    clip-path: circle(50%);
+    filter: brightness(2);
+}

@@ -6,12 +6,15 @@ import List from '../screens/List';
 import { LanguagesEnum } from '../components/shared/localeButton/LocaleButton.enums';
 import NotFound from '../screens/NotFound';
 
-export const APPLICATION_ROUTES: Array<RouteProps> = [
-  { path: '/', element: <Navigate to={`/${i18n.language}/auth`} replace /> },
+export const PROTECTED_ROUTES: Array<RouteProps> = [
   ...Object.values(LanguagesEnum).map((lang) => [
     { path: `/${lang}/auth`, element: <Auth /> },
     { path: `/${lang}/home`, element: <Home /> },
     { path: `/${lang}/lists/:listId`, element: <List /> },
   ]).flat(),
+];
+
+export const UNPROTECTED_ROUTES: Array<RouteProps> = [
+  { path: '/', element: <Navigate to={`/${i18n.language}/auth`} replace /> },
   { path: `*`, element: <NotFound /> }
 ];

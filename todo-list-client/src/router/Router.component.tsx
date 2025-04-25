@@ -1,10 +1,13 @@
-import { Routes } from 'react-router-dom';
-import { ApplicationRoutes } from './Router.blocks';
+import { Route, Routes } from 'react-router-dom';
+import { ProtectedRoute, ProtectedRoutes, UnProtectedRoutes } from './Router.blocks';
 
 const Router = () => {
   return (
     <Routes>
-      {ApplicationRoutes}
+      <Route element={<ProtectedRoute />}>
+        {ProtectedRoutes}
+      </Route>
+      {UnProtectedRoutes}
     </Routes>
   );
 };

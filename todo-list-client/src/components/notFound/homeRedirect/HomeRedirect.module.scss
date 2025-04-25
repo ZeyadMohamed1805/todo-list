@@ -1,0 +1,17 @@
+@use "../../../design/shared/spacing";
+@use "../../../design/components/buttons";
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: var(--neutral-one);
+    flex-direction: column;
+    text-align: center;
+}
+
+.button {
+    @include buttons.primary;
+    margin-top: spacing.$lg;
+}
