@@ -13,7 +13,13 @@ const CreateTask = () => {
         <FormProvider {...createTaskData.formData}>
             <form className={styles.createTaskForm} onSubmit={createTaskData.onSubmit}>
                 <div className={styles.createTodo}>
-                    <Input props={{ name: "title", type: "text", placeholder: t("todo.new_todo") }} />
+                    <Input
+                        props={{
+                            name: "title",
+                            type: "text",
+                            placeholder: t("todo.new_todo")
+                        }}
+                    />
                     <SubmitButton />
                 </div>
             </form>
