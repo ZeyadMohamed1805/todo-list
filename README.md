@@ -72,7 +72,7 @@ VITE_IMAGES_BASE_URL=http://localhost:5000
 ### 3. Run the Backend
 
 ```bash
-cd server
+cd todo-list-server
 npm install
 npx prisma generate
 npx prisma migrate dev
@@ -83,7 +83,7 @@ npm run dev
 ### 4. Run the Frontend
 
 ```bash
-cd client
+cd todo-list-client
 npm install
 npm run dev
 ```
