@@ -24,7 +24,7 @@ const Title = () => {
           variant: VariantsEnum.SUCCESS,
         }}
       >
-        <NewListForm />
+        <NewListForm props={{ setIsNewListModalOpen }} />
       </Modal>
     </div>
   );

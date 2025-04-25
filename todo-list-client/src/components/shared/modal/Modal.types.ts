@@ -15,3 +15,10 @@ export type TUseToggleModalProps = {
     isOpen: boolean | undefined;
   };
 };
+
+export type TUseKeyBindModalProps = {
+  props: {
+    isOpen: boolean | undefined;
+    onClose: () => void;
+  };
+};

@@ -2,14 +2,14 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import { NewListSchema } from './NewListForm.schema';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { TCreateTodoListData } from './NewListForm.types';
+import { TCreateTodoListData, TUseCreateNewListProps, TUseCreateTodoListMutationProps } from './NewListForm.types';
 import api from '../../../services/Api.service';
 import { getToastDataFromError, showToast } from '../../shared/toast/Toast.service';
 import { VariantsEnum } from '../../../enums';
 import { hideLoading, showLoading } from '../../shared/loading/Loading.service';
 
-export const useCreateNewList = () => {
-  const createTodoListMutation = useCreateTodoListMutation();
+export const useCreateNewList = ({ props }: TUseCreateNewListProps) => {
+  const createTodoListMutation = useCreateTodoListMutation({ props });
   const formData = useForm({
     resolver: yupResolver(NewListSchema),
     mode: 'all',
@@ -30,7 +30,7 @@ export const useCreateNewList = () => {
   return { formData, onSubmit };
 };
 
-const useCreateTodoListMutation = () => {
+const useCreateTodoListMutation = ({ props }: TUseCreateTodoListMutationProps) => {
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -38,7 +38,8 @@ const useCreateTodoListMutation = () => {
     mutationKey: ['todoLists'],
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['todoLists'] });
-
+      props.setIsNewListModalOpen(false);
+      
       showToast({
         message: 'todo_list_created',
         variant: VariantsEnum.SUCCESS,

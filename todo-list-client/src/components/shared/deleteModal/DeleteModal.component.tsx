@@ -3,8 +3,10 @@ import { VariantsEnum } from "../../../enums";
 import styles from "./DeleteModal.module.scss";
 import { TDeleteModalProps } from "./DeleteModal.types";
 import Modal from "../modal";
+import { useKeyBindDeleteModal } from "./DeleteModal.hooks";
 
 const DeleteModal = ({ props }: TDeleteModalProps) => {
+    useKeyBindDeleteModal({ props });
     const { t } = useTranslation();
 
     return (
@@ -20,7 +22,7 @@ const DeleteModal = ({ props }: TDeleteModalProps) => {
                 <p className={styles.deleteMessage}>{t("delete_confirmation")}</p>
                 <div className={styles.deleteModalActions}>
                     <button type="button" className={styles.confirm} onClick={props.onConfirm}>
-                        {t("confirm")}  
+                        {t("confirm")}
                     </button>
                 </div>
             </div>
