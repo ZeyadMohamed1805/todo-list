@@ -8,13 +8,15 @@
     flex-direction: column;
     align-items: center;
     gap: spacing.$sm;
+    padding: spacing.$sm;
+    text-align: center;
     width: 100%;
     color: var(--neutral-two);
-    font-weight: bold;
 }
 
 .deleteMessage {
     line-height: spacing.$lg;
+    margin: spacing.$sm 0;
     font-size: typography.$sm;
 }
 
@@ -32,5 +34,5 @@
 }
 
 .confirm {
-    @include buttons.primary(colors.$dark-grey);
+    @include buttons.secondary(colors.$error);
 }
