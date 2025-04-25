@@ -118,3 +118,10 @@
     }
   }
 }
+
+[dir='rtl'] {
+  .dropdown {
+    right: auto !important;
+    left: 0 !important;
+  }
+}
