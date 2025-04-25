@@ -3,6 +3,7 @@ import { Dispatch, ReactNode, RefObject, SetStateAction } from "react";
 export type TTask = {
     id: string;
     title: string;
+    order: number;
     isCompleted: boolean;
     createdAt: string;
 };
@@ -11,6 +12,9 @@ export type TTaskProps = {
     props: {
         task: TTask;
         taskRef: (element: HTMLDivElement | null) => void;
+        handleDragStart: (event: React.DragEvent<HTMLDivElement>, id: string) => void;
+        handleDragOver: (event: React.DragEvent<HTMLDivElement>, targetId: string) => void;
+        handleDrop: () => void;
     }
 };
 
@@ -21,6 +25,9 @@ export type TTaskRowProps = {
         titleRef: RefObject<HTMLDivElement | null>;
         setIsDeleteModalOpen: Dispatch<SetStateAction<boolean | undefined>>;
         setIsChecked: Dispatch<SetStateAction<boolean>>;
+        handleDragStart: (event: React.DragEvent<HTMLDivElement>, id: string) => void;
+        handleDragOver: (event: React.DragEvent<HTMLDivElement>, targetId: string) => void;
+        handleDrop: () => void;
     };
     children: ReactNode;
 };
@@ -78,5 +85,16 @@ export type TUseHandleTaskTitleKeyDown = {
 export type TUseDeleteTaskMutation = {
     props: {
         setIsDeleteModalOpen: Dispatch<SetStateAction<boolean | undefined>>;
+    }
+}
+
+export type TUseVerticalDrag<T extends { id: string|number; }> = {
+    draggingId: string | null;
+    setItems: Dispatch<SetStateAction<T[]>>;
+}
+
+export type TUseDragAndDropTaskRowsProps = {
+    props: {
+        tasks?: Array<TTask>;
     }
 }
