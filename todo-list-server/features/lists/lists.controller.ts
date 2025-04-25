@@ -13,7 +13,8 @@ export const getTodoLists = async (request: Request, response: Response): Promis
         select: {
             id: true,
             title: true,
-            progress: true
+            progress: true,
+            imagePath: true
         },
     });
 

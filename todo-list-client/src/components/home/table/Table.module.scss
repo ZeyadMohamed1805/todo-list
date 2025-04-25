@@ -109,6 +109,7 @@
 
       .icon {
         font-size: typography.$md;
+        max-width: 24px;
       }
       
       .title {
@@ -123,7 +124,7 @@
         width: 100%;
         display: flex;
         align-items: center;
-        gap: spacing.$xs;
+        gap: spacing.$sm;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;

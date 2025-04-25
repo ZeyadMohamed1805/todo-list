@@ -2,6 +2,7 @@ import {
   TEmptyTableProps,
   TTableListProps,
   TTodoActionsProps,
+  TTodoImageIconProps,
   TTodoProgressCircleProps,
   TTodoProgressContentProps,
   TTodoRowProps,
@@ -63,14 +64,24 @@ const TodoListProgressContent = ({ props }: TTodoProgressContentProps) => {
   );
 };
 
-const TodoListIcon = () => {
+const TodoListIcon = ({ props }: TTodoImageIconProps) => {
   return (
-    <span className={styles.icon}>📋 </span>
+    <>
+      {
+        props.imagePath ?
+        <img
+          className={styles.icon}
+          src={`${import.meta.env.VITE_IMAGES_BASE_URL}/${props.imagePath}`}
+          alt="Todo List Icon"
+        /> :
+        <span className={styles.icon}>📋 </span>
+      }
+    </>
   )
 }
 
-const TodoListTitle = ({ title }: TTodoTitleProps) => {
-  return <span className={styles.title}>{title}</span>;
+const TodoListTitle = ({ props }: TTodoTitleProps) => {
+  return <span className={styles.title}>{props.title}</span>;
 };
 
 const TodoListActions = ({ id }: TTodoActionsProps) => {
@@ -131,8 +142,8 @@ const TodoListRow = ({ props }: TTodoRowProps) => {
       </td>
       <td>
         <div className={styles.todoListTitleContainer}>
-          <TodoListIcon />
-          <TodoListTitle title={props.title} />
+          <TodoListIcon props={{ imagePath: props.imagePath}} />
+          <TodoListTitle props={{ title: props.title }} />
         </div>
       </td>
       <td>
