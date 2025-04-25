@@ -1,13 +1,15 @@
+import { useUploadIcon } from './UploadIcon.hooks';
 import styles from './UploadIcon.module.scss';
-import { TUploadIconProps } from './UploadIcon.types';
 
-const UploadIcon = ({ props }: TUploadIconProps) => {
+const UploadIcon = () => {
+    const uploadIconData = useUploadIcon();
+
     return (
         <div
-            {...props.getRootProps()}
+            {...uploadIconData.getRootProps()}
             className={styles.uploadContainer}
         >
-            <input {...props.getInputProps()} />
+            <input {...uploadIconData.getInputProps()} />
             <p>Drag & Drop or Click to Upload Icon</p>
         </div>
     );

@@ -9,10 +9,10 @@ const Title = ({ props }: TTitleProps) => {
   return (
     <div className={styles.wrapper}>
       {
-        props.icon ? (
+        props.imagePath ? (
           <img
-            src={URL.createObjectURL(props.icon)}
-            alt="Todo List Icon"
+            src={`${import.meta.env.VITE_IMAGES_BASE_URL}/${props.imagePath}`}
+            alt="image_path"
             className={styles.icon}
           />
         ) :
