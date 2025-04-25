@@ -34,6 +34,12 @@ export type TUseTodoProgressProps = {
   };
 };
 
+export type TUseDeleteTodoListMutation = {
+  props: {
+    setIsDeleteModalOpen: (isOpen: boolean) => void;
+  }
+};
+
 export type TTableListProps = {
   props: {
     todoLists: TTodoList[];

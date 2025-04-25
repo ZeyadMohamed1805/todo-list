@@ -11,7 +11,8 @@ import { TODO_LISTS_HEADERS } from './Table.constants';
 import { useDeleteTodoListMutation, useRequestTodoLists, useTodoListProgress, useToggleDropdown } from './Table.hooks';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
+import DeleteModal from '../../shared/deleteModal';
 
 export const TableEmpty = () => {
   const { t } = useTranslation();
@@ -67,7 +68,8 @@ const TodoListTitle = ({ title }: TTodoTitleProps) => {
 const TodoListActions = ({ id }: TTodoActionsProps) => {
   const { t, i18n: { language } } = useTranslation();
   const toggleDropdownData = useToggleDropdown();
-  const deleteTodoListMutation = useDeleteTodoListMutation();
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>();
+  const deleteTodoListMutation = useDeleteTodoListMutation({ props: { setIsDeleteModalOpen } });
   const navigate = useNavigate();
 
   return (
@@ -84,10 +86,19 @@ const TodoListActions = ({ id }: TTodoActionsProps) => {
         <button type="button" onClick={() => navigate(`/${language}/lists/${id}`)} className={styles.dropdownItem}>
           {t('todo.view')}
         </button>
-        <button type="button" onClick={() => deleteTodoListMutation.mutate(id)} className={styles.dropdownItem}>
+        <button type="button" onClick={() => setIsDeleteModalOpen(true)} className={styles.dropdownItem}>
           {t('todo.delete')}
         </button>
       </div>
+
+      <DeleteModal
+        props={{
+          isDeleteModalOpen,
+          setIsDeleteModalOpen,
+          onClose: () => setIsDeleteModalOpen(false),
+          onConfirm: () => deleteTodoListMutation.mutate(id),
+        }}
+      />
     </div>
   );
 };

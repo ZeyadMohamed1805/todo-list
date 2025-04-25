@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { TPatchTaskData, TTaskRowProps, TUseHandleTaskTitleBlur, TUseHandleTaskTitleKeyDown, TUseInitializeTaskTitleInnerText } from "./Tasks.types";
+import { TPatchTaskData, TTaskRowProps, TUseDeleteTaskMutation, TUseHandleTaskTitleBlur, TUseHandleTaskTitleKeyDown, TUseInitializeTaskTitleInnerText } from "./Tasks.types";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import api from "../../../services/Api.service";
 import { useParams } from "react-router-dom";
@@ -18,7 +18,7 @@ export const useGetTasksByTodoListId = () => {
     });
 }
 
-export const useDeleteTaskMutation = () => {
+export const useDeleteTaskMutation = ({ props }: TUseDeleteTaskMutation) => {
     const queryClient = useQueryClient();
 
     return useMutation({
@@ -30,6 +30,8 @@ export const useDeleteTaskMutation = () => {
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['tasks'] });
             queryClient.invalidateQueries({ queryKey: ['todoListById'] });
+
+            props.setIsDeleteModalOpen(false);
 
             showToast({
                 message: "task_deleted",
@@ -141,7 +143,7 @@ export const useHandleTaskRowKeyDown = ({ props }: TTaskRowProps) => {
                     break;
                 case 'Delete':
                     event.preventDefault();
-                    props.setIsDeleteTaskModalOpen(true);
+                    props.setIsDeleteModalOpen(true);
                     event.currentTarget.blur();
                     break;
             }

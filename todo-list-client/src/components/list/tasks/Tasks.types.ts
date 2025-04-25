@@ -19,7 +19,7 @@ export type TTaskRowProps = {
         task: TTask;
         taskRef: (element: HTMLDivElement | null) => void;
         titleRef: RefObject<HTMLDivElement | null>;
-        setIsDeleteTaskModalOpen: Dispatch<SetStateAction<boolean | undefined>>;
+        setIsDeleteModalOpen: Dispatch<SetStateAction<boolean | undefined>>;
         setIsChecked: Dispatch<SetStateAction<boolean>>;
     };
     children: ReactNode;
@@ -44,8 +44,8 @@ export type TTaskCheckboxProps = {
 export type TDeleteTaskProps = {
     props: {
         taskId: string;
-        isDeleteTaskModalOpen: boolean | undefined;
-        setIsDeleteTaskModalOpen: Dispatch<SetStateAction<boolean | undefined>>;
+        isDeleteModalOpen: boolean | undefined;
+        setIsDeleteModalOpen: Dispatch<SetStateAction<boolean | undefined>>;
     };
 };
 
@@ -72,5 +72,11 @@ export type TUseHandleTaskTitleKeyDown = {
     props: {
         taskId: string;
         taskTitle: string;
+    }
+}
+
+export type TUseDeleteTaskMutation = {
+    props: {
+        setIsDeleteModalOpen: Dispatch<SetStateAction<boolean | undefined>>;
     }
 }

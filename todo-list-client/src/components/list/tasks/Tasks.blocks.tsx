@@ -1,42 +1,29 @@
 import { useRef, useState } from "react";
-import { VariantsEnum } from "../../../enums";
 import styles from "./Tasks.module.scss";
 import { useTranslation } from "react-i18next";
-import Modal from "../../shared/modal";
 import Checkbox from "../../shared/checkbox";
 import { TDeleteTaskProps, TTaskCheckboxProps, TTaskProps, TTaskRowProps, TTaskTitleProps } from "./Tasks.types";
 import { useDeleteTaskMutation, useHandleTaskRowKeyDown, useHandleTaskTitleBlur, useHandleTaskTitleKeyDown, useInitializeTaskTitleInnerText, usePatchTaskMutation } from "./Tasks.hooks";
+import DeleteModal from "../../shared/deleteModal";
 
 const DeleteTask = ({ props }: TDeleteTaskProps) => {
     const { t } = useTranslation();
-    const deleteTaskMutation = useDeleteTaskMutation();
+    const deleteTaskMutation = useDeleteTaskMutation({ props });
 
     return (
         <>
-            <button type="button" onClick={() => props.setIsDeleteTaskModalOpen(true)} className={styles.delete} title={t("delete")}>
+            <button type="button" onClick={() => props.setIsDeleteModalOpen(true)} className={styles.delete} title={t("delete")}>
                 ✕
             </button>
 
-            <Modal
+            <DeleteModal
                 props={{
-                    isOpen: props.isDeleteTaskModalOpen,
-                    onClose: () => props.setIsDeleteTaskModalOpen(false),
-                    title: t("todo.delete_todo"),
-                    variant: VariantsEnum.ERROR
-                }}
-            >
-                <div className={styles.deleteModalContent}>
-                    <p className={styles.deleteMessage}>{t("todo.delete_confirmation")}</p>
-                    <div className={styles.deleteModalActions}>
-                        <button type="button" className={styles.confirm} onClick={() => deleteTaskMutation.mutate(props.taskId)}>
-                            {t("confirm")}
-                        </button>
-                        <button type="button" className={styles.cancel} onClick={() => props.setIsDeleteTaskModalOpen(false)}>
-                            {t("no_thanks")}
-                        </button>
-                    </div>
-                </div>
-            </Modal>
+                    isDeleteModalOpen: props.isDeleteModalOpen,
+                    setIsDeleteModalOpen: props.setIsDeleteModalOpen,
+                    onClose: () => props.setIsDeleteModalOpen(false),
+                    onConfirm: () => deleteTaskMutation.mutate(props.taskId)
+                }} 
+            />
         </>
     );
 }
@@ -95,15 +82,15 @@ const TaskRow = ({ props, children }: TTaskRowProps) => {
 }
 
 export const Task = ({ props }: TTaskProps) => {
-    const [isDeleteTaskModalOpen, setIsDeleteTaskModalOpen] = useState<boolean>();
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>();
     const [isChecked, setIsChecked] = useState(props.task.isCompleted);
     const titleRef = useRef<HTMLDivElement>(null);
 
     return (
-        <TaskRow props={{ ...props, setIsChecked, titleRef, setIsDeleteTaskModalOpen }}>
+        <TaskRow props={{ ...props, setIsChecked, titleRef, setIsDeleteModalOpen }}>
             <TaskCheckbox props={{ ...props, isChecked, setIsChecked }} />
             <TaskTitle props={{ ...props, titleRef, isChecked }} />
-            <DeleteTask props={{ taskId: props.task.id, isDeleteTaskModalOpen, setIsDeleteTaskModalOpen }} />
+            <DeleteTask props={{ taskId: props.task.id, isDeleteModalOpen, setIsDeleteModalOpen }} />
         </TaskRow>
     );
 };

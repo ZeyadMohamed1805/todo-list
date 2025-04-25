@@ -37,8 +37,7 @@
   "todo.title": "العنوان",
   "todo.progress": "التقدم",
   "todo.title_required": "العنوان مطلوب",
-  "todo.delete_todo": "حذف المهمة",
-  "todo.delete_confirmation": "هل أنت متأكد أنك تريد حذف هذه المهمة؟",
+  "delete_confirmation": "هل أنت متأكد أنك تريد الحذف؟",
   "no_thanks": "لا، شكرًا",
   "confirm": "تأكيد",
   "todo.new_todo": "مهمة جديدة",
@@ -53,5 +52,6 @@
   "todo_list_not_found": "قائمة المهام غير موجودة",
   "task_not_found": "المهمة غير موجودة",
   "invalid_task_data": "بيانات المهمة غير صالحة",
-  "user_already_exists": "المستخدم موجود بالفعل"
+  "user_already_exists": "المستخدم موجود بالفعل",
+  "delete": "حذف"
 }
