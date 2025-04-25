@@ -13,6 +13,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { useRef, useState } from 'react';
 import DeleteModal from '../../shared/deleteModal';
+import { useClickOutside } from '../../../hooks/useClickOutside';
 
 export const TableEmpty = () => {
   const { t } = useTranslation();
@@ -33,7 +34,7 @@ const TodoListProgressCircle = ({ props }: TTodoProgressCircleProps) => {
   const circumference = 2 * Math.PI * radius;
   const dashOffset = circumference - (props.progress / 100) * circumference;
   const progressRef = useRef<SVGCircleElement>(null);
-  
+
   if (progressRef.current) {
     progressRef.current.style.strokeDashoffset = `${dashOffset}`;
   }
@@ -67,14 +68,21 @@ const TodoListTitle = ({ title }: TTodoTitleProps) => {
 
 const TodoListActions = ({ id }: TTodoActionsProps) => {
   const { t, i18n: { language } } = useTranslation();
+  const navigate = useNavigate();
   const toggleDropdownData = useToggleDropdown();
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>();
   const deleteTodoListMutation = useDeleteTodoListMutation({ props: { setIsDeleteModalOpen } });
-  const navigate = useNavigate();
+  const viewTodoListRef = useRef<HTMLButtonElement>(null);
+  const deleteTodoListRef = useRef<HTMLButtonElement>(null);
+  const clickOutsideRefs = useClickOutside<HTMLButtonElement>(
+    toggleDropdownData.closeDropdown,
+    [viewTodoListRef, deleteTodoListRef]
+  );
 
   return (
     <div className={styles.actionsWrapper}>
       <button
+        ref={clickOutsideRefs.elementRef}
         type="button"
         className={styles.actionsTrigger}
         onClick={toggleDropdownData.toggleDropdown}
@@ -83,10 +91,10 @@ const TodoListActions = ({ id }: TTodoActionsProps) => {
       </button>
 
       <div className={toggleDropdownData.dropdownClassName}>
-        <button type="button" onClick={() => navigate(`/${language}/lists/${id}`)} className={styles.dropdownItem}>
+        <button ref={viewTodoListRef} type="button" onClick={() => navigate(`/${language}/lists/${id}`)} className={styles.dropdownItem}>
           {t('todo.view')}
         </button>
-        <button type="button" onClick={() => setIsDeleteModalOpen(true)} className={styles.dropdownItem}>
+        <button ref={deleteTodoListRef} type="button" onClick={() => setIsDeleteModalOpen(true)} className={styles.dropdownItem}>
           {t('todo.delete')}
         </button>
       </div>
@@ -149,5 +157,5 @@ export const TableContent = () => {
     return <TableEmpty />;
   }
 
-  return <TableLists props={{ todoLists:todoListsRequest.data }} />;
+  return <TableLists props={{ todoLists: todoListsRequest.data }} />;
 };

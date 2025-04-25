@@ -39,7 +39,13 @@ export const useToggleDropdown = () => {
     setIsDropdownOpen((previousIsDropdownOpen) => !previousIsDropdownOpen);
   }, []);
 
-  return { dropdownClassName, toggleDropdown };
+  const closeDropdown = useCallback(() => {
+    if (isDropdownOpen) {
+      setIsDropdownOpen(false);
+    }
+  }, [isDropdownOpen]);
+
+  return { dropdownClassName, closeDropdown, toggleDropdown };
 };
 
 export const useRequestTodoLists = () => {

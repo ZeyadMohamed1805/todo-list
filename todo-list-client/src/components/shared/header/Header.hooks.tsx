@@ -13,7 +13,13 @@ export const useToggleDropdown = () => {
     setIsDropdownOpen((prev) => !prev);
   }, []);
 
-  return { toggleDropdown, arrowClassName, dropdownClassName };
+  const closeDropdown = useCallback(() => {
+    if (isDropdownOpen) {
+      setIsDropdownOpen(false);
+    }
+  }, [isDropdownOpen]);
+
+  return { toggleDropdown, closeDropdown, arrowClassName, dropdownClassName };
 };
 
 export const useSignout = () => {
