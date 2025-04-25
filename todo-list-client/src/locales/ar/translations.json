@@ -53,5 +53,7 @@
   "task_not_found": "المهمة غير موجودة",
   "invalid_task_data": "بيانات المهمة غير صالحة",
   "user_already_exists": "المستخدم موجود بالفعل",
-  "delete": "حذف"
+  "delete": "حذف",
+  "return_home": "الصفحة الرئيسية",
+  "404_not_found": "404 غير موجود"
 }

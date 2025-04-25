@@ -53,5 +53,7 @@
   "task_not_found": "Task not found",
   "invalid_task_data": "Invalid task data",
   "user_already_exists": "User already exists",
-  "delete": "Delete"
+  "delete": "Delete",
+  "return_home": "Home",
+  "404_not_found": "404 Not Found"
 }
