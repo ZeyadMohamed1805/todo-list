@@ -2,15 +2,40 @@
 @use '../../../design/shared/spacing';
 @use '../../../design/shared/colors';
 @use '../../../design/shared/typography';
+@use '../../../design/shared/radiuses';
 
 .wrapper {
   width: 100%;
   max-width: 1000px;
   margin-top: spacing.$lg;
   padding: spacing.$sm spacing.$md;
+  display: flex;
+  gap: spacing.$sm;
   @include animations.fade-in;
 
+  .titleContent {
+    display: flex;
+    flex-direction: column;
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .icon {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 8px;
+    display: block;
+  }
+
   .title {
+    width: 100%;
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     font-size: typography.$lg;
     color: var(--neutral-two);
     font-weight: bold;
@@ -20,5 +45,6 @@
   .date {
     font-size: typography.$sm;
     color: colors.$dark-grey;
+    line-height: spacing.$md;
   }
 }

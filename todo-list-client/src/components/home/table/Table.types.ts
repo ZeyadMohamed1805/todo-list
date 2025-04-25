@@ -45,3 +45,9 @@ export type TTableListProps = {
     todoLists: TTodoList[];
   }
 };
+
+export type TEmptyTableProps = {
+  props?: {
+    isLoading?: boolean;
+  }
+};

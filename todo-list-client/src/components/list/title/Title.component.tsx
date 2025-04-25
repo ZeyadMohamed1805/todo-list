@@ -8,10 +8,22 @@ const Title = ({ props }: TTitleProps) => {
 
   return (
     <div className={styles.wrapper}>
-      <h1 className={styles.title}>{props.title}</h1>
-      <p className={styles.date}>
-        {formattedDate}
-      </p>
+      {
+        props.icon ? (
+          <img
+            src={URL.createObjectURL(props.icon)}
+            alt="Todo List Icon"
+            className={styles.icon}
+          />
+        ) :
+        <span className={styles.icon}>📋 </span>
+      }
+      <div className={styles.titleContent}>
+        <h1 className={styles.title}>{props.title}</h1>
+        <p className={styles.date}>
+          {formattedDate}
+        </p>
+      </div>
     </div>
   );
 };

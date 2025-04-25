@@ -1,4 +1,5 @@
 import {
+  TEmptyTableProps,
   TTableListProps,
   TTodoActionsProps,
   TTodoProgressCircleProps,
@@ -15,14 +16,14 @@ import { useRef, useState } from 'react';
 import DeleteModal from '../../shared/deleteModal';
 import { useClickOutside } from '../../../hooks/useClickOutside';
 
-export const TableEmpty = () => {
+export const EmptyTable = ({ props }: TEmptyTableProps) => {
   const { t } = useTranslation();
 
   return (
     <tr>
       <td className={styles.empty} colSpan={4}>
         <div className={styles.emptyContent}>
-          <p>{t("home.empty_list")}</p>
+          <p>{t(props?.isLoading ? "loading" : "home.empty_list")}</p>
         </div>
       </td>
     </tr>
@@ -61,6 +62,12 @@ const TodoListProgressContent = ({ props }: TTodoProgressContentProps) => {
     </div>
   );
 };
+
+const TodoListIcon = () => {
+  return (
+    <span className={styles.icon}>📋 </span>
+  )
+}
 
 const TodoListTitle = ({ title }: TTodoTitleProps) => {
   return <span className={styles.title}>{title}</span>;
@@ -123,7 +130,10 @@ const TodoListRow = ({ props }: TTodoRowProps) => {
         </div>
       </td>
       <td>
-        <TodoListTitle title={props.title} />
+        <div className={styles.todoListTitleContainer}>
+          <TodoListIcon />
+          <TodoListTitle title={props.title} />
+        </div>
       </td>
       <td>
         <TodoListActions id={props.id} />
@@ -150,11 +160,11 @@ export const TableContent = () => {
   const todoListsRequest = useRequestTodoLists();
 
   if (todoListsRequest.isLoading) {
-    return <tr><td>Loading...</td></tr>
+    return <EmptyTable props={{ isLoading: todoListsRequest.isLoading }} />
   }
 
   if (!todoListsRequest.data.length) {
-    return <TableEmpty />;
+    return <EmptyTable />;
   }
 
   return <TableLists props={{ todoLists: todoListsRequest.data }} />;
