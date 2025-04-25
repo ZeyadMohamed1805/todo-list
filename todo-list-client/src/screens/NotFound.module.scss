@@ -1,0 +1,37 @@
+@use "../design/shared/colors";
+@use "../design/shared/shadows";
+@use "../design/shared/spacing";
+@use "../design/components/buttons";
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: var(--neutral-one);
+    flex-direction: column;
+    text-align: center;
+}
+
+.button {
+    @include buttons.primary;
+    transform: translateY(-60px);
+}
+
+.illustration {
+    margin-top: 30px;
+    background: colors.$white;
+    clip-path: circle(50%);
+    box-shadow: shadows.$xl;
+    width: 100%;
+    max-width: 320px;
+}
+
+.illustration img {
+    width: 100%;
+    display: block;
+    margin: 0 auto;
+    mix-blend-mode: multiply;
+    clip-path: circle(50%);
+    filter: brightness(2);
+}

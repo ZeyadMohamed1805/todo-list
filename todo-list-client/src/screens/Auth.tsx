@@ -5,11 +5,9 @@ import Preferences from '../components/auth/preferences';
 const Auth = () => {
   return (
     <main id='auth-screen'>
-      {/* <Wrapper> */}
         <Preferences />
         <Description />
         <Forms />
-      {/* </Wrapper> */}
     </main>
   );
 };

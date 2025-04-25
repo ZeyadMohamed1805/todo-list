@@ -4,6 +4,7 @@ import Auth from '../screens/Auth';
 import Home from '../screens/Home';
 import List from '../screens/List';
 import { LanguagesEnum } from '../components/shared/localeButton/LocaleButton.enums';
+import NotFound from '../screens/NotFound';
 
 export const APPLICATION_ROUTES: Array<RouteProps> = [
   { path: '/', element: <Navigate to={`/${i18n.language}/auth`} replace /> },
@@ -12,4 +13,5 @@ export const APPLICATION_ROUTES: Array<RouteProps> = [
     { path: `/${lang}/home`, element: <Home /> },
     { path: `/${lang}/lists/:listId`, element: <List /> },
   ]).flat(),
+  { path: `*`, element: <NotFound /> }
 ];

@@ -16,7 +16,7 @@ const Title = ({ props }: TTitleProps) => {
             className={styles.icon}
           />
         ) :
-        <span className={styles.icon}>📋 </span>
+        <span className={styles.defaultIcon}>📋 </span>
       }
       <div className={styles.titleContent}>
         <h1 className={styles.title}>{props.title}</h1>

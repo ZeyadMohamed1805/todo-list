@@ -4,9 +4,9 @@ import { useLocation } from 'react-router-dom';
 
 const Header = () => {
   const location = useLocation();
-  const isAuthPage = location.pathname.includes('auth');
+  const hideHeader = !location.pathname.includes('home') && !location.pathname.includes('lists');
 
-  if (isAuthPage) {
+  if (hideHeader) {
     return null;
   }
 
