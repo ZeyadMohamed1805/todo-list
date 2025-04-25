@@ -12,6 +12,7 @@ import { useDeleteTodoListMutation, useRequestTodoLists, useTodoListProgress, us
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { StatusEnum } from '../../../enums';
+import { useRef } from 'react';
 
 export const TableEmpty = () => {
   const { t } = useTranslation();
@@ -31,16 +32,21 @@ const TodoListProgressCircle = ({ props }: TTodoProgressCircleProps) => {
   const radius = 45;
   const circumference = 2 * Math.PI * radius;
   const dashOffset = circumference - (props.progress / 100) * circumference;
+  const progressRef = useRef<SVGCircleElement>(null);
+  
+  if (progressRef.current) {
+    progressRef.current.style.strokeDashoffset = `${dashOffset}`;
+  }
 
   return (
     <svg viewBox="0 0 100 100">
       <circle cx="50" cy="50" r="45" className={styles.background} />
       <circle
+        ref={progressRef}
         cx="50"
         cy="50"
         r="45"
         className={styles.progress}
-        style={{ strokeDashoffset: dashOffset }}
         data-progress={props.progress}
       />
     </svg>
