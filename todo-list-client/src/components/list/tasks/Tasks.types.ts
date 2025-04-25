@@ -35,6 +35,14 @@ export type TTaskTitleProps = {
     }
 }
 
+export type TTaskCheckboxProps = {
+    props: {
+        task: TTask;
+        isChecked: boolean;
+        setIsChecked: Dispatch<SetStateAction<boolean>>;
+    }
+}
+
 export type TDeleteTaskProps = {
     props: {
         taskId: string;

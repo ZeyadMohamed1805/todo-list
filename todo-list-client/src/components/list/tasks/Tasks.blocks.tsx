@@ -4,8 +4,8 @@ import styles from "./Tasks.module.scss";
 import { useTranslation } from "react-i18next";
 import Modal from "../../shared/modal";
 import Checkbox from "../../shared/checkbox";
-import { TDeleteTaskProps, TTaskProps, TTaskRowProps, TTaskTitleProps } from "./Tasks.types";
-import { useDeleteTaskMutation, useHandleTaskRowKeyDown, useHandleTaskTitleBlur, useHandleTaskTitleKeyDown, useInitializeTaskTitleInnerText } from "./Tasks.hooks";
+import { TDeleteTaskProps, TTaskCheckboxProps, TTaskProps, TTaskRowProps, TTaskTitleProps } from "./Tasks.types";
+import { useDeleteTaskMutation, useHandleTaskRowKeyDown, useHandleTaskTitleBlur, useHandleTaskTitleKeyDown, useInitializeTaskTitleInnerText, usePatchTaskMutation } from "./Tasks.hooks";
 import Select from "../../shared/select";
 
 const TaskStatus = ({ props }: TTaskProps) => {
@@ -72,7 +72,27 @@ const TaskTitle = ({ props }: TTaskTitleProps) => {
     );
 }
 
-const TodoRow = ({ props, children }: TTaskRowProps) => {
+const TaskCheckbox = ({ props }: TTaskCheckboxProps) => {
+    const patchTaskMutation = usePatchTaskMutation();
+
+    return (
+        <Checkbox
+            props={{
+                isChecked: props.isChecked,
+                setIsChecked: (isChecked) => {
+                    props.setIsChecked(isChecked);
+                    patchTaskMutation.mutate({
+                        taskId: props.task.id,
+                        data: { isCompleted: !props.isChecked }
+                    });
+                },
+                title: "isCompleted"
+            }}
+        />
+    );
+}
+
+const TaskRow = ({ props, children }: TTaskRowProps) => {
     const handleTodoRowKeydown = useHandleTaskRowKeyDown({ props, children });
 
     return (
@@ -87,17 +107,17 @@ const TodoRow = ({ props, children }: TTaskRowProps) => {
     );
 }
 
-export const Todo = ({ props }: TTaskProps) => {
+export const Task = ({ props }: TTaskProps) => {
     const [isDeleteTaskModalOpen, setIsDeleteTaskModalOpen] = useState<boolean>();
     const [isChecked, setIsChecked] = useState(props.task.isCompleted);
     const titleRef = useRef<HTMLDivElement>(null);
 
     return (
-        <TodoRow props={{ ...props, setIsChecked, titleRef, setIsDeleteTaskModalOpen }}>
-            <Checkbox props={{ isChecked, setIsChecked, title: "isCompleted" }} />
+        <TaskRow props={{ ...props, setIsChecked, titleRef, setIsDeleteTaskModalOpen }}>
+            <TaskCheckbox props={{ ...props, isChecked, setIsChecked }} />
             <TaskTitle props={{ ...props, titleRef, isChecked }} />
             <TaskStatus props={props} />
             <DeleteTask props={{ taskId: props.task.id, isDeleteTaskModalOpen, setIsDeleteTaskModalOpen }} />
-        </TodoRow>
+        </TaskRow>
     );
 };

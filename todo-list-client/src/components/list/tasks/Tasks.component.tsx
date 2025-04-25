@@ -1,4 +1,4 @@
-import { Todo } from './Tasks.blocks';
+import { Task } from './Tasks.blocks';
 import { useGetTasksByTodoListId, useKeyBindTodoList } from './Tasks.hooks';
 import { TTask } from './Tasks.types';
 
@@ -11,7 +11,7 @@ const Tasks = () => {
     }
 
     return tasksRequest.data.map((task: TTask, index: number) => (
-        <Todo
+        <Task
             key={task.id}
             props={{
                 task,
