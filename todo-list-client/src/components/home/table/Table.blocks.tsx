@@ -1,6 +1,8 @@
 import {
+  TEmptyTableProps,
   TTableListProps,
   TTodoActionsProps,
+  TTodoImageIconProps,
   TTodoProgressCircleProps,
   TTodoProgressContentProps,
   TTodoRowProps,
@@ -15,14 +17,14 @@ import { useRef, useState } from 'react';
 import DeleteModal from '../../shared/deleteModal';
 import { useClickOutside } from '../../../hooks/useClickOutside';
 
-export const TableEmpty = () => {
+export const EmptyTable = ({ props }: TEmptyTableProps) => {
   const { t } = useTranslation();
 
   return (
     <tr>
       <td className={styles.empty} colSpan={4}>
         <div className={styles.emptyContent}>
-          <p>{t("home.empty_list")}</p>
+          <p>{t(props?.isLoading ? "loading" : "home.empty_list")}</p>
         </div>
       </td>
     </tr>
@@ -62,8 +64,24 @@ const TodoListProgressContent = ({ props }: TTodoProgressContentProps) => {
   );
 };
 
-const TodoListTitle = ({ title }: TTodoTitleProps) => {
-  return <span className={styles.title}>{title}</span>;
+const TodoListIcon = ({ props }: TTodoImageIconProps) => {
+  return (
+    <>
+      {
+        props.imagePath ?
+        <img
+          className={styles.icon}
+          src={`${import.meta.env.VITE_IMAGES_BASE_URL}/${props.imagePath}`}
+          alt="Todo List Icon"
+        /> :
+        <span className={styles.icon}>📋 </span>
+      }
+    </>
+  )
+}
+
+const TodoListTitle = ({ props }: TTodoTitleProps) => {
+  return <span className={styles.title}>{props.title}</span>;
 };
 
 const TodoListActions = ({ id }: TTodoActionsProps) => {
@@ -123,7 +141,10 @@ const TodoListRow = ({ props }: TTodoRowProps) => {
         </div>
       </td>
       <td>
-        <TodoListTitle title={props.title} />
+        <div className={styles.todoListTitleContainer}>
+          <TodoListIcon props={{ imagePath: props.imagePath}} />
+          <TodoListTitle props={{ title: props.title }} />
+        </div>
       </td>
       <td>
         <TodoListActions id={props.id} />
@@ -150,11 +171,11 @@ export const TableContent = () => {
   const todoListsRequest = useRequestTodoLists();
 
   if (todoListsRequest.isLoading) {
-    return <tr><td>Loading...</td></tr>
+    return <EmptyTable props={{ isLoading: todoListsRequest.isLoading }} />
   }
 
   if (!todoListsRequest.data.length) {
-    return <TableEmpty />;
+    return <EmptyTable />;
   }
 
   return <TableLists props={{ todoLists: todoListsRequest.data }} />;

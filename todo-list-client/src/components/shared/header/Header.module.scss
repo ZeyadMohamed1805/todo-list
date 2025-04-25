@@ -8,13 +8,14 @@
 
 .header {
   width: 100%;
+  height: 60px;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: spacing.$sm spacing.$md;
   background-color: var(--neutral-one);
   box-shadow: shadows.$xs;
-  position: fixed;
+  position: sticky;
   top: 0;
 
   .logo {

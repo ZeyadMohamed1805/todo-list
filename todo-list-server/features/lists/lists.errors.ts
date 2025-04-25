@@ -11,3 +11,10 @@ export class TodoListNotFoundError extends Error {
         this.name = "TodoListNotFoundError";
     }
 }
+
+export class NoFileUploadedError extends Error {
+    constructor() {
+        super("no_file_uploaded");
+        this.name = "NoFileUploadedError";
+    }
+}

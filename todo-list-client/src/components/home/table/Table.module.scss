@@ -105,14 +105,29 @@
         .progressCirclePercentage {
           font-size: typography.$xs;
         }
+      }
 
-        .title {
-          max-width: 250px;
-          display: inline-block;
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-        }
+      .icon {
+        font-size: typography.$md;
+        max-width: 24px;
+      }
+      
+      .title {
+        width: 100%;
+        display: inline-block;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .todoListTitleContainer {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: spacing.$sm;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
 
       .actionsWrapper {
@@ -203,6 +218,17 @@
         }
       }
     }
+  }
+
+  // .todoListTitleContainer {
+  //   white-space: nowrap;
+  //   overflow: hidden;
+  //   text-overflow: ellipsis;
+  //   display: inline-block;
+  // }
+
+  .todoListIcon {
+    font-size: typography.$md;
   }
 
   .empty {

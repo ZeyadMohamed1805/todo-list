@@ -5,6 +5,7 @@ import authRoutes from '../features/auth/auth.routes';
 import todoListRoutes from '../features/lists/lists.routes';
 import taskRoutes from '../features/tasks/tasks.routes';
 import errorHandler from '../middlewares/errorHandler.middleware';
+import path from 'path';
 
 dotenv.config();
 
@@ -20,6 +21,7 @@ app.use(
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 
 app.use("/api/auth", authRoutes);
 app.use("/api/todo-lists", todoListRoutes);

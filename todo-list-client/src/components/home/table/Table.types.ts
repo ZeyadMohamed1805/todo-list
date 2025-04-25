@@ -10,8 +10,16 @@ export type TTodoProgressContentProps = {
   };
 };
 
+export type TTodoImageIconProps = {
+  props: { 
+    imagePath?: string | null 
+  }
+}
+
 export type TTodoTitleProps = {
-  title: string;
+  props: {
+    title: string;
+  }
 };
 
 export type TTodoActionsProps = {
@@ -22,6 +30,7 @@ type TTodoList = {
   id: string;
   title: string;
   progress: number;
+  imagePath?: string | null;
 };
 
 export type TTodoRowProps = {
@@ -43,5 +52,11 @@ export type TUseDeleteTodoListMutation = {
 export type TTableListProps = {
   props: {
     todoLists: TTodoList[];
+  }
+};
+
+export type TEmptyTableProps = {
+  props?: {
+    isLoading?: boolean;
   }
 };

@@ -8,10 +8,22 @@ const Title = ({ props }: TTitleProps) => {
 
   return (
     <div className={styles.wrapper}>
-      <h1 className={styles.title}>{props.title}</h1>
-      <p className={styles.date}>
-        {formattedDate}
-      </p>
+      {
+        props.imagePath ? (
+          <img
+            src={`${import.meta.env.VITE_IMAGES_BASE_URL}/${props.imagePath}`}
+            alt="image_path"
+            className={styles.icon}
+          />
+        ) :
+        <span className={styles.icon}>📋 </span>
+      }
+      <div className={styles.titleContent}>
+        <h1 className={styles.title}>{props.title}</h1>
+        <p className={styles.date}>
+          {formattedDate}
+        </p>
+      </div>
     </div>
   );
 };

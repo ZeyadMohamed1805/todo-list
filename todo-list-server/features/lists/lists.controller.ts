@@ -1,8 +1,9 @@
 import { Request, Response } from "express";
 import { AuthorizedRequest } from "../../types/requests.types";
+import fs from 'fs';
 import prisma from "../../prisma";
 import { StatusCodesEnum } from "../../enums/statusCodes.enum";
-import { TodoListNotFoundError, TodoListTitleIsRequiredError } from "./lists.errors";
+import { NoFileUploadedError, TodoListNotFoundError, TodoListTitleIsRequiredError } from "./lists.errors";
 
 export const getTodoLists = async (request: Request, response: Response): Promise<void> => {
     const userId = (request as AuthorizedRequest).userId;
@@ -12,7 +13,8 @@ export const getTodoLists = async (request: Request, response: Response): Promis
         select: {
             id: true,
             title: true,
-            progress: true
+            progress: true,
+            imagePath: true
         },
     });
 
@@ -70,4 +72,33 @@ export const deleteTodoList = async (request: Request, response: Response): Prom
     });
 
     response.status(StatusCodesEnum.OK).json({ success: true, data: [] });
+}
+
+export const uploadTodoListIcon = async (request: Request, response: Response): Promise<void> => {
+    const { params: { todoListId }, file } = request;
+
+    if (!file) {
+        console.log("here");
+        
+        throw new NoFileUploadedError();
+    }
+
+    const todoList = await prisma.todoList.findUnique({ where: { id: todoListId } });
+
+    if (!todoList) {
+        throw new TodoListNotFoundError();
+    }
+
+    if (todoList.imagePath && fs.existsSync(todoList.imagePath)) {
+        fs.unlinkSync(todoList.imagePath);
+    }
+
+    const imagePath = `uploads/todo-icons/${file.filename}`;
+
+    const updatedTodoList = await prisma.todoList.update({
+        where: { id: todoListId },
+        data: { imagePath },
+    });
+
+    response.json({ success: true, todoList: updatedTodoList });
 }
