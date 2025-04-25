@@ -36,6 +36,7 @@ model Task {
   id          String     @id @default(cuid())
   title       String
   isCompleted Boolean    @default(false)
+  order       Int
   createdAt   DateTime   @default(now())
 
   todoListId  String
