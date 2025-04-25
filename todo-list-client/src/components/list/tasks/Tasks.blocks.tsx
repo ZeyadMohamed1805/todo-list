@@ -75,6 +75,10 @@ const TaskRow = ({ props, children }: TTaskRowProps) => {
             ref={props.taskRef}
             className={styles.row}
             onKeyDown={handleTodoRowKeydown}
+            draggable
+            onDragStart={(e) => props.handleDragStart(e, props.task.id)}
+            onDragOver={(e) => props.handleDragOver(e, props.task.id)}
+            onDrop={props.handleDrop}
         >
             {children}
         </div>

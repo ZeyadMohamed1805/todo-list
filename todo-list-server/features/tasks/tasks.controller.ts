@@ -24,7 +24,7 @@ export const getTasksByTodoListId = async (request: Request, response: Response)
             todoListId,
         },
         orderBy: {
-            createdAt: "asc",
+            order: "asc",
         },
     });
 
@@ -53,10 +53,18 @@ export const createTodoListTask = async (request: Request, response: Response) =
         throw new TodoListNotFoundError();
     }
 
+    const lastTask = await prisma.task.findFirst({
+        where: { todoListId },
+        orderBy: { order: "desc" },
+    });
+
+    const nextOrder = lastTask?.order != null ? lastTask.order + 1 : 0;
+
     const newTask = await prisma.task.create({
         data: {
             title,
             todoListId,
+            order: nextOrder,
         },
     });
 
@@ -96,6 +104,35 @@ export const patchTodoListTask = async (request: Request, response: Response) =>
 
         const wasCompleted = task.isCompleted;
         const willBeCompleted = body.isCompleted;
+
+        if (typeof body.order === 'number') {
+            const newOrder = body.order;
+
+            const tasks = await prisma.task.findMany({
+                where: { todoListId: task.todoListId },
+                orderBy: { order: 'asc' },
+            });
+
+            const currentIndex = tasks.findIndex((t) => t.id === taskId);
+            const maxOrder = tasks.length - 1;
+
+            const cappedNewOrder = Math.min(newOrder, maxOrder + 1);
+
+            if (cappedNewOrder !== task.order) {
+                tasks.splice(currentIndex, 1);
+
+                tasks.splice(cappedNewOrder, 0, task);
+
+                const updateTasks = tasks.map((task, index) => {
+                    return prisma.task.update({
+                        where: { id: task.id },
+                        data: { order: index },
+                    });
+                });
+
+                await prisma.$transaction(updateTasks);
+            }
+        }
 
         const updatedTask = await prisma.task.update({
             where: { id: taskId },
@@ -146,6 +183,20 @@ export const deleteTodoListTask = async (request: Request, response: Response) =
     const wasCompleted = task.isCompleted;
 
     await prisma.task.delete({ where: { id: taskId } });
+
+    const remainingTasks = await prisma.task.findMany({
+        where: { todoListId: todoList.id },
+        orderBy: { order: 'asc' },
+    });
+
+    const updateOrderPromises = remainingTasks.map((task, index) => 
+        prisma.task.update({
+            where: { id: task.id },
+            data: { order: index },
+        })
+    );
+
+    await prisma.$transaction(updateOrderPromises);
 
     const newTotal = todoList.totalTasksCount - 1;
     const newCompleted = wasCompleted ? todoList.completedTasksCount - 1 : todoList.completedTasksCount;

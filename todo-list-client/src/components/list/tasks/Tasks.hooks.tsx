@@ -1,10 +1,11 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { TPatchTaskData, TTaskRowProps, TUseDeleteTaskMutation, TUseHandleTaskTitleBlur, TUseHandleTaskTitleKeyDown, TUseInitializeTaskTitleInnerText } from "./Tasks.types";
+import { TPatchTaskData, TTaskRowProps, TUseDeleteTaskMutation, TUseDragAndDropTaskRowsProps, TUseHandleTaskTitleBlur, TUseHandleTaskTitleKeyDown, TUseInitializeTaskTitleInnerText, TUseVerticalDrag } from "./Tasks.types";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import api from "../../../services/Api.service";
 import { useParams } from "react-router-dom";
 import { getToastDataFromError, showToast } from "../../shared/toast/Toast.service";
 import { VariantsEnum } from "../../../enums";
+import _ from "lodash";
 
 export const useGetTasksByTodoListId = () => {
     const params = useParams();
@@ -195,4 +196,78 @@ export const useHandleTaskTitleKeyDown = ({ props }: TUseHandleTaskTitleKeyDown)
     }, [props.taskTitle, props.taskId, patchTaskMutation]);
 
     return handleKeyDown;
+}
+
+export const useVerticalDragItems = <T extends { id: string|number; }>({ draggingId, setItems }: TUseVerticalDrag<T>) => {
+    const handleDragOver = useCallback(
+        (event: React.DragEvent<HTMLDivElement>, targetId: string) => {
+            event.preventDefault();
+
+            if (!draggingId || draggingId === targetId) return;
+
+            const targetElement = event.currentTarget;
+            const { top, left, width, height } = targetElement.getBoundingClientRect();
+
+            const horizontalThreshold = width * 0.5;
+            const verticalThreshold = height * 0.5;
+
+            const { clientX, clientY } = event;
+
+            const crossedHorizontal = Math.abs(clientX - left) < horizontalThreshold;
+            const crossedVertical = Math.abs(clientY - top) < verticalThreshold;
+
+            if (!crossedHorizontal && !crossedVertical) return;
+
+            setItems((prevItems) => {
+                const draggedIndex = prevItems.findIndex((item) => item.id === draggingId);
+                const targetIndex = prevItems.findIndex((item) => item.id === targetId);
+
+                if (draggedIndex === -1 || targetIndex === -1) return prevItems;
+
+                const newItems = [...prevItems];
+                const [draggedItem] = newItems.splice(draggedIndex, 1);
+                newItems.splice(targetIndex, 0, draggedItem);
+
+                return newItems.map((item, index) => ({ ...item, order: index }));
+            });
+        },
+        [draggingId, setItems]
+    );
+
+    return { handleDragOver };
+};
+
+export const useDragAndDropTaskRows = ({ props }: TUseDragAndDropTaskRowsProps) => {
+    const previousTasks = useRef(props.tasks ?? []);
+    const [tasks, setTasks] = useState(props.tasks ?? []);
+    const [draggingId, setDraggingId] = useState<string | null>(null);
+    const dragStartPosition = useRef<{ x: number; y: number } | null>(null);
+    const { handleDragOver } = useVerticalDragItems({ draggingId, setItems: setTasks });
+    const patchTaskMutation = usePatchTaskMutation();
+
+    const handleDragStart = useCallback((event: React.DragEvent<HTMLDivElement>, id: string) => {
+        setDraggingId(id);
+        dragStartPosition.current = { x: event.clientX, y: event.clientY };
+    }, []);
+
+    const handleDrop = useCallback(() => {
+        if (draggingId) {
+            patchTaskMutation.mutate({
+                taskId: draggingId,
+                data: { order: tasks.findIndex((task) => task.id === draggingId) }
+            });
+        }
+
+        setDraggingId(null);
+        dragStartPosition.current = null;
+    }, [draggingId, patchTaskMutation, tasks]);
+    
+    useEffect(() => {
+        if (!_.isEqual(previousTasks.current, props.tasks)) {
+            previousTasks.current = props.tasks ?? [];
+            setTasks(props.tasks ?? []);
+        }
+    }, [props.tasks]);
+
+    return { tasks, setTasks, handleDragStart, handleDragOver, handleDrop }
 }
