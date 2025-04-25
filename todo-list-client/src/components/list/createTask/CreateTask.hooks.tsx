@@ -1,16 +1,16 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import api from "../../../services/Api.service";
 import { useParams } from "react-router-dom";
-import { TCreateTaskData } from "./CreateTask.types";
+import { TCreateTaskData, TUseKeyBindCreateTaskInputProps } from "./CreateTask.types";
 import { getToastDataFromError, showToast } from "../../shared/toast/Toast.service";
 import { VariantsEnum } from "../../../enums";
 import { useForm } from "react-hook-form";
+import { useEffect } from "react";
 
 export const useCreateTaskFormData = () => {
+    const formData = useForm<TCreateTaskData>({ mode: 'all' });
     const createTaskMutation = useCreateTaskMutation();
-    const formData = useForm<TCreateTaskData>({
-        mode: 'all',
-    });
+    useKeyBindCreateTaskInput({ props: { setFocus: () => formData.setFocus("title") } });
 
     const onSubmit = formData.handleSubmit((data) => {
         if (!data.title) return;
@@ -49,4 +49,19 @@ export const useCreateTaskMutation = () => {
             showToast(toastData);
         },
     });
+}
+
+export const useKeyBindCreateTaskInput = ({ props }: TUseKeyBindCreateTaskInputProps) => {
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (e.altKey && e.key.toLowerCase() === 'n') {
+                
+                e.preventDefault();
+                props.setFocus();
+            }
+        };
+
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, []);
 }

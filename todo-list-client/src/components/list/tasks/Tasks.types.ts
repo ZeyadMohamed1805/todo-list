@@ -1,12 +1,10 @@
 import { Dispatch, ReactNode, RefObject, SetStateAction } from "react";
-import { StatusEnum } from "../../../enums";
 
 export type TTask = {
     id: string;
     title: string;
     isCompleted: boolean;
     createdAt: string;
-    status: StatusEnum;
 };
 
 export type TTaskProps = {
@@ -21,7 +19,7 @@ export type TTaskRowProps = {
         task: TTask;
         taskRef: (element: HTMLDivElement | null) => void;
         titleRef: RefObject<HTMLDivElement | null>;
-        setIsDeleteTaskModalOpen: Dispatch<SetStateAction<boolean | undefined>>;
+        setIsDeleteModalOpen: Dispatch<SetStateAction<boolean | undefined>>;
         setIsChecked: Dispatch<SetStateAction<boolean>>;
     };
     children: ReactNode;
@@ -35,11 +33,19 @@ export type TTaskTitleProps = {
     }
 }
 
+export type TTaskCheckboxProps = {
+    props: {
+        task: TTask;
+        isChecked: boolean;
+        setIsChecked: Dispatch<SetStateAction<boolean>>;
+    }
+}
+
 export type TDeleteTaskProps = {
     props: {
         taskId: string;
-        isDeleteTaskModalOpen: boolean | undefined;
-        setIsDeleteTaskModalOpen: Dispatch<SetStateAction<boolean | undefined>>;
+        isDeleteModalOpen: boolean | undefined;
+        setIsDeleteModalOpen: Dispatch<SetStateAction<boolean | undefined>>;
     };
 };
 
@@ -66,5 +72,11 @@ export type TUseHandleTaskTitleKeyDown = {
     props: {
         taskId: string;
         taskTitle: string;
+    }
+}
+
+export type TUseDeleteTaskMutation = {
+    props: {
+        setIsDeleteModalOpen: Dispatch<SetStateAction<boolean | undefined>>;
     }
 }

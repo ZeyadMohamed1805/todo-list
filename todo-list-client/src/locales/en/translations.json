@@ -34,12 +34,10 @@
   "todo.delete": "🗑️ Delete",
   "todo.edit": "✏️ Edit",
   "todo.view": "👁️ View",
-  "todo.status": "Status",
   "todo.title": "Title",
   "todo.progress": "Progress",
   "todo.title_required": "Title is required",
-  "todo.delete_todo": "Delete Todo",
-  "todo.delete_confirmation": "Are you sure you want to delete this todo?",
+  "delete_confirmation": "Are you sure you want to delete?",
   "no_thanks": "No, thanks",
   "confirm": "Confirm",
   "todo.new_todo": "New Todo",
@@ -54,5 +52,6 @@
   "todo_list_not_found": "Todo list not found",
   "task_not_found": "Task not found",
   "invalid_task_data": "Invalid task data",
-  "user_already_exists": "User already exists"
+  "user_already_exists": "User already exists",
+  "delete": "Delete"
 }

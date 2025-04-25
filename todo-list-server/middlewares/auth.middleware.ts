@@ -2,7 +2,6 @@ import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import { UnAuthorizedError } from '../errors/unAuthorized';
 import { AuthorizedRequest } from '../types/requests.types';
-import { StatusCodesEnum } from '../enums/statusCodes.enum';
 import { JWT_SECRET } from '../features/auth/auth.config';
 
 export const authenticateUser = async (request: Request, response: Response, next: NextFunction): Promise<any> => {

@@ -4,3 +4,9 @@ export type THeaderBadgeProps = {
     arrowClassName: string;
   };
 };
+
+export type THeaderDropdownButtons = {
+  props: {
+    closeDropdown: () => void;
+  };
+};

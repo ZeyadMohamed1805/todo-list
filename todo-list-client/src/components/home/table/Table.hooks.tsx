@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { TUseTodoProgressProps } from './Table.types';
+import { TUseDeleteTodoListMutation, TUseTodoProgressProps } from './Table.types';
 import styles from './Table.module.scss';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import api from '../../../services/Api.service';
@@ -39,7 +39,13 @@ export const useToggleDropdown = () => {
     setIsDropdownOpen((previousIsDropdownOpen) => !previousIsDropdownOpen);
   }, []);
 
-  return { dropdownClassName, toggleDropdown };
+  const closeDropdown = useCallback(() => {
+    if (isDropdownOpen) {
+      setIsDropdownOpen(false);
+    }
+  }, [isDropdownOpen]);
+
+  return { dropdownClassName, closeDropdown, toggleDropdown };
 };
 
 export const useRequestTodoLists = () => {
@@ -59,13 +65,14 @@ export const useRequestTodoLists = () => {
   });
 }
 
-export const useDeleteTodoListMutation = () => {
+export const useDeleteTodoListMutation = ({ props }: TUseDeleteTodoListMutation) => {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: (todoListId: string) => api.delete(`/todo-lists/${todoListId}`),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['todoLists'] });
+      props.setIsDeleteModalOpen(false);
       showToast({
         message: 'todo_list_deleted',
         variant: VariantsEnum.SUCCESS

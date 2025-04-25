@@ -1,5 +1,3 @@
-import { TodosStatusEnum } from '../../../enums';
-
 export type TTodoProgressCircleProps = {
   props: {
     progress: number;
@@ -23,7 +21,6 @@ export type TTodoActionsProps = {
 type TTodoList = {
   id: string;
   title: string;
-  status: TodosStatusEnum;
   progress: number;
 };
 
@@ -35,6 +32,12 @@ export type TUseTodoProgressProps = {
   props: {
     progress: number;
   };
+};
+
+export type TUseDeleteTodoListMutation = {
+  props: {
+    setIsDeleteModalOpen: (isOpen: boolean) => void;
+  }
 };
 
 export type TTableListProps = {

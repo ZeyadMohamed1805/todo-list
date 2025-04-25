@@ -11,7 +11,9 @@ import { TODO_LISTS_HEADERS } from './Table.constants';
 import { useDeleteTodoListMutation, useRequestTodoLists, useTodoListProgress, useToggleDropdown } from './Table.hooks';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { StatusEnum } from '../../../enums';
+import { useRef, useState } from 'react';
+import DeleteModal from '../../shared/deleteModal';
+import { useClickOutside } from '../../../hooks/useClickOutside';
 
 export const TableEmpty = () => {
   const { t } = useTranslation();
@@ -31,16 +33,21 @@ const TodoListProgressCircle = ({ props }: TTodoProgressCircleProps) => {
   const radius = 45;
   const circumference = 2 * Math.PI * radius;
   const dashOffset = circumference - (props.progress / 100) * circumference;
+  const progressRef = useRef<SVGCircleElement>(null);
+
+  if (progressRef.current) {
+    progressRef.current.style.strokeDashoffset = `${dashOffset}`;
+  }
 
   return (
     <svg viewBox="0 0 100 100">
       <circle cx="50" cy="50" r="45" className={styles.background} />
       <circle
+        ref={progressRef}
         cx="50"
         cy="50"
         r="45"
         className={styles.progress}
-        style={{ strokeDashoffset: dashOffset }}
         data-progress={props.progress}
       />
     </svg>
@@ -59,21 +66,23 @@ const TodoListTitle = ({ title }: TTodoTitleProps) => {
   return <span className={styles.title}>{title}</span>;
 };
 
-const TodoListStatus = ({ status }: { status: StatusEnum }) => {
-  const { t } = useTranslation();
-
-  return <div className={styles.status}>{t(status)}</div>;
-};
-
 const TodoListActions = ({ id }: TTodoActionsProps) => {
   const { t, i18n: { language } } = useTranslation();
-  const toggleDropdownData = useToggleDropdown();
-  const deleteTodoListMutation = useDeleteTodoListMutation();
   const navigate = useNavigate();
+  const toggleDropdownData = useToggleDropdown();
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>();
+  const deleteTodoListMutation = useDeleteTodoListMutation({ props: { setIsDeleteModalOpen } });
+  const viewTodoListRef = useRef<HTMLButtonElement>(null);
+  const deleteTodoListRef = useRef<HTMLButtonElement>(null);
+  const clickOutsideRefs = useClickOutside<HTMLButtonElement>(
+    toggleDropdownData.closeDropdown,
+    [viewTodoListRef, deleteTodoListRef]
+  );
 
   return (
     <div className={styles.actionsWrapper}>
       <button
+        ref={clickOutsideRefs.elementRef}
         type="button"
         className={styles.actionsTrigger}
         onClick={toggleDropdownData.toggleDropdown}
@@ -82,13 +91,22 @@ const TodoListActions = ({ id }: TTodoActionsProps) => {
       </button>
 
       <div className={toggleDropdownData.dropdownClassName}>
-        <button type="button" onClick={() => navigate(`/${language}/lists/${id}`)} className={styles.dropdownItem}>
+        <button ref={viewTodoListRef} type="button" onClick={() => navigate(`/${language}/lists/${id}`)} className={styles.dropdownItem}>
           {t('todo.view')}
         </button>
-        <button type="button" onClick={() => deleteTodoListMutation.mutate(id)} className={styles.dropdownItem}>
+        <button ref={deleteTodoListRef} type="button" onClick={() => setIsDeleteModalOpen(true)} className={styles.dropdownItem}>
           {t('todo.delete')}
         </button>
       </div>
+
+      <DeleteModal
+        props={{
+          isDeleteModalOpen,
+          setIsDeleteModalOpen,
+          onClose: () => setIsDeleteModalOpen(false),
+          onConfirm: () => deleteTodoListMutation.mutate(id),
+        }}
+      />
     </div>
   );
 };
@@ -106,9 +124,6 @@ const TodoListRow = ({ props }: TTodoRowProps) => {
       </td>
       <td>
         <TodoListTitle title={props.title} />
-      </td>
-      <td>
-        <TodoListStatus status={props.status} />
       </td>
       <td>
         <TodoListActions id={props.id} />
@@ -142,5 +157,5 @@ export const TableContent = () => {
     return <TableEmpty />;
   }
 
-  return <TableLists props={{ todoLists:todoListsRequest.data }} />;
+  return <TableLists props={{ todoLists: todoListsRequest.data }} />;
 };
