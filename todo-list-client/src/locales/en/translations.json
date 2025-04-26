@@ -58,5 +58,6 @@
   "return_auth": "Return to login",
   "404_not_found": "404 Not Found",
   "icon_uploaded": "Icon uploaded successfully!",
-  "no_file_uploaded": "No file uploaded"
+  "no_file_uploaded": "No file uploaded",
+  "drag_or_click": "Drag & Drop or Click to Upload Icon"
 }
