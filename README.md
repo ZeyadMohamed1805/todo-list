@@ -59,6 +59,7 @@ JWT_SECRET="JWT_SECRET_KEY"
 JWT_TOKEN_EXPIRATION=3600
 JWT_REMEMBER_ME_EXPIRATION=604800
 ALLOWED_ORIGIN="http://localhost:5173"
+UPLOADS_DIR="uploads"
 ```
 
 You can generate a new JWT_SECRET here: https://jwtsecret.com/generate
