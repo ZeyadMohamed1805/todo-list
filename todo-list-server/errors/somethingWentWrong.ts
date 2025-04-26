@@ -1,6 +1,12 @@
-export class SomethingWentWrongError extends Error {
+import { StatusCodesEnum } from "../enums/statusCodes.enum";
+import { CustomError } from "./customError";
+
+export class SomethingWentWrongError extends CustomError {
     constructor() {
-        super("something_went_wrong");
-        this.name = "SomethingWentWrongError";
+        super(
+            "SomethingWentWrongError", 
+            "something_went_wrong",
+            StatusCodesEnum.INTERNAL_SERVER_ERROR, 
+        );
     }
 }

@@ -1,27 +1,42 @@
-export class TodoListNotFoundError extends Error {
+import { StatusCodesEnum } from "../../enums/statusCodes.enum";
+import { CustomError } from "../../errors/customError";
+
+export class TodoListNotFoundError extends CustomError {
     constructor() {
-        super("todo_list_not_found");
-        this.name = "TodoListNotFoundError";
+        super(
+            "TodoListNotFoundError", 
+            "todo_list_not_found", 
+            StatusCodesEnum.NOT_FOUND
+        );
     }
 }
 
-export class TaskTitleIsRequiredError extends Error {
+export class TaskTitleIsRequiredError extends CustomError {
     constructor() {
-        super("title_required");
-        this.name = "TaskTitleIsRequiredError";
+        super(
+            "TaskTitleIsRequiredError", 
+            "title_required", 
+            StatusCodesEnum.BAD_REQUEST
+        );
     }
 }
 
-export class TaskNotFoundError extends Error {
+export class TaskNotFoundError extends CustomError {
     constructor() {
-        super("task_not_found");
-        this.name = "TaskNotFoundError";
+        super(
+            "TaskNotFoundError", 
+            "task_not_found", 
+            StatusCodesEnum.NOT_FOUND
+        );
     }
 }
 
-export class InvalidTaskDataError extends Error {
+export class InvalidTaskDataError extends CustomError {
     constructor() {
-        super("invalid_task_data");
-        this.name = "InvalidTaskDataError";
+        super(
+            "InvalidTaskDataError", 
+            "invalid_task_data", 
+            StatusCodesEnum.BAD_REQUEST
+        );
     }
 }

@@ -1,6 +1,12 @@
-export class UnAuthorizedError extends Error {
+import { StatusCodesEnum } from "../enums/statusCodes.enum";
+import { CustomError } from "./customError";
+
+export class UnAuthorizedError extends CustomError {
     constructor() {
-        super("unauthorized");
-        this.name = "UnAuthorizedError";
+        super(
+            "UnAuthorizedError", 
+            "unauthorized", 
+            StatusCodesEnum.UNAUTHORIZED
+        );
     }
 }

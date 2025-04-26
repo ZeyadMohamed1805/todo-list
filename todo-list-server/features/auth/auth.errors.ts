@@ -1,13 +1,22 @@
-export class UserAlreadyExistsError extends Error {
+import { StatusCodesEnum } from "../../enums/statusCodes.enum";
+import { CustomError } from "../../errors/customError";
+
+export class UserAlreadyExistsError extends CustomError {
     constructor() {
-        super("user_already_exists");
-        this.name = "UserAlreadyExistsError";
+        super(
+            "UserAlreadyExistsError", 
+            "user_already_exists", 
+            StatusCodesEnum.BAD_REQUEST
+        );
     }
 }
 
-export class UserInvalidCredentialsError extends Error {
+export class UserInvalidCredentialsError extends CustomError {
     constructor() {
-        super("invalid_credentials");
-        this.name = "UserInvalidCredentials";
+        super(
+            "UserInvalidCredentials", 
+            "invalid_credentials", 
+            StatusCodesEnum.NOT_FOUND
+        );
     }
 }

@@ -1,20 +1,32 @@
-export class TodoListTitleIsRequiredError extends Error {
+import { StatusCodesEnum } from "../../enums/statusCodes.enum";
+import { CustomError } from "../../errors/customError";
+
+export class TodoListTitleIsRequiredError extends CustomError {
     constructor() {
-        super("title_required");
-        this.name = "TodoListTitleIsRequiredError";
+        super(
+            "TodoListTitleIsRequiredError", 
+            "title_required", 
+            StatusCodesEnum.BAD_REQUEST
+        );
     }
 }
 
-export class TodoListNotFoundError extends Error {
+export class TodoListNotFoundError extends CustomError {
     constructor() {
-        super("todo_list_not_found");
-        this.name = "TodoListNotFoundError";
+        super(
+            "TodoListNotFoundError", 
+            "todo_list_not_found", 
+            StatusCodesEnum.NOT_FOUND
+        );
     }
 }
 
-export class NoFileUploadedError extends Error {
+export class NoFileUploadedError extends CustomError {
     constructor() {
-        super("no_file_uploaded");
-        this.name = "NoFileUploadedError";
+        super(
+            "NoFileUploadedError", 
+            "no_file_uploaded", 
+            StatusCodesEnum.BAD_REQUEST
+        );
     }
 }
