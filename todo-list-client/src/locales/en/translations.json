@@ -54,6 +54,9 @@
   "invalid_task_data": "Invalid task data",
   "user_already_exists": "User already exists",
   "delete": "Delete",
-  "return_home": "Home",
-  "404_not_found": "404 Not Found"
+  "return_home": "Return to homepage",
+  "return_auth": "Return to login",
+  "404_not_found": "404 Not Found",
+  "icon_uploaded": "Icon uploaded successfully!",
+  "no_file_uploaded": "No file uploaded"
 }
