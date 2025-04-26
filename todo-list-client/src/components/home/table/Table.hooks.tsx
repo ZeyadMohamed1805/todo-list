@@ -6,6 +6,9 @@ import api from '../../../services/Api.service';
 import { getToastDataFromError, showToast } from '../../shared/toast/Toast.service';
 import { VariantsEnum } from '../../../enums';
 import { hideLoading, showLoading } from '../../shared/loading/Loading.service';
+import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { removeLocalStorageItems } from '../../../services/LocalStorage.service';
 
 export const useTodoListProgress = ({ props }: TUseTodoProgressProps) => {
   const [progress, setProgress] = useState(0);
@@ -50,6 +53,9 @@ export const useToggleDropdown = () => {
 };
 
 export const useRequestTodoLists = () => {
+  const { i18n: { language } } = useTranslation();
+  const navigate = useNavigate();
+  
   return useQuery({
     queryKey: ['todoLists'],
     queryFn: async () => {
@@ -59,6 +65,9 @@ export const useRequestTodoLists = () => {
 
         return response.data.data;
       } catch (error) {
+        removeLocalStorageItems(['token', 'username']);
+        navigate(`/${language}/auth`);
+        
         const toastData = getToastDataFromError(error);
 
         showToast(toastData);
