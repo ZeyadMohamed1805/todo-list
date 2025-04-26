@@ -83,8 +83,6 @@ export const uploadTodoListIcon = async (request: Request, response: Response): 
     const { params: { todoListId }, file } = request;
 
     if (!file) {
-        console.log("here");
-        
         throw new NoFileUploadedError();
     }
 
