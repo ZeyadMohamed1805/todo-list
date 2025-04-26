@@ -2,15 +2,12 @@ import bcrypt from "bcryptjs";
 import prisma from "../../prisma";
 import { UserAlreadyExistsError, UserInvalidCredentialsError } from "./auth.errors";
 import { LoginSchema, RegisterSchema } from "./auth.types";
+import { createUser, getUserByEmail, getUserByUsernameOrEmail } from "./auth.repository";
 
 export const registerUser = async (data: RegisterSchema) => {
     const { username, email, password } = data;
 
-    const existingUser = await prisma.user.findFirst({
-        where: {
-            OR: [{ username }, { email }],
-        },
-    });
+    const existingUser = await getUserByUsernameOrEmail(username, email);
 
     if (existingUser) {
         throw new UserAlreadyExistsError();
@@ -18,13 +15,7 @@ export const registerUser = async (data: RegisterSchema) => {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const registeredUser = await prisma.user.create({
-        data: {
-            username,
-            email,
-            password: hashedPassword,
-        },
-    });
+    const registeredUser = await createUser(username, email, hashedPassword);
 
     return {
         id: registeredUser.id,
@@ -35,7 +26,7 @@ export const registerUser = async (data: RegisterSchema) => {
 };
 
 export const loginUser = async ({ email, password }: LoginSchema) => {
-    const user = await prisma.user.findUnique({ where: { email } });
+    const user = await getUserByEmail(email);
 
     if (!user) {
         throw new UserInvalidCredentialsError();
