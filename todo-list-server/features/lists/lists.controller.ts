@@ -57,7 +57,7 @@ export const createTodoList = async (request: Request, response: Response): Prom
 };
 
 export const deleteTodoList = async (request: Request, response: Response): Promise<void> => {
-    const { userId, params: { todoListId } } = (request as AuthorizedRequest);
+    const { userId, params: { todoListId } } = request as AuthorizedRequest;
 
     const list = await prisma.todoList.findUnique({
         where: { id: todoListId },
@@ -67,12 +67,17 @@ export const deleteTodoList = async (request: Request, response: Response): Prom
         throw new TodoListNotFoundError();
     }
 
+    await prisma.task.deleteMany({
+        where: { todoListId },
+    });
+
     await prisma.todoList.delete({
         where: { id: todoListId },
     });
 
     response.status(StatusCodesEnum.OK).json({ success: true, data: [] });
-}
+};
+
 
 export const uploadTodoListIcon = async (request: Request, response: Response): Promise<void> => {
     const { params: { todoListId }, file } = request;
