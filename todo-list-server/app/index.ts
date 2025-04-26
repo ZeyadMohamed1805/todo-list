@@ -10,11 +10,11 @@ import path from 'path';
 dotenv.config();
 
 const app = express();
-const port = process.env.PORT || 5000;
+const port = process.env.PORT;
 
 app.use(
   cors({ 
-    origin: "http://localhost:5173",
+    origin: process.env.ALLOWED_ORIGIN,
     credentials: true
   })
 );
