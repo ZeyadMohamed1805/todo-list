@@ -1,11 +1,11 @@
-import HomeRedirect from "../components/notFound/homeRedirect/HomeRedirect.component";
+import Redirect from "../components/notFound/redirect";
 import Illustration from "../components/notFound/illustration";
 
 const NotFound = () => {
     return (
         <main>
             <Illustration />
-            <HomeRedirect />
+            <Redirect />
         </main>
     );
 };
