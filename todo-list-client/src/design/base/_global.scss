@@ -18,7 +18,7 @@ main {
   background-color: var(--neutral-one);
   padding: spacing.$xxl 0;
 
-  &:not(#auth) {
+  &[id="auth-screen"] {
     min-height: 100vh;
   }
 }
